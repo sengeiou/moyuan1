@@ -1,8 +1,10 @@
 package xin.banghua.beiyuan;
 
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import io.rong.imkit.RongIM;
@@ -10,6 +12,7 @@ import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
 import io.rong.push.RongPushClient;
 import io.rong.push.pushconfig.PushConfig;
+import xin.banghua.beiyuan.Main3Branch.RongyunConnect;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 
 /**
@@ -17,7 +20,7 @@ import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
  * 时间：2019/3/1
  * 功能：
  */
-public class App extends Application {
+public class App extends Application implements Application.ActivityLifecycleCallbacks{
     private static final String TAG = "App";
     /**
      * APP key:mgb7ka1nmddvg
@@ -40,6 +43,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        registerActivityLifecycleCallbacks(this);
         //融云
         PushConfig config = new PushConfig.Builder()
                 .enableHWPush(true)
@@ -127,4 +131,44 @@ public class App extends Application {
         return null;
     }
 
+    @Override
+    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+        Log.d(TAG, "onActivityCreated:");
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+        Log.d(TAG, "onActivityStarted: ");
+    }
+
+    @Override
+    public void onActivityResumed(Activity activity) {
+        Log.d(TAG, "onActivityResumed: ");
+        //获取融云token
+        SharedHelper sh = new SharedHelper(getApplicationContext());
+        String token  = sh.readRongtoken().get("Rongtoken");
+        RongyunConnect rongyunConnect = new RongyunConnect();
+        rongyunConnect.connect(token);
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+        Log.d(TAG, "onActivityPaused: ");
+        RongIM.getInstance().disconnect();//断开融云
+    }
+
+    @Override
+    public void onActivityStopped(Activity activity) {
+            Log.d(TAG, "onActivityStopped:");
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+        Log.d(TAG, "onActivitySaveInstanceState: ");
+    }
+
+    @Override
+    public void onActivityDestroyed(Activity activity) {
+        Log.d(TAG, "onActivityDestroyed: ");
+    }
 }

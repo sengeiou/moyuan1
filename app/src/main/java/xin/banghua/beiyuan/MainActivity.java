@@ -1,7 +1,6 @@
 package xin.banghua.beiyuan;
 
 import android.Manifest;
-import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,15 +9,17 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.SyncStateContract;
 import android.support.annotation.NonNull;
 //import android.support.design.widget.BottomNavigationView;
+import android.support.design.internal.BottomNavigationItemView;
+import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 
@@ -33,10 +34,8 @@ import java.util.Map;
 
 
 import io.rong.imkit.RongIM;
-import io.rong.imlib.RongIMClient;
-import io.rong.imlib.model.Message;
-import io.rong.push.RongPushClient;
-import io.rong.push.pushconfig.PushConfig;
+import io.rong.imkit.manager.IUnReadMessageObserver;
+import io.rong.imlib.model.Conversation;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -66,7 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
 
-
+    //未读信息监听相关
+    private BottomNavigationView bottomNavigationView;
+    private IUnReadMessageObserver iUnReadMessageObserver;
+    private TextView unreadNumber;
     //微信
     // APP_ID 替换为你的应用从官方网站申请到的合法appID
     private static final String APP_ID = "wx88888888";
@@ -136,31 +138,54 @@ public class MainActivity extends AppCompatActivity {
 
         //判断是否登录
         ifSignin();
-        //获取融云token
-        SharedHelper sh = new SharedHelper(mContext);
-        token2 = sh.readRongtoken().get("Rongtoken");
-        RongyunConnect rongyunConnect = new RongyunConnect();
-        rongyunConnect.connect(token2);
 
-
-        //底部导航初始化和配置监听，默认选项
-
-        BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
-//        Menu menu = navigation.getMenu();
-//        MenuItem menuItem = menu.findItem(R.id.navigation_haoyou);
-//        BadgeDrawable badgeDrawable = navigation.showBadge(menuItem.getItemId());
-//        badgeDrawable.setNumber(3);
-
-
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        navigation.setSelectedItemId(R.id.navigation_shenbian);
 
 
         //定位问题
         localization();
 
+        //底部导航初始化和配置监听，默认选项
+        bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        bottomNavigationView.setSelectedItemId(R.id.navigation_shenbian);
+
+        //未读信息监听
+        iUnReadMessageObserver = new IUnReadMessageObserver() {
+            @Override
+            public void onCountChanged(int i) {
+                    initUnreadBadge(bottomNavigationView,i);
+            }
+        };
+        RongIM.getInstance().addUnReadMessageCountChangedObserver(iUnReadMessageObserver,Conversation.ConversationType.PRIVATE);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RongIM.getInstance().removeUnReadMessageCountChangedObserver(iUnReadMessageObserver);
+    }
+
+    public void initUnreadBadge(BottomNavigationView navigation, Integer integer){
+        //底部导航栏角标
+        //获取整个的NavigationView
+        BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
+        //这里就是获取所添加的每一个Tab(或者叫menu)，
+        View tab = menuView.getChildAt(1);
+        BottomNavigationItemView itemView = (BottomNavigationItemView) tab;
+        //加载我们的角标View，新创建的一个布局
+        View badge = LayoutInflater.from(this).inflate(R.layout.badge_unreadmessage, menuView, false);
+        //添加到Tab上
+        itemView.addView(badge);
+        unreadNumber = badge.findViewById(R.id.badge_text);
+        unreadNumber.setText("");
+        unreadNumber.setText(String.valueOf(integer));
+        //无消息时可以将它隐藏即可
+        if (integer>0){
+            unreadNumber.setVisibility(View.VISIBLE);
+        }else {
+            unreadNumber.setVisibility(View.GONE);
+        }
+    }
     public void ifSignin(){
         sh = new SharedHelper(getApplicationContext());
         userInfo = sh.readUserInfo();
