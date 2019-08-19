@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/shenbian_graph"
+    app:startDestination="@id/tuijianFragment">
+
+    <fragment
+        android:id="@+id/tuijianFragment"
+        android:name="xin.banghua.beiyuan.MainBranch.TuijianFragment"
+        android:label="fragment_tuijian"
+        tools:layout="@layout/fragment_tuijian" >
+        <action
+            android:id="@+id/tuijian_fujin_action"
+            app:destination="@id/fujinFragment" />
+        <action
+            android:id="@+id/tuijian_sousuo_action"
+            app:destination="@id/sousuoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fujinFragment"
+        android:name="xin.banghua.beiyuan.MainBranch.FujinFragment"
+        android:label="fragment_fujin"
+        tools:layout="@layout/fragment_fujin" >
+        <action
+            android:id="@+id/fujin_sousuo_action"
+            app:destination="@id/sousuoFragment" />
+        <action
+            android:id="@+id/fujin_tuijian_action"
+            app:destination="@id/tuijianFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sousuoFragment"
+        android:name="xin.banghua.beiyuan.MainBranch.SousuoFragment"
+        android:label="fragment_sousuo"
+        tools:layout="@layout/fragment_sousuo" >
+        <action
+            android:id="@+id/sousuo_tuijian_action"
+            app:destination="@id/tuijianFragment" />
+        <action
+            android:id="@+id/sousuo_fujin_action"
+            app:destination="@id/fujinFragment" />
+        <action
+            android:id="@+id/sousuo_result_action"
+            app:destination="@id/sousuoresultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/sousuoresultFragment"
+        android:name="xin.banghua.beiyuan.MainBranch.SousuoresultFragment"
+        android:label="fragment_sousuoresult"
+        tools:layout="@layout/fragment_sousuoresult" >
+        <action
+            android:id="@+id/result_sousuo_action"
+            app:destination="@id/sousuoFragment" />
+        <action
+            android:id="@+id/result_fujin_action"
+            app:destination="@id/fujinFragment" />
+        <action
+            android:id="@+id/result_tuijian_action"
+            app:destination="@id/tuijianFragment" />
+    </fragment>
+</navigation>

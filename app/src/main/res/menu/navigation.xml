@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_shenbian"
+        android:icon="@drawable/shenbian1"
+        android:title="@string/title_shenbian" />
+
+    <item
+        android:id="@+id/navigation_xiaoxi"
+        android:icon="@drawable/xiaoxi1"
+        android:title="@string/title_xiaoxi" />
+    <item
+        android:id="@+id/navigation_haoyou"
+        android:icon="@drawable/haoyou1"
+        android:title="@string/title_haoyou" />
+
+    <item
+        android:id="@+id/navigation_dongtai"
+        android:icon="@drawable/dongtai1"
+        android:title="@string/title_dongtai" />
+    <item
+        android:id="@+id/navigation_wode"
+        android:icon="@drawable/wode1"
+        android:title="@string/title_wode" />
+
+</menu>

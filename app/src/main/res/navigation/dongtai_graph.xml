@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dongtai_graph"
+    app:startDestination="@id/guangchangFragment">
+
+    <fragment
+        android:id="@+id/guangchangFragment"
+        android:name="xin.banghua.beiyuan.Main4Branch.GuangchangFragment"
+        android:label="fragment_guangchang"
+        tools:layout="@layout/fragment_guangchang" >
+        <action
+            android:id="@+id/guangchang_guanzhu_action"
+            app:destination="@id/guanzhuFragment" />
+        <action
+            android:id="@+id/guangchang_luntan_action"
+            app:destination="@id/luntanFragment" />
+        <action
+            android:id="@+id/guangchang_fabudongtai_action"
+            app:destination="@id/fabudongtaiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/guanzhuFragment"
+        android:name="xin.banghua.beiyuan.Main4Branch.GuanzhuFragment"
+        android:label="fragment_guanzhu"
+        tools:layout="@layout/fragment_guanzhu" >
+        <action
+            android:id="@+id/guanzhu_guangchang_action"
+            app:destination="@id/guangchangFragment" />
+        <action
+            android:id="@+id/guanzhu_luntan_action"
+            app:destination="@id/luntanFragment" />
+        <action
+            android:id="@+id/guanzhu_fabudongtai_action"
+            app:destination="@id/fabudongtaiFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/luntanFragment"
+        android:name="xin.banghua.beiyuan.Main4Branch.LuntanFragment"
+        android:label="fragment_luntan"
+        tools:layout="@layout/fragment_luntan" >
+        <action
+            android:id="@+id/luntan_guangchang_action"
+            app:destination="@id/guangchangFragment" />
+        <action
+            android:id="@+id/luntan_fabutiezi_action"
+            app:destination="@id/fabutieziFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fabudongtaiFragment"
+        android:name="xin.banghua.beiyuan.Main4Branch.FabudongtaiFragment"
+        android:label="fragment_fabudongtai"
+        tools:layout="@layout/fragment_fabudongtai" >
+        <action
+            android:id="@+id/fubudongtai_guangchang_action"
+            app:destination="@id/guangchangFragment" />
+        <action
+            android:id="@+id/fabudongtai_guanzhu_action"
+            app:destination="@id/guanzhuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/fabutieziFragment"
+        android:name="xin.banghua.beiyuan.Main4Branch.FabutieziFragment"
+        android:label="fragment_fabutiezi"
+        tools:layout="@layout/fragment_fabutiezi" >
+        <action
+            android:id="@+id/fabutiezi_luntan_action"
+            app:destination="@id/luntanFragment" />
+    </fragment>
+</navigation>

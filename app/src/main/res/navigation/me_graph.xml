@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/me_graph"
+    app:startDestination="@id/meFragment">
+
+    <fragment
+        android:id="@+id/meFragment"
+        android:name="xin.banghua.beiyuan.Main5Branch.MeFragment"
+        android:label="fragment_me"
+        tools:layout="@layout/fragment_me" >
+        <action
+            android:id="@+id/me_setting_action"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/me_reset_action"
+            app:destination="@id/resetPersonalInfoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="xin.banghua.beiyuan.Main5Branch.SettingFragment"
+        android:label="fragment_setting"
+        tools:layout="@layout/fragment_setting" />
+    <fragment
+        android:id="@+id/resetPersonalInfoFragment"
+        android:name="xin.banghua.beiyuan.Main5Branch.ResetPersonalInfoFragment"
+        android:label="fragment_reset_personal_info"
+        tools:layout="@layout/fragment_reset_personal_info" >
+        <action
+            android:id="@+id/reset_me_action"
+            app:destination="@id/meFragment" />
+    </fragment>
+</navigation>

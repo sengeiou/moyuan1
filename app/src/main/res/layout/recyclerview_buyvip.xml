@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/buyvip_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/vipid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="vipid"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/vipname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:text="vipname"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/viptime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="60dp"
+        android:text="viptime"
+        android:textColor="@color/design_default_color_primary_dark" />
+
+    <TextView
+        android:id="@+id/vipprice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="160dp"
+        android:layout_marginTop="60dp"
+        android:text="vipprice"
+        android:textColor="@color/rc_draft_color" />
+
+    <Button
+        android:id="@+id/weixin_btn"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="280dp"
+        android:text="微信支付"
+        android:textAlignment="viewStart"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <Button
+        android:id="@+id/alipay_btn"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="280dp"
+        android:layout_marginTop="50dp"
+        android:text="支付宝支付"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#555555"
+            android:padding="3dp"
+            android:layout_marginTop="110dp"/>
+</RelativeLayout>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Personage.PersonageFragment">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="20dp"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="50dp"
+                android:text="个人信息"
+                android:textAlignment="center"
+                android:textColor="@color/colorPrimary"
+                android:textSize="30sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/user_portrait"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/user_nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/user_portrait"
+                    android:padding="15dp"
+                    android:text="用户昵称"
+                    android:textAlignment="center"
+                    android:textColor="@color/rc_ext_root_menu_item_text_color"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/user_property"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="60dp"
+                    android:layout_toRightOf="@+id/user_portrait"
+                    android:padding="15dp"
+                    android:text="属性"
+                    android:textColor="@color/design_default_color_primary_dark" />
+
+                <TextView
+                    android:id="@+id/user_region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_toRightOf="@+id/user_portrait"
+                    android:padding="15dp"
+                    android:text="地区"
+                    android:textColor="@color/colorAccent" />
+
+                <TextView
+                    android:id="@+id/user_gender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_toRightOf="@+id/user_portrait"
+                    android:padding="15dp"
+                    android:text="性别"
+                    android:textColor="@color/design_default_color_primary" />
+
+                <TextView
+                    android:id="@+id/user_age"
+                    android:layout_width="63dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="180dp"
+                    android:layout_marginTop="60dp"
+                    android:layout_toRightOf="@+id/user_portrait"
+                    android:padding="15dp"
+                    android:text="年龄"
+                    android:textColor="@color/colorPrimaryDark" />
+
+            </RelativeLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/user_signature"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="个人签名"
+                android:textAlignment="center"
+                android:paddingTop="15dp"
+                android:textColor="@color/rc_ad_file_list_no_select_file_text_state"
+                android:textSize="18sp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/dongtai_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="动态"
+                android:textAlignment="center"
+                android:textSize="30sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/dongtai_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:src="@tools:sample/avatars" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/user_tiezi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="发布的帖子" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <Button
+                android:id="@+id/user_huifu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="回复的帖子" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/leave_words"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="留言"
+                android:inputType="textPersonName" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/make_friend"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="申请好友"
+                android:textColor="@color/colorPrimaryDark" />
+        </TableRow>
+
+    </TableLayout>
+
+</FrameLayout>
