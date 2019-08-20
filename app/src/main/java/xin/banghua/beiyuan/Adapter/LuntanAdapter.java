@@ -2,6 +2,8 @@ package xin.banghua.beiyuan.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -55,6 +57,15 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
                 .load(currentItem.getAuthportrait())
                 .into(viewHolder.authportrait);
         viewHolder.posttip.setText(currentItem.getPosttip().isEmpty()?"":currentItem.getPosttip());
+        if ((currentItem.getPosttip().isEmpty()?"":currentItem.getPosttip()).equals("加精")){
+            Resources resources = mContext.getResources();
+            Drawable drawable = resources.getDrawable(R.drawable.jiajing,null);
+            viewHolder.posttip.setForeground(drawable);
+        }else if((currentItem.getPosttip().isEmpty()?"":currentItem.getPosttip()).equals("置顶")){
+            Resources resources = mContext.getResources();
+            Drawable drawable = resources.getDrawable(R.drawable.zhiding,null);
+            viewHolder.posttip.setForeground(drawable);
+        }
         viewHolder.posttitle.setText(currentItem.getPosttitle());
         viewHolder.posttext.setText(currentItem.getPosttext());
         if (currentItem.getPostpicture()[0].isEmpty()){

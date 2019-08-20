@@ -42,25 +42,28 @@
 
     <TextView
         android:id="@+id/userGender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/userAge"
+        android:foreground="@drawable/male"
         android:text="男"
-        android:textColor="@color/colorAccent"
+        android:textColor="@color/rc_extension_normal"
         android:textSize="15sp" />
 
     <TextView
         android:id="@+id/userProperty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/userGender"
+        android:background="@drawable/rc_unread_count_bg"
+        android:gravity="center"
         android:text="双"
         android:textColor="@color/rc_voice_cancel"
-        android:textSize="15sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/userLocation"
@@ -70,7 +73,7 @@
         android:layout_marginLeft="70dp"
         android:layout_toRightOf="@id/userProperty"
         android:text="4km"
-        android:textColor="@color/design_default_color_primary"
+        android:textColor="@color/rc_divider_line"
         android:textSize="15sp" />
 
     <TextView
@@ -87,21 +90,21 @@
 
     <TextView
         android:id="@+id/userVIP"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/userRegion"
+        android:foreground="@drawable/nonmember"
         android:text="VIP"
-        android:textColor="@color/rc_draft_color"
+        android:textColor="@color/rc_extension_normal"
         android:textSize="15sp"
         android:textStyle="italic" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#555555"
-            android:layout_alignParentBottom="true"
-            android:padding="5dp"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="#D5D0D0" />
 
 </RelativeLayout>

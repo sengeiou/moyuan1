@@ -63,13 +63,15 @@
 
     <TextView
         android:id="@+id/posttip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginLeft="250dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_toRightOf="@id/authportrait"
+        android:gravity="center"
         android:text="TextView"
-        android:textColor="@color/rc_draft_color" />
+        android:textAlignment="center"
+        android:textColor="@color/rc_ad_file_list_select_file_text_state" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -142,7 +144,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#555555"
+        android:background="#DFDCDC"
         android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

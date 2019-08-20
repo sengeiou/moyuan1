@@ -4,6 +4,8 @@ package xin.banghua.beiyuan.Personage;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -134,6 +136,15 @@ public class PersonageFragment extends Fragment {
         mUserRegion_tv.setText(jsonObject.getString("region"));
         mUserProperty_tv.setText(jsonObject.getString("property"));
         mUserGender_tv.setText(jsonObject.getString("gender"));
+        if (jsonObject.getString("gender").equals("男")){
+            Resources resources = mContext.getResources();
+            Drawable drawable = resources.getDrawable(R.drawable.male,null);
+            mUserGender_tv.setForeground(drawable);
+        }else {
+            Resources resources = mContext.getResources();
+            Drawable drawable = resources.getDrawable(R.drawable.female,null);
+            mUserGender_tv.setForeground(drawable);
+        }
         mUserSignature_tv.setText(jsonObject.getString("signature"));
 
     }

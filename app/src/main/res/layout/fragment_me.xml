@@ -40,8 +40,9 @@
             android:layout_marginLeft="60dp"
             android:layout_marginTop="70dp"
             android:layout_toRightOf="@id/userportrait_iv"
+            android:drawableTop="@drawable/ic_beiyuanhao"
             android:text="贝缘号"
-            android:textColor="@color/design_default_color_primary_dark" />
+            android:textColor="@color/colorPrimaryDark" />
 
         <Button
             android:id="@+id/personalinfo_btn"
@@ -51,8 +52,9 @@
             android:layout_marginLeft="160dp"
             android:layout_marginTop="70dp"
             android:layout_toRightOf="@id/userportrait_iv"
+            android:drawableTop="@drawable/ic_person"
             android:text="个人资料"
-            android:textColor="@color/design_default_color_primary_dark" />
+            android:textColor="@color/colorPrimaryDark" />
 
         <TableLayout
             android:layout_width="match_parent"
@@ -67,6 +69,7 @@
                     android:id="@+id/xiangce_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_photoalbum"
                     android:text="相册" />
             </TableRow>
 
@@ -78,6 +81,7 @@
                     android:id="@+id/openvip_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_vip"
                     android:text="开通会员" />
             </TableRow>
 
@@ -89,6 +93,7 @@
                     android:id="@+id/jifen_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_jifen"
                     android:text="积分查询" />
             </TableRow>
 
@@ -100,6 +105,7 @@
                     android:id="@+id/tuiguangma_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_promotion_code"
                     android:text="我的推广码" />
             </TableRow>
 
@@ -111,6 +117,7 @@
                     android:id="@+id/sawme_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_sawme"
                     android:text="谁看过我" />
             </TableRow>
 
@@ -122,6 +129,7 @@
                     android:id="@+id/setting_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_setting"
                     android:text="设置" />
             </TableRow>
         </TableLayout>

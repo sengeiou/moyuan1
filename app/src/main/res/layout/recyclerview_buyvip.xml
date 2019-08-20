@@ -21,7 +21,8 @@
         android:layout_marginLeft="30dp"
         android:text="vipname"
         android:textColor="@color/colorPrimaryDark"
-        android:textSize="18sp" />
+        android:textSize="24sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/viptime"
@@ -29,7 +30,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="60dp"
+        android:drawableLeft="@drawable/ic_time"
         android:text="viptime"
+        android:textAlignment="center"
         android:textColor="@color/design_default_color_primary_dark" />
 
     <TextView
@@ -38,7 +41,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="160dp"
         android:layout_marginTop="60dp"
+        android:drawableLeft="@drawable/ic_money"
         android:text="vipprice"
+        android:textAlignment="center"
         android:textColor="@color/rc_draft_color" />
 
     <Button
@@ -47,8 +52,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="280dp"
-        android:text="微信支付"
-        android:textAlignment="viewStart"
+        android:drawableLeft="@drawable/ic_weixin"
+        android:text="支付"
+        android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark" />
 
     <Button
@@ -58,13 +64,15 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="280dp"
         android:layout_marginTop="50dp"
-        android:text="支付宝支付"
+        android:drawableLeft="@drawable/ic_zhifubao"
+        android:text="支付"
+        android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark" />
 
     <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#555555"
+            android:background="#E0D8D8"
             android:padding="3dp"
             android:layout_marginTop="110dp"/>
 </RelativeLayout>

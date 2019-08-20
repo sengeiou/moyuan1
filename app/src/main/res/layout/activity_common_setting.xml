@@ -40,7 +40,7 @@
                 android:text="通用设置"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -54,6 +54,7 @@
                 android:id="@+id/clearCache"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_cleancache"
                 android:text="清除缓存" />
         </TableRow>
 
@@ -66,6 +67,7 @@
                 android:id="@+id/clearChat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_cleanrecord"
                 android:text="清除聊天记录" />
         </TableRow>
 

@@ -1,4 +1,11 @@
 常用：
+textview，替换图片
+Resources resources = mContext.getResources();
+Drawable drawable = resources.getDrawable(R.drawable.vip_image,null);
+viewHolder.userVIP.setForeground(drawable);
+
+
+
 if (result.get("resultStatus").equals("9000"))//一定要用.equals
 https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=tuijian&m=socialchat
 <View

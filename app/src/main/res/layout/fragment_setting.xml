@@ -22,6 +22,7 @@
                 android:text="设置"
                 android:textAlignment="center"
                 android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
                 android:textStyle="bold" />
         </TableRow>
 
@@ -33,6 +34,7 @@
                 android:id="@+id/phone_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_phone"
                 android:text="绑定手机" />
         </TableRow>
 
@@ -44,6 +46,7 @@
                 android:id="@+id/email_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_email"
                 android:text="绑定邮箱" />
         </TableRow>
 
@@ -55,6 +58,7 @@
                 android:id="@+id/password_reset"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_password"
                 android:text="密码设置" />
         </TableRow>
 
@@ -66,6 +70,7 @@
                 android:id="@+id/private_set"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_private"
                 android:text="隐私" />
         </TableRow>
 
@@ -77,6 +82,7 @@
                 android:id="@+id/common_set"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_common"
                 android:text="通用" />
         </TableRow>
 
@@ -88,6 +94,7 @@
                 android:id="@+id/feedback_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_advice"
                 android:text="意见反馈" />
         </TableRow>
 
@@ -99,6 +106,7 @@
                 android:id="@+id/help_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_help"
                 android:text="帮助中心" />
         </TableRow>
 
@@ -110,6 +118,7 @@
                 android:id="@+id/version_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_current_version"
                 android:text="当前版本" />
         </TableRow>
 
@@ -123,6 +132,7 @@
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_logout"
                 android:text="退出登录"
                 android:textColor="@color/colorPrimaryDark" />
         </TableRow>

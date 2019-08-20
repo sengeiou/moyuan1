@@ -2,6 +2,10 @@ package xin.banghua.beiyuan.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -68,10 +72,28 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
         viewHolder.userNickName.setText(mUserNickName.get(i));
         viewHolder.userAge.setText(mUserAge.get(i));
         viewHolder.userGender.setText(mUserGender.get(i));
+        if (mUserGender.get(i).equals("男")){
+            Resources resources = mContext.getResources();
+            Drawable drawable = resources.getDrawable(R.drawable.male,null);
+            viewHolder.userGender.setForeground(drawable);
+        }else {
+            Resources resources = mContext.getResources();
+            Drawable drawable = resources.getDrawable(R.drawable.female,null);
+            viewHolder.userGender.setForeground(drawable);
+        }
         viewHolder.userProperty.setText(mUserProperty.get(i));
         viewHolder.userLocation.setText(mUserLocation.get(i)+"km");
         viewHolder.userRegion.setText(mUserRegion.get(i));
         viewHolder.userVIP.setText(mUserVIP.get(i));
+        if (mUserVIP.get(i).equals("普通")){
+            Resources resources = mContext.getResources();
+            Drawable drawable = resources.getDrawable(R.drawable.nonmember,null);
+            viewHolder.userVIP.setForeground(drawable);
+        }else {
+            Resources resources = mContext.getResources();
+            Drawable drawable = resources.getDrawable(R.drawable.vip_image,null);
+            viewHolder.userVIP.setForeground(drawable);
+        }
 
         viewHolder.userinfoLayout.setOnClickListener(new View.OnClickListener(){
 

@@ -4,26 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Main5Branch.ResetPersonalInfoFragment">
-    <ImageView
-        android:id="@+id/iv_back_left"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="16dp"
-        android:contentDescription="TODO"
-        android:src="@mipmap/item_left_back_btn"
-        android:visibility="visible"
-        android:layout_margin="3dp"/>
+
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:stretchColumns="*">
+        android:padding="15dp">
 
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="80dp">
+            android:layout_marginBottom="80dp"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/textView9"
@@ -31,79 +23,85 @@
                 android:layout_height="wrap_content"
                 android:text="个人信息修改"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="18sp" />
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="left">
 
             <Button
                 android:id="@+id/reset_portrait_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_portrait"
                 android:text="头像" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="left">
 
             <Button
                 android:id="@+id/reset_nickname_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_nickname"
                 android:text="昵称" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="left">
 
             <Button
                 android:id="@+id/reset_age_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_age"
                 android:text="年龄" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="left">
 
             <Button
                 android:id="@+id/reset_gender_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_gender"
                 android:text="性别" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="left">
 
             <Button
                 android:id="@+id/reset_property_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_property"
                 android:text="属性" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="left">
 
             <Button
                 android:id="@+id/reset_region_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_region"
                 android:text="地区" />
         </TableRow>
     </TableLayout>

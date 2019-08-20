@@ -155,6 +155,9 @@
         <meta-data
             android:name="com.huawei.hms.client.appid"
             android:value="101031445" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
         <!-- BridgeActivity定义了HMS-SDK中一些跳转所需要的透明页面-->
         <activity
             android:name="com.huawei.hms.activity.BridgeActivity"

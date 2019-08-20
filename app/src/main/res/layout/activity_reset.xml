@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:text="TextView"
             android:textAlignment="center"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp" />
 
         <TableLayout
@@ -142,8 +142,11 @@
                     style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_submit"
                     android:text="提交"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
             </TableRow>
 
         </TableLayout>

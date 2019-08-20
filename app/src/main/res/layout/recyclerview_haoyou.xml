@@ -28,7 +28,7 @@
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/authportrait"
         android:text="userNickName"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
     <TextView

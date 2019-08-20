@@ -49,6 +49,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_phone"
                     android:text="账号:" />
 
                 <EditText
@@ -76,6 +77,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_password"
                     android:text="密码:" />
 
                 <EditText
@@ -160,6 +162,7 @@
                 style="@style/Base.Widget.AppCompat.Button.Borderless"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_weixin"
                 android:text="微信登录"
                 android:textColor="@color/rc_picsel_toolbar_send_pressed" />
         </TableRow>

@@ -28,7 +28,7 @@
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/authportrait"
         android:text="userNickName"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
     <TextView
@@ -48,7 +48,10 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="280dp"
+        android:background="@drawable/rc_cs_button_bg"
         android:text="同意"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/rc_emoji_grid_item_bg"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

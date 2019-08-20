@@ -85,7 +85,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="280dp"
-                    android:text="赞：232"
+                    android:drawableLeft="@drawable/ic_like"
+                    android:text="232"
                     android:textColor="@color/rc_draft_color" />
 
             </RelativeLayout>
