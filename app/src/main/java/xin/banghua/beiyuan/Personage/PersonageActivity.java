@@ -3,6 +3,7 @@ package xin.banghua.beiyuan.Personage;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 
 import xin.banghua.beiyuan.R;
 
@@ -18,6 +19,27 @@ public class PersonageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_personage);
 
 
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar();
+        if(actionBar != null){
+            actionBar.setTitle("个人信息");
+            actionBar.setHomeButtonEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         Log.d(TAG, "onCreate: "+getIntent().getIntExtra("userid",1));
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                this.finish(); // back button
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }

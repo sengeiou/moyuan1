@@ -35,6 +35,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.beiyuan.Main5Branch.SomeonesluntanActivity;
 import xin.banghua.beiyuan.MainActivity;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.beiyuan.R;
@@ -64,6 +65,7 @@ public class PersonageFragment extends Fragment {
     private EditText mLeaveWords_et;
 
     private Button make_friend;
+    private Button user_tiezi;
 
     private Context mContext;
 
@@ -106,13 +108,20 @@ public class PersonageFragment extends Fragment {
         mUserProperty_tv=view.findViewById(R.id.user_property);
         mUserSignature_tv=view.findViewById(R.id.user_signature);
         mLeaveWords_et=view.findViewById(R.id.leave_words);
-
+        user_tiezi=view.findViewById(R.id.user_tiezi);
+        user_tiezi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), SomeonesluntanActivity.class);
+                intent.putExtra("authid",mUserID);
+                startActivity(intent);
+            }
+        });
         make_friend = view.findViewById(R.id.make_friend);
         make_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 makeFriend("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=addfriend&m=socialchat");
-
             }
         });
 
@@ -146,6 +155,10 @@ public class PersonageFragment extends Fragment {
             mUserGender_tv.setForeground(drawable);
         }
         mUserSignature_tv.setText(jsonObject.getString("signature"));
+        if (jsonObject.getString("allowfriend").equals("0")){
+            make_friend.setEnabled(false);
+            make_friend.setText("拒绝添加好友");
+        }
 
     }
     //网络数据部分

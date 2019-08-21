@@ -41,10 +41,13 @@ public class SawMeActivity extends AppCompatActivity {
     private ArrayList<String> mUserLocation = new ArrayList<>();
     private ArrayList<String> mUserRegion = new ArrayList<>();
     private ArrayList<String> mUserVIP = new ArrayList<>();
+    private ArrayList<String> mAllowLocation = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_saw_me);
+
+        getSupportActionBar().setTitle("谁看过我");
 
         ImageView back_btn = findViewById(R.id.iv_back_left);
         back_btn.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +76,7 @@ public class SawMeActivity extends AppCompatActivity {
                 mUserLocation.add(jsonObject.getString("location"));
                 mUserRegion.add(jsonObject.getString("region"));
                 mUserVIP.add(jsonObject.getString("vip"));
+                mAllowLocation.add(jsonObject.getString("allowlocation"));
             }
         }
 
@@ -84,7 +88,7 @@ public class SawMeActivity extends AppCompatActivity {
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
         final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.sawme_RecyclerView);
-        UserInfoAdapter adapter = new UserInfoAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP);
+        UserInfoAdapter adapter = new UserInfoAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
         recyclerView.setAdapter(adapter);
         recyclerView.setLinearLayout();;
         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {

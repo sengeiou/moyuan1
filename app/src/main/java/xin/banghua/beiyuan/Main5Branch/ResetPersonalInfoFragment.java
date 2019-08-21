@@ -30,6 +30,7 @@ public class ResetPersonalInfoFragment extends Fragment {
     Button reset_gender_btn;
     Button reset_property_btn;
     Button reset_region_btn;
+    Button reset_signature_btn;
 
     public ResetPersonalInfoFragment() {
         // Required empty public constructor
@@ -107,9 +108,18 @@ public class ResetPersonalInfoFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        reset_signature_btn = view.findViewById(R.id.reset_signature_btn);
+        reset_signature_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,ResetActivity.class);
+                intent.putExtra("title","签名设置");
+                startActivity(intent);
+            }
+        });
 
 
-        ImageView back_btn = view.findViewById(R.id.iv_back_left);
-        back_btn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.reset_me_action));
+        //ImageView back_btn = view.findViewById(R.id.iv_back_left);
+        //back_btn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.reset_me_action));
     }
 }

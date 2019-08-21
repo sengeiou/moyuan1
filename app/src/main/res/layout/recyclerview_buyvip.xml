@@ -5,6 +5,7 @@
     android:id="@+id/buyvip_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/rc_btn_voice_hover"
     android:padding="15dp">
 
     <TextView
@@ -70,9 +71,9 @@
         android:textColor="@color/colorPrimaryDark" />
 
     <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E0D8D8"
-            android:padding="3dp"
-            android:layout_marginTop="110dp"/>
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="110dp"
+        android:background="#E0D8D8"
+        android:padding="3dp" />
 </RelativeLayout>

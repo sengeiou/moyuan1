@@ -47,6 +47,7 @@ public class CircleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_circle);
 
+        getSupportActionBar().setTitle("朋友圈");
 
         mView = getWindow().getDecorView();
 

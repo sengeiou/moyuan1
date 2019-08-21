@@ -60,6 +60,7 @@ public class SousuoresultFragment extends Fragment {
     private ArrayList<String> mUserLocation = new ArrayList<>();
     private ArrayList<String> mUserRegion = new ArrayList<>();
     private ArrayList<String> mUserVIP = new ArrayList<>();
+    private ArrayList<String> mAllowLocation = new ArrayList<>();
 
     public SousuoresultFragment() {
         // Required empty public constructor
@@ -120,6 +121,7 @@ public class SousuoresultFragment extends Fragment {
                 mUserLocation.add(jsonObject.getString("location"));
                 mUserRegion.add(jsonObject.getString("region"));
                 mUserVIP.add(jsonObject.getString("vip"));
+                mAllowLocation.add(jsonObject.getString("allowlocation"));
             }
         }else {
             mUserID.add(getJsonObject.getString("id"));
@@ -131,6 +133,7 @@ public class SousuoresultFragment extends Fragment {
             mUserLocation.add(getJsonObject.getString("location"));
             mUserRegion.add(getJsonObject.getString("region"));
             mUserVIP.add(getJsonObject.getString("vip"));
+            mAllowLocation.add(getJsonObject.getString("allowlocation"));
         }
 
 
@@ -141,7 +144,7 @@ public class SousuoresultFragment extends Fragment {
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
         final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.tuijian_RecyclerView);
-        UserInfoAdapter adapter = new UserInfoAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP);
+        UserInfoAdapter adapter = new UserInfoAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
         recyclerView.setAdapter(adapter);
         recyclerView.setLinearLayout();;
         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {

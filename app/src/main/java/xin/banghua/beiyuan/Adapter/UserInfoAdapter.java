@@ -37,9 +37,10 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
     private ArrayList<String> mUserLocation = new ArrayList<>();
     private ArrayList<String> mUserRegion = new ArrayList<>();
     private ArrayList<String> mUserVIP = new ArrayList<>();
+    private ArrayList<String> mAllowLocation = new ArrayList<>();
     private Context mContext;
 
-    public UserInfoAdapter(Context mContext,ArrayList<String> userID, ArrayList<String> userPortrait, ArrayList<String> userNickName,ArrayList<String> userAge,ArrayList<String> userGender,ArrayList<String> userProperty,ArrayList<String> userLocation,ArrayList<String> userRegion,ArrayList<String> userVIP) {
+    public UserInfoAdapter(Context mContext,ArrayList<String> userID, ArrayList<String> userPortrait, ArrayList<String> userNickName,ArrayList<String> userAge,ArrayList<String> userGender,ArrayList<String> userProperty,ArrayList<String> userLocation,ArrayList<String> userRegion,ArrayList<String> userVIP,ArrayList<String> allowLocation) {
         this.mUserID = userID;
         this.mUserPortrait = userPortrait;
         this.mUserNickName = userNickName;
@@ -49,6 +50,7 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
         this.mUserLocation = userLocation;
         this.mUserRegion = userRegion;
         this.mUserVIP = userVIP;
+        this.mAllowLocation = allowLocation;
         this.mContext = mContext;
     }
 
@@ -82,7 +84,11 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
             viewHolder.userGender.setForeground(drawable);
         }
         viewHolder.userProperty.setText(mUserProperty.get(i));
-        viewHolder.userLocation.setText(mUserLocation.get(i)+"km");
+        if (mAllowLocation.get(i).equals("1")){
+            viewHolder.userLocation.setText(mUserLocation.get(i)+"km");
+        }else {
+            viewHolder.userLocation.setText("? km");
+        }
         viewHolder.userRegion.setText(mUserRegion.get(i));
         viewHolder.userVIP.setText(mUserVIP.get(i));
         if (mUserVIP.get(i).equals("普通")){

@@ -26,4 +26,11 @@
 
     <style name="AppTheme.NoActionBar.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <!-- 定义将应用于整个应用程序或至少应用于许多Activity的"主题" -->
+    <style name="AppTheme.ActionBar.Show" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <!-- 提供装饰主题颜色 -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
 </resources>

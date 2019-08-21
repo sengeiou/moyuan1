@@ -61,6 +61,7 @@ public class TuijianFragment extends Fragment implements BaseSliderView.OnSlider
     private ArrayList<String> mUserLocation = new ArrayList<>();
     private ArrayList<String> mUserRegion = new ArrayList<>();
     private ArrayList<String> mUserVIP = new ArrayList<>();
+    private ArrayList<String> mAllowLocation = new ArrayList<>();
 
     public TuijianFragment() {
         // Required empty public constructor
@@ -181,6 +182,7 @@ public class TuijianFragment extends Fragment implements BaseSliderView.OnSlider
                 mUserLocation.add(jsonObject.getString("location"));
                 mUserRegion.add(jsonObject.getString("region"));
                 mUserVIP.add(jsonObject.getString("vip"));
+                mAllowLocation.add(jsonObject.getString("allowlocation"));
             }
         }
 
@@ -193,7 +195,7 @@ public class TuijianFragment extends Fragment implements BaseSliderView.OnSlider
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
         final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.tuijian_RecyclerView);
-        UserInfoAdapter adapter = new UserInfoAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP);
+        UserInfoAdapter adapter = new UserInfoAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
         recyclerView.setAdapter(adapter);
         recyclerView.setLinearLayout();
         recyclerView.setMinimumHeight(500);

@@ -3,6 +3,7 @@
     android:id="@+id/dongtai_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/rc_btn_voice_hover"
     android:padding="15dp">
 
     <TableLayout

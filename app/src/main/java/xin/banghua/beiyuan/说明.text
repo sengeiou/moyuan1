@@ -89,8 +89,8 @@ String myportrait = shuserinfo.readUserInfo().get("userPortrait");
                         String resultJson1 = msg.obj.toString();
                         Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
 
-                        JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
-                        initUserInfo(mView,jsonArray);
+                        JSONObject jsonObject = new ParseJSONObject(msg.obj.toString()).getParseJSON();
+                        Log.d(TAG, "handleMessage: 用户隐私"+jsonObject.getInt("allowlocation"));
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

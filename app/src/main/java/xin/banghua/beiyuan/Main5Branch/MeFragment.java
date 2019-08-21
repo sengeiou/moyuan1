@@ -1,12 +1,16 @@
 package xin.banghua.beiyuan.Main5Branch;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +21,19 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import androidx.navigation.Navigation;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 
@@ -27,12 +43,14 @@ import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
  */
 public class MeFragment extends Fragment {
 
+    private static final String TAG = "MeFragment";
     CircleImageView userportrait_iv;
     TextView usernickname_tv;
     Button beiyuanid_btn;
     Button personalinfo_btn;
     Button xiangce_btn;
     Button openvip_btn;
+    Button luntan_btn;
     Button jifen_btn;
     Button tuiguangma_btn;
     Button sawme_btn;
@@ -85,6 +103,7 @@ public class MeFragment extends Fragment {
         personalinfo_btn = view.findViewById(R.id.personalinfo_btn);
         xiangce_btn = view.findViewById(R.id.xiangce_btn);
         openvip_btn = view.findViewById(R.id.openvip_btn);
+        luntan_btn= view.findViewById(R.id.luntan_btn);
         jifen_btn = view.findViewById(R.id.jifen_btn);
         tuiguangma_btn = view.findViewById(R.id.tuiguangma_btn);
         sawme_btn = view.findViewById(R.id.sawme_btn);
@@ -129,7 +148,7 @@ public class MeFragment extends Fragment {
         jifen_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "共拥有500积分", Toast.LENGTH_LONG).show();
+                getScore("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=getscore&m=socialchat");
             }
         });
         openvip_btn.setOnClickListener(new View.OnClickListener() {
@@ -139,5 +158,68 @@ public class MeFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        luntan_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
+                Intent intent = new Intent(getActivity(),SomeonesluntanActivity.class);
+                intent.putExtra("authid",myid);
+                startActivity(intent);
+            }
+        });
     }
+
+    //网络数据部分
+//处理返回的数据
+    @SuppressLint("HandlerLeak")
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //1是用户数据，2是幻灯片
+            switch (msg.what){
+                case 1:
+                        String resultJson1 = msg.obj.toString();
+                        Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
+                        Toast.makeText(mContext, "共拥有"+resultJson1+"积分", Toast.LENGTH_LONG).show();
+                    break;
+                case 2:
+
+                    break;
+            }
+        }
+    };
+    //TODO okhttp获取用户信息
+    public void getScore(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("userid", myid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=1;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
 }

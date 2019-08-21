@@ -23,7 +23,7 @@
             android:layout_marginLeft="16dp"
             android:contentDescription="TODO"
             android:src="@mipmap/item_left_back_btn"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
             android:id="@+id/circle_RecyclerView"

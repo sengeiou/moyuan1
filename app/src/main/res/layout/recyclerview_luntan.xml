@@ -5,6 +5,7 @@
     android:id="@+id/luntanLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/rc_btn_voice_hover"
     android:padding="15dp">
 
     <TextView
@@ -77,8 +78,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="70dp"
-        android:stretchColumns="*"
-        android:padding="5dp">
+        android:padding="5dp"
+        android:stretchColumns="*">
 
         <TableRow
             android:layout_width="match_parent"
@@ -118,7 +119,6 @@
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
 
-
         </TableRow>
 
         <TableRow
@@ -144,7 +144,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#DFDCDC"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:background="#DFDCDC" />
 
 </RelativeLayout>

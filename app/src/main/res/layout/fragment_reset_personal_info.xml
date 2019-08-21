@@ -104,5 +104,17 @@
                 android:drawableLeft="@drawable/ic_region"
                 android:text="地区" />
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/reset_signature_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_signature"
+                android:text="签名" />
+        </TableRow>
     </TableLayout>
 </FrameLayout>

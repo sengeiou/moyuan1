@@ -2,6 +2,7 @@ package xin.banghua.beiyuan.Main4Branch;
 
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import net.alhazmy13.mediapicker.Image.ImagePicker;
 
@@ -62,10 +64,17 @@ public class FabudongtaiFragment extends Fragment {
     Button release_btn;
 
     String userID,userNickname,userPortrait,dongtaiWord,dongtaiImage,dongtaiShare;
+
+    private Context mContext;
     public FabudongtaiFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        this.mContext = getActivity();
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,6 +142,8 @@ public class FabudongtaiFragment extends Fragment {
             if (msg.arg1==1) {
                 Log.d("跳转", "Navigation");
                 Navigation.findNavController(mView).navigate(R.id.fubudongtai_guangchang_action);
+            }else {
+                Toast.makeText(mContext, "请选择图片", Toast.LENGTH_LONG).show();
             }
 
         }

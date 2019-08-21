@@ -68,7 +68,7 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
         }
         viewHolder.posttitle.setText(currentItem.getPosttitle());
         viewHolder.posttext.setText(currentItem.getPosttext());
-        if (currentItem.getPostpicture()[0].isEmpty()){
+        if (currentItem.getPostpicture().length==0){
             viewHolder.postpicture.setVisibility(View.GONE);
         }else {
             Glide.with(mContext)
@@ -111,6 +111,13 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
             }
         });
         viewHolder.postpicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                intentPostlist(v,currentItem);
+            }
+        });
+
+        viewHolder.luntanLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 intentPostlist(v,currentItem);
