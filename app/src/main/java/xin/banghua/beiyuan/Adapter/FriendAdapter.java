@@ -1,12 +1,14 @@
 package xin.banghua.beiyuan.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.RelativeLayout;
@@ -19,6 +21,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.rong.imkit.RongIM;
+import xin.banghua.beiyuan.Personage.PersonageActivity;
 import xin.banghua.beiyuan.R;
 
 public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder> implements Filterable {
@@ -74,6 +77,17 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
                 }
             }
         });
+        viewHolder.userinfo_btn.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: rongyun开始");
+                Intent intent = new Intent(v.getContext(), PersonageActivity.class);
+                intent.putExtra("userID",currentItem.getmUserID());
+                Log.d(TAG, "onClick: 跳转个人页面");
+                v.getContext().startActivity(intent);
+            }
+        });
 
     }
 
@@ -123,6 +137,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         CircleImageView userPortrait;
         TextView userNickName;
         TextView userLeaveWords;
+        Button userinfo_btn;
 
         RelativeLayout haoyouLayout;
         public ViewHolder(@NonNull View itemView) {
@@ -131,6 +146,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
             userPortrait = itemView.findViewById(R.id.authportrait);
             userNickName = itemView.findViewById(R.id.userNickName);
             userLeaveWords = itemView.findViewById(R.id.userLeaveWords);
+            userinfo_btn = itemView.findViewById(R.id.userinfo_btn);
 
 
             haoyouLayout = itemView.findViewById(R.id.haoyou_layout);

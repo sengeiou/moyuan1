@@ -40,4 +40,13 @@
         android:layout_toRightOf="@id/authportrait"
         android:text="userLeaveWords"
         android:textColor="@color/rc_ext_root_menu_item_text_color" />
+
+    <Button
+        android:id="@+id/userinfo_btn"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="260dp"
+        android:layout_toRightOf="@id/authportrait"
+        android:drawableTop="@drawable/ic_person" />
 </RelativeLayout>
