@@ -40,6 +40,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.Adapter.DongtaiAdapter;
 import xin.banghua.beiyuan.Adapter.DongtaiList;
+import xin.banghua.beiyuan.Adapter.DongtaiSliderAdapter;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
@@ -50,7 +51,7 @@ import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
  */
 public class GuangchangFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
     private static final String TAG = "GuangchangFragment";
-
+    JSONArray sliderJsonArray;
     public Map<String,String> userInfo;
     private SharedHelper sh;
 
@@ -78,7 +79,7 @@ public class GuangchangFragment extends Fragment implements BaseSliderView.OnSli
         super.onViewCreated(view, savedInstanceState);
 
         //使用okhttp获取全部用户信息
-        getDataDongtai("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=guangchang&m=socialchat");
+        //getDataDongtai("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=guangchang&m=socialchat");
         //使用okhttp获取推荐的幻灯片
         getDataSlide("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=guangchang&m=socialchat");
 
@@ -110,37 +111,37 @@ public class GuangchangFragment extends Fragment implements BaseSliderView.OnSli
     }
     //TODO 幻灯片相关
     private void initSlider(View view,JSONArray jsonArray) throws JSONException {
-        mDemoSlider = view.findViewById(R.id.guangchang_slider);
-
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        if (jsonArray.length()>0){
-            for (int i=0;i<jsonArray.length();i++){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                url_maps.put(jsonObject.getString("slidename"), jsonObject.getString("slidepicture"));
-            }
-        }
-
-        for(String name : url_maps.keySet()){
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            // initialize a SliderLayout
-            textSliderView
-                    .description(name)
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
-
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
-
-            mDemoSlider.addSlider(textSliderView);
-        }
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(4000);
-        mDemoSlider.addOnPageChangeListener(this);
+//        mDemoSlider = view.findViewById(R.id.guangchang_slider);
+//
+//        HashMap<String,String> url_maps = new HashMap<String, String>();
+//        if (jsonArray.length()>0){
+//            for (int i=0;i<jsonArray.length();i++){
+//                JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                url_maps.put(jsonObject.getString("slidename"), jsonObject.getString("slidepicture"));
+//            }
+//        }
+//
+//        for(String name : url_maps.keySet()){
+//            TextSliderView textSliderView = new TextSliderView(getActivity());
+//            // initialize a SliderLayout
+//            textSliderView
+//                    .description(name)
+//                    .image(url_maps.get(name))
+//                    .setScaleType(BaseSliderView.ScaleType.Fit)
+//                    .setOnSliderClickListener(this);
+//
+//            //add your extra information
+//            textSliderView.bundle(new Bundle());
+//            textSliderView.getBundle()
+//                    .putString("extra",name);
+//
+//            mDemoSlider.addSlider(textSliderView);
+//        }
+//        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+//        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+//        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+//        mDemoSlider.setDuration(4000);
+//        mDemoSlider.addOnPageChangeListener(this);
     }
     @Override
     public void onSliderClick(BaseSliderView slider) {
@@ -185,7 +186,7 @@ public class GuangchangFragment extends Fragment implements BaseSliderView.OnSli
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
         final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.dongtai_RecyclerView);
-        DongtaiAdapter adapter = new DongtaiAdapter(view.getContext(),dongtaiLists);
+        DongtaiSliderAdapter adapter = new DongtaiSliderAdapter(view.getContext(),sliderJsonArray,dongtaiLists);
         recyclerView.setAdapter(adapter);
         recyclerView.setLinearLayout();;
         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
@@ -290,7 +291,9 @@ public class GuangchangFragment extends Fragment implements BaseSliderView.OnSli
                         String resultJson2 = msg.obj.toString();
                         Log.d(TAG, "handleMessage: 幻灯片接收的值"+msg.obj.toString());
                         JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
-                        initSlider(mView,jsonArray);
+                        sliderJsonArray = jsonArray;
+                        getDataDongtai("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=guangchang&m=socialchat");
+                        //initSlider(mView,jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

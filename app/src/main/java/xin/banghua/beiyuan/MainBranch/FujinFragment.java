@@ -1,6 +1,7 @@
 package xin.banghua.beiyuan.MainBranch;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,6 +37,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.Adapter.UserInfoAdapter;
+import xin.banghua.beiyuan.Adapter.UserInfoSliderAdapter;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
@@ -46,7 +48,7 @@ import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
  */
 public class FujinFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
     private static final String TAG = "TuijianFragment";
-
+    JSONArray sliderJsonArray;
     private View mView;
 
     private SliderLayout mDemoSlider;
@@ -85,7 +87,7 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
         super.onViewCreated(view, savedInstanceState);
 
         //使用okhttp获取全部用户信息
-        getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=fujin&m=socialchat");
+        //getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=fujin&m=socialchat");
         //使用okhttp获取推荐的幻灯片
         getDataSlide("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=fujin&m=socialchat");
 
@@ -106,37 +108,37 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
 
     //TODO 幻灯片相关
     private void initSlider(View view,JSONArray jsonArray) throws JSONException {
-        mDemoSlider = view.findViewById(R.id.tuijian_slider);
-
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        if (jsonArray.length()>0){
-            for (int i=0;i<jsonArray.length();i++){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                url_maps.put(jsonObject.getString("slidename"), jsonObject.getString("slidepicture"));
-            }
-        }
-
-        for(String name : url_maps.keySet()){
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            // initialize a SliderLayout
-            textSliderView
-                    .description(name)
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
-
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
-
-            mDemoSlider.addSlider(textSliderView);
-        }
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(4000);
-        mDemoSlider.addOnPageChangeListener(this);
+//        mDemoSlider = view.findViewById(R.id.tuijian_slider);
+//
+//        HashMap<String,String> url_maps = new HashMap<String, String>();
+//        if (jsonArray.length()>0){
+//            for (int i=0;i<jsonArray.length();i++){
+//                JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                url_maps.put(jsonObject.getString("slidename"), jsonObject.getString("slidepicture"));
+//            }
+//        }
+//
+//        for(String name : url_maps.keySet()){
+//            TextSliderView textSliderView = new TextSliderView(getActivity());
+//            // initialize a SliderLayout
+//            textSliderView
+//                    .description(name)
+//                    .image(url_maps.get(name))
+//                    .setScaleType(BaseSliderView.ScaleType.Fit)
+//                    .setOnSliderClickListener(this);
+//
+//            //add your extra information
+//            textSliderView.bundle(new Bundle());
+//            textSliderView.getBundle()
+//                    .putString("extra",name);
+//
+//            mDemoSlider.addSlider(textSliderView);
+//        }
+//        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+//        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+//        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+//        mDemoSlider.setDuration(4000);
+//        mDemoSlider.addOnPageChangeListener(this);
     }
     @Override
     public void onSliderClick(BaseSliderView slider) {
@@ -191,9 +193,9 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
         final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.tuijian_RecyclerView);
-        UserInfoAdapter adapter = new UserInfoAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
+        UserInfoSliderAdapter adapter = new UserInfoSliderAdapter(view.getContext(),sliderJsonArray,mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLinearLayout();;
+        recyclerView.setLinearLayout();
         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
@@ -277,6 +279,7 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
 
     }
 
+    @SuppressLint("HandlerLeak")
     private Handler handler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -299,7 +302,9 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
                         String resultJson2 = msg.obj.toString();
                         Log.d(TAG, "handleMessage: 幻灯片接收的值"+msg.obj.toString());
                         JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
-                        initSlider(mView,jsonArray);
+                        sliderJsonArray = jsonArray;
+                        getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=fujin&m=socialchat");
+                        //initSlider(mView,jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

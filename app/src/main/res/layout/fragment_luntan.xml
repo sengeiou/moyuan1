@@ -103,43 +103,26 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" >
 
-            <android.support.v4.widget.NestedScrollView
+            <xin.banghua.beiyuan.MarqueeTextView
+                android:id="@+id/marquee"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:fillViewport="true"
                 android:layout_span="5">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical" >
+            </xin.banghua.beiyuan.MarqueeTextView>
+        </TableRow>
 
-                    <xin.banghua.beiyuan.MarqueeTextView
-                        android:id="@+id/marquee"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_span="5">
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-                    </xin.banghua.beiyuan.MarqueeTextView>
-
-                    <com.daimajia.slider.library.SliderLayout
-                        android:id="@+id/luntan_slider"
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
-                        android:id="@+id/luntan_RecyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="1000dp" />
-
-                </LinearLayout>
-            </android.support.v4.widget.NestedScrollView>
+            <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+                android:id="@+id/luntan_RecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_span="5"/>
 
         </TableRow>
 

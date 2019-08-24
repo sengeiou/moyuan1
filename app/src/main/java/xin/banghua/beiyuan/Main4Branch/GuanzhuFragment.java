@@ -112,37 +112,37 @@ public class GuanzhuFragment extends Fragment implements BaseSliderView.OnSlider
     }
     //TODO 幻灯片相关
     private void initSlider(View view,JSONArray jsonArray) throws JSONException {
-        mDemoSlider = view.findViewById(R.id.guangchang_slider);
-
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        if (jsonArray.length()>0){
-            for (int i=0;i<jsonArray.length();i++){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                url_maps.put(jsonObject.getString("slidename"), jsonObject.getString("slidepicture"));
-            }
-        }
-
-        for(String name : url_maps.keySet()){
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            // initialize a SliderLayout
-            textSliderView
-                    .description(name)
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
-
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
-
-            mDemoSlider.addSlider(textSliderView);
-        }
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(4000);
-        mDemoSlider.addOnPageChangeListener(this);
+//        mDemoSlider = view.findViewById(R.id.guangchang_slider);
+//
+//        HashMap<String,String> url_maps = new HashMap<String, String>();
+//        if (jsonArray.length()>0){
+//            for (int i=0;i<jsonArray.length();i++){
+//                JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                url_maps.put(jsonObject.getString("slidename"), jsonObject.getString("slidepicture"));
+//            }
+//        }
+//
+//        for(String name : url_maps.keySet()){
+//            TextSliderView textSliderView = new TextSliderView(getActivity());
+//            // initialize a SliderLayout
+//            textSliderView
+//                    .description(name)
+//                    .image(url_maps.get(name))
+//                    .setScaleType(BaseSliderView.ScaleType.Fit)
+//                    .setOnSliderClickListener(this);
+//
+//            //add your extra information
+//            textSliderView.bundle(new Bundle());
+//            textSliderView.getBundle()
+//                    .putString("extra",name);
+//
+//            mDemoSlider.addSlider(textSliderView);
+//        }
+//        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+//        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+//        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+//        mDemoSlider.setDuration(4000);
+//        mDemoSlider.addOnPageChangeListener(this);
     }
     @Override
     public void onSliderClick(BaseSliderView slider) {

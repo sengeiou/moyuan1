@@ -43,6 +43,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.Adapter.LuntanAdapter;
 import xin.banghua.beiyuan.Adapter.LuntanList;
+import xin.banghua.beiyuan.Adapter.LuntanSliderAdapter;
 import xin.banghua.beiyuan.MarqueeTextView;
 import xin.banghua.beiyuan.MarqueeTextViewClickListener;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
@@ -57,7 +58,7 @@ import static xin.banghua.beiyuan.R.color.colorPrimary;
  */
 public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
     private static final String TAG = "LuntanFragment";
-
+    JSONArray sliderJsonArray;
     //公告
     String[] strs;
     MarqueeTextView marqueeTv;
@@ -65,7 +66,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
     private SliderLayout mDemoSlider;
     //帖子列表
     private List<LuntanList> luntanLists = new ArrayList<>();
-    private LuntanAdapter adapter;
+    private LuntanSliderAdapter adapter;
 
     //二级菜单
     ToggleButton toggleButton1,toggleButton2,toggleButton3,toggleButton4,toggleButton5;
@@ -93,7 +94,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
         //首页初始化
         getDataGonggao("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat");
         getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","首页");
-        getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","首页");
+        //getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","首页");
 
         initNavigateButton(view);
         initSubnavigationButton(view);
@@ -208,39 +209,39 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
     }
     //TODO 幻灯片相关
     private void initSlider(View view,JSONArray jsonArray) throws JSONException {
-        mDemoSlider = view.findViewById(R.id.luntan_slider);
-        mDemoSlider.removeAllSliders();
-        HashMap<String,String> url_maps = new HashMap<String, String>();
-        if (jsonArray.length()>0){
-            for (int i=0;i<jsonArray.length();i++){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                url_maps.put(jsonObject.getString("slidename"), jsonObject.getString("slidepicture"));
-            }
-        }
-
-        for(String name : url_maps.keySet()){
-            TextSliderView textSliderView = new TextSliderView(getActivity());
-            // initialize a SliderLayout
-            textSliderView
-                    .description(name)
-                    .image(url_maps.get(name))
-                    .setScaleType(BaseSliderView.ScaleType.Fit)
-                    .setOnSliderClickListener(this);
-
-            //add your extra information
-            textSliderView.bundle(new Bundle());
-            textSliderView.getBundle()
-                    .putString("extra",name);
-
-
-            mDemoSlider.addSlider(textSliderView);
-        }
-
-        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-        mDemoSlider.setDuration(4000);
-        mDemoSlider.addOnPageChangeListener(this);
+//        mDemoSlider = view.findViewById(R.id.luntan_slider);
+//        mDemoSlider.removeAllSliders();
+//        HashMap<String,String> url_maps = new HashMap<String, String>();
+//        if (jsonArray.length()>0){
+//            for (int i=0;i<jsonArray.length();i++){
+//                JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                url_maps.put(jsonObject.getString("slidename"), jsonObject.getString("slidepicture"));
+//            }
+//        }
+//
+//        for(String name : url_maps.keySet()){
+//            TextSliderView textSliderView = new TextSliderView(getActivity());
+//            // initialize a SliderLayout
+//            textSliderView
+//                    .description(name)
+//                    .image(url_maps.get(name))
+//                    .setScaleType(BaseSliderView.ScaleType.Fit)
+//                    .setOnSliderClickListener(this);
+//
+//            //add your extra information
+//            textSliderView.bundle(new Bundle());
+//            textSliderView.getBundle()
+//                    .putString("extra",name);
+//
+//
+//            mDemoSlider.addSlider(textSliderView);
+//        }
+//
+//        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+//        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+//        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+//        mDemoSlider.setDuration(4000);
+//        mDemoSlider.addOnPageChangeListener(this);
     }
     @Override
     public void onSliderClick(BaseSliderView slider) {
@@ -280,7 +281,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
         }
 
         final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.luntan_RecyclerView);
-        adapter = new LuntanAdapter(luntanLists,view.getContext());
+        adapter = new LuntanSliderAdapter(luntanLists,sliderJsonArray,view.getContext());
         recyclerView.setAdapter(adapter);
         recyclerView.setLinearLayout();
         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
@@ -326,7 +327,9 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                     try {
                         Log.d(TAG, "handleMessage: 幻灯片接收的值"+msg.obj.toString());
                         JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
-                        initSlider(mView,jsonArray);
+                        sliderJsonArray = jsonArray;
+                        getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","首页");
+                        //initSlider(mView,jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
