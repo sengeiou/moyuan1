@@ -11,6 +11,9 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
+        ndk {
+            abiFilters "armeabi-v7a", "arm64-v8a"
+        }
     }
     buildTypes {
         release {
@@ -32,6 +35,7 @@ repositories {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
@@ -65,14 +69,16 @@ dependencies {
     //融云
     implementation project(':IMLib')
     implementation project(':IMKit')
+    implementation project(':CallLib')
+    implementation project(':CallKit')
+    implementation project(':Sight')
     //支付宝sdk
     implementation(name: 'alipaySdk-15.6.5-20190718211148', ext: 'aar')
     //微信sdk
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     implementation files('libs/MiPush_SDK_Client_3_6_19.jar')
-
     //华为推送
     api 'com.huawei.android.hms:base:2.6.1.301'
     api 'com.huawei.android.hms:push:2.6.1.301'
-
+    implementation files('libs/Amap_2DMap_V5.2.0_20170627.jar')
 }

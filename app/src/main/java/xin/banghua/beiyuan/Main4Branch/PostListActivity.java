@@ -86,6 +86,18 @@ public class PostListActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(PostListActivity.this,FabugentieActivity.class);
                 intent.putExtra("postid",id);
+                intent.putExtra("plateid",plateid);
+                intent.putExtra("platename",platename);
+                intent.putExtra("authid",authid);
+                intent.putExtra("authnickname",authnickname);
+                intent.putExtra("authportrait",authportrait);
+                intent.putExtra("posttip",posttip);
+                intent.putExtra("posttitle",posttitle);
+                intent.putExtra("posttext",posttext);
+                intent.putExtra("postpicture",postpicture);
+                intent.putExtra("like",like);
+                intent.putExtra("favorite",favorite);
+                intent.putExtra("time",time);
                 startActivity(intent);
             }
         });

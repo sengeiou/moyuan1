@@ -35,7 +35,19 @@ import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 public class FabugentieActivity extends AppCompatActivity {
 
     private static final String TAG = "FabugentieActivity";
-
+    String id;
+    String plateid;
+    String platename;
+    String authid;
+    String authnickname;
+    String authportrait;
+    String posttip;
+    String posttitle;
+    String posttext;
+    String[] postpicture;
+    String like;
+    String favorite;
+    String time;
     //var
     EditText content_et;
     ImageView imageView1,imageView2,imageView3;
@@ -48,14 +60,25 @@ public class FabugentieActivity extends AppCompatActivity {
     String followpicture2 = "";
     String followpicture3 = "";
 
-    String postid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fabugentie);
-        postid = getIntent().getStringExtra("postid");
-        Log.d(TAG, "onCreate: postid"+postid);
+        id = getIntent().getStringExtra("postid");
+        plateid = getIntent().getStringExtra("plateid");
+        platename = getIntent().getStringExtra("platename");
+        authid = getIntent().getStringExtra("authid");
+        authnickname = getIntent().getStringExtra("authnickname");
+        authportrait = getIntent().getStringExtra("authportrait");
+        posttip = getIntent().getStringExtra("posttip");
+        posttitle = getIntent().getStringExtra("posttitle");
+        posttext = getIntent().getStringExtra("posttext");
+        postpicture = getIntent().getStringArrayExtra("postpicture");
+        like = getIntent().getStringExtra("like");
+        favorite = getIntent().getStringExtra("favorite");
+        time = getIntent().getStringExtra("time");
+        Log.d(TAG, "onCreate: postid"+id);
 
         content_et = findViewById(R.id.content_et);
         imageView1 = findViewById(R.id.imageView1);
@@ -173,7 +196,19 @@ public class FabugentieActivity extends AppCompatActivity {
             if (msg.arg1==1) {
                 Log.d("跳转", "Navigation");
                 Intent intent = new Intent(FabugentieActivity.this,PostListActivity.class);
-                intent.putExtra("postid",getIntent().getStringExtra("postid"));
+                intent.putExtra("postid",id);
+                intent.putExtra("plateid",plateid);
+                intent.putExtra("platename",platename);
+                intent.putExtra("authid",authid);
+                intent.putExtra("authnickname",authnickname);
+                intent.putExtra("authportrait",authportrait);
+                intent.putExtra("posttip",posttip);
+                intent.putExtra("posttitle",posttitle);
+                intent.putExtra("posttext",posttext);
+                intent.putExtra("postpicture",postpicture);
+                intent.putExtra("like",like);
+                intent.putExtra("favorite",favorite);
+                intent.putExtra("time",time);
                 startActivity(intent);
             }
 
@@ -196,7 +231,7 @@ public class FabugentieActivity extends AppCompatActivity {
                 MultipartBody.Builder multipartBody = new MultipartBody.Builder();
                 multipartBody.setType(MultipartBody.FORM);
                 multipartBody.addFormDataPart("authid", myid);
-                multipartBody.addFormDataPart("postid",postid);
+                multipartBody.addFormDataPart("postid",id);
                 multipartBody.addFormDataPart("followtext", followtext);
                 if (!followpicture1.isEmpty())multipartBody.addFormDataPart("followpicture1",fileName, RequestBody.create(new File(followpicture1),MEDIA_TYPE_PNG));
                 if (!followpicture2.isEmpty())multipartBody.addFormDataPart("followpicture2",fileName,RequestBody.create(new File(followpicture2),MEDIA_TYPE_PNG));

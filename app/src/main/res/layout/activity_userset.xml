@@ -37,9 +37,11 @@
                 android:id="@+id/userNickName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_nickname"
                 android:ems="10"
                 android:hint="昵称"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textAlignment="textStart" />
         </TableRow>
 
         <TableRow
@@ -80,10 +82,12 @@
             <EditText
                 android:id="@+id/userAge"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
+                android:drawableLeft="@drawable/ic_age"
                 android:ems="10"
                 android:hint="年龄"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textAlignment="textStart" />
         </TableRow>
 
         <TableRow
@@ -95,6 +99,7 @@
                 android:id="@+id/userRegion"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_region"
                 android:ems="10"
                 android:hint="地区"
                 android:inputType="textPersonName" />
@@ -144,6 +149,7 @@
                 android:id="@+id/userSignature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_signature"
                 android:ems="10"
                 android:hint="个人签名"
                 android:inputType="textMultiLine" />
@@ -158,6 +164,7 @@
                 android:id="@+id/referral_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_promotion_code"
                 android:ems="10"
                 android:hint="推荐码（选填）"
                 android:inputType="number" />

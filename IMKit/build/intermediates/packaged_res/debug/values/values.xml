@@ -522,7 +522,7 @@
     </array>
     <bool name="rc_enable_automatic_download_voice_msg">true</bool>
     <bool name="rc_enable_mentioned_message">false</bool>
-    <bool name="rc_enable_message_recall">false</bool>
+    <bool name="rc_enable_message_recall">true</bool>
     <bool name="rc_enable_sync_read_status">false</bool>
     <bool name="rc_is_show_warning_notification">true</bool>
     <bool name="rc_location_2D">false</bool>

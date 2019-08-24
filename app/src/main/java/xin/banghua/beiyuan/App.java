@@ -7,11 +7,13 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
+import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.model.Message;
 import io.rong.push.RongPushClient;
 import io.rong.push.pushconfig.PushConfig;
+import io.rong.sight.SightExtensionModule;
 import xin.banghua.beiyuan.Main3Branch.RongyunConnect;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 
@@ -58,6 +60,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
             }
         });
         RongIM.init(this);
+        RongExtensionManager.getInstance().registerExtensionModule(new SightExtensionModule());
         //验证连接成功
 //          connect("JeXL+71vahbPjzSTYBlf3Okw/3FJenp53iTgy0iFgV+zWO2xI0jlx8+r479bFjga59uiwpcN87KhrP49wK/ZpQ==");
         //为了测试 这是贝吉塔的token 贝吉塔跟super果实现单聊
