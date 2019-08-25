@@ -11,20 +11,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.gson.GsonBuilder;
 
 import net.alhazmy13.mediapicker.Image.ImagePicker;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
@@ -42,11 +48,22 @@ import okhttp3.Response;
 import xin.banghua.beiyuan.Main5Activity;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
+import xin.banghua.beiyuan.Signin.CityAdapter;
+import xin.banghua.beiyuan.Signin.ProvinceAdapter;
 import xin.banghua.beiyuan.Signin.Userset;
+import xin.banghua.beiyuan.bean.AddrBean;
 
 public class ResetActivity extends AppCompatActivity {
 
     private static final String TAG = "ResetActivity";
+    //年龄选择
+    //地区选择
+    Spinner spProvince, spCity;
+    private AddrBean addrBean;
+    private ProvinceAdapter adpProvince;
+    private CityAdapter adpCity;
+    private List<AddrBean.ProvinceBean.CityBean> cityBeanList;
+    private AddrBean.ProvinceBean provinceBean;
     //var
     Button submit_btn;
     EditText value_et;
@@ -93,6 +110,39 @@ public class ResetActivity extends AppCompatActivity {
             value_et.setVisibility(View.GONE);
             userProperty.setVisibility(View.VISIBLE);
         }
+        if (title.equals("年龄设置")){
+            value_et.setVisibility(View.GONE);
+            value_et.setText("15");
+            //年龄选择器
+            Spinner spinner_age = findViewById(R.id.spinner_age);
+            spinner_age.setVisibility(View.VISIBLE);
+            ArrayAdapter<CharSequence> adapter_age = ArrayAdapter.createFromResource(this,R.array.age,android.R.layout.simple_spinner_item);
+            adapter_age.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            spinner_age.setAdapter(adapter_age);
+            spinner_age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    String selected_age = parent.getItemAtPosition(position).toString();
+                    value_et.setText(selected_age);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+        }
+        if (title.equals("地区设置")){
+            value_et.setVisibility(View.GONE);
+            value_et.setText("北京-北京");
+            spCity = findViewById(R.id.spinner_city);
+            spProvince = findViewById(R.id.spinner_province);
+            spCity.setVisibility(View.VISIBLE);
+            spProvince.setVisibility(View.VISIBLE);
+            initView();
+            loadData();
+            register();
+        }
 
         portrait.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,6 +158,8 @@ public class ResetActivity extends AppCompatActivity {
                         .build();
             }
         });
+
+
 
         submit_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +195,63 @@ public class ResetActivity extends AppCompatActivity {
         });
 
     }
+    private void initView() {
+        spCity = findViewById(R.id.spinner_city);
+        spProvince = findViewById(R.id.spinner_province);
 
+        adpProvince = new ProvinceAdapter(this);
+        adpCity = new CityAdapter(this);
+    }
+    private void loadData() {
+        try {
+            InputStream inputStream = getApplicationContext().getAssets().open("addr_china.json");
+
+            addrBean = new GsonBuilder().create().fromJson(new InputStreamReader(inputStream), AddrBean.class);
+
+            spProvince.setAdapter(adpProvince);
+            adpProvince.setProvinceBeanList(addrBean.getProvinceList());
+
+            spCity.setAdapter(adpCity);
+            adpCity.setCityBeanList(addrBean.getProvinceList().get(0).getCitylist());
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+    private void register() {
+        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spCity.setVisibility(View.VISIBLE);
+                cityBeanList = addrBean.getProvinceList().get(position).getCitylist();
+                provinceBean = addrBean.getProvinceList().get(position);
+                adpCity.setCityBeanList(addrBean.getProvinceList().get(position).getCitylist());
+                //选择省份后，城市默认第一个
+                String selected_province = provinceBean.getProvince();
+                String selected_city = cityBeanList.get(0).getCityName();
+                value_et.setText(selected_province+"-"+selected_city);
+                spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        //选择城市后
+                        String selected_province = provinceBean.getProvince();
+                        String selected_city = cityBeanList.get(position).getCityName();
+                        value_et.setText(selected_province+"-"+selected_city);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
     //网络数据部分
 //处理返回的数据
     @SuppressLint("HandlerLeak")

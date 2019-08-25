@@ -47,6 +47,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
+                <Spinner
+                    android:id="@+id/spinner_age"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:foreground="@drawable/ic_age"
+                    android:foregroundGravity="center_vertical"
+                    android:textAlignment="center"
+                    android:visibility="gone" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <Spinner
+                    android:id="@+id/spinner_province"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:foreground="@drawable/ic_region"
+                    android:foregroundGravity="center_vertical"
+                    android:visibility="gone" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <Spinner
+                    android:id="@+id/spinner_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:foreground="@drawable/ic_city"
+                    android:foregroundGravity="center_vertical"
+                    android:visibility="gone" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
                 <RadioGroup
                     android:id="@+id/userProperty"
                     android:layout_width="wrap_content"

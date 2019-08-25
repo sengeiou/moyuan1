@@ -3,6 +3,7 @@ package xin.banghua.beiyuan.Main5Branch;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -127,6 +128,10 @@ public class SettingFragment extends Fragment {
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences sp = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("userID", "");
+                editor.commit();
                 Intent intent = new Intent(mContext, SigninActivity.class);
                 startActivity(intent);
             }

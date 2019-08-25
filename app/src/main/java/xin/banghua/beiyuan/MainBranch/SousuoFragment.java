@@ -12,19 +12,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
 
 import androidx.navigation.Navigation;
+
+import com.google.gson.GsonBuilder;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -33,6 +42,11 @@ import okhttp3.Response;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
+import xin.banghua.beiyuan.Signin.CityAdapter;
+import xin.banghua.beiyuan.Signin.ProvinceAdapter;
+import xin.banghua.beiyuan.bean.AddrBean;
+
+import static cn.rongcloud.rtc.core.ContextUtils.getApplicationContext;
 
 
 /**
@@ -41,7 +55,13 @@ import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 public class SousuoFragment extends Fragment {
 
     private static final String TAG = "SousuoFragment";
-
+    //
+    Spinner spProvince, spCity;
+    private AddrBean addrBean;
+    private ProvinceAdapter adpProvince;
+    private CityAdapter adpCity;
+    private List<AddrBean.ProvinceBean.CityBean> cityBeanList;
+    private AddrBean.ProvinceBean provinceBean;
     //昵称，年龄，地区
     EditText userNickname_et,userAge_et,userRegion_et,direct_et;
     //性别，标签
@@ -70,6 +90,8 @@ public class SousuoFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         userRegion_et = view.findViewById(R.id.userRegion);
+        //默认不限
+        userRegion_et.setText("不限");
         userProperty_rg = view.findViewById(R.id.userProperty);//直接搜索
         direct_et = view.findViewById(R.id.direct_et);
         direct_btn = view.findViewById(R.id.direct_btn);
@@ -81,6 +103,9 @@ public class SousuoFragment extends Fragment {
         zProperty_rb = view.findViewById(R.id.zProperty);
         bProperty_rb = view.findViewById(R.id.bProperty);
         dProperty_rb = view.findViewById(R.id.dProperty);
+
+        spCity = view.findViewById(R.id.spinner_city);
+        spProvince = view.findViewById(R.id.spinner_province);
         //vip
         getVipinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=viptimeinsousuo&m=socialchat");
         //初始化导航按钮
@@ -88,7 +113,96 @@ public class SousuoFragment extends Fragment {
 
         //监听提交按钮
         submitValue(view);
+
+        //年龄选择
+        Spinner spinner_age = view.findViewById(R.id.spinner_age);
+        ArrayAdapter<CharSequence> adapter_age = ArrayAdapter.createFromResource(getActivity(),R.array.selected_age,android.R.layout.simple_spinner_item);
+        adapter_age.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_age.setAdapter(adapter_age);
+        spinner_age.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selected_age = parent.getItemAtPosition(position).toString();
+                if (selected_age.equals("不限")){
+                    userAge_et.setText("");
+                }else {
+                    userAge_et.setText(selected_age);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        initView();
+        loadData();
+        register();
     }
+    private void initView() {
+
+
+        adpProvince = new ProvinceAdapter(getActivity());
+        adpCity = new CityAdapter(getActivity());
+    }
+    private void loadData() {
+        try {
+            InputStream inputStream = getActivity().getAssets().open("addr_china_selected.json");
+
+            addrBean = new GsonBuilder().create().fromJson(new InputStreamReader(inputStream), AddrBean.class);
+
+            spProvince.setAdapter(adpProvince);
+            adpProvince.setProvinceBeanList(addrBean.getProvinceList());
+
+            spCity.setAdapter(adpCity);
+            adpCity.setCityBeanList(addrBean.getProvinceList().get(0).getCitylist());
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+    private void register() {
+        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spCity.setVisibility(View.VISIBLE);
+                cityBeanList = addrBean.getProvinceList().get(position).getCitylist();
+                provinceBean = addrBean.getProvinceList().get(position);
+                adpCity.setCityBeanList(addrBean.getProvinceList().get(position).getCitylist());
+                //选择省份后，只传递省份
+                String selected_province = provinceBean.getProvince();
+                userRegion_et.setText(selected_province);
+                spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        //选择城市后，只传递城市
+                        String selected_province = provinceBean.getProvince();
+                        String selected_city = cityBeanList.get(position).getCityName();
+                        if (selected_city.equals("不限")){
+                            userRegion_et.setText(selected_province);
+                        }else {
+                            userRegion_et.setText(selected_city);
+                        }
+
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
     //三个按钮初始化
     private void initNavigateButton(View view){
         Button tuijian = view.findViewById(R.id.tuijian_btn);
@@ -182,6 +296,9 @@ public class SousuoFragment extends Fragment {
                             bProperty_rb.setEnabled(false);
                             dProperty_rb.setEnabled(false);
                             userRegion_et.setEnabled(false);
+                            spCity.setEnabled(false);
+                            spProvince.setEnabled(false);
+
                         }
 
                     break;

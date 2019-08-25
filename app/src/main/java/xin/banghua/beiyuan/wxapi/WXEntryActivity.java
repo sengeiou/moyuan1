@@ -136,12 +136,25 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     }
                     break;
                 case 3:
-                    //不跳转个人设置，直接保存用户数据，然后跳转MainActivity
+                    //不跳转个人设置，直接保存用户数据，然后跳转MainActivity   2019/8/24 需要调整个人设置,保存后跳转个人设置
                     mContext = getApplicationContext();
-                    SharedHelper sh = new SharedHelper(mContext);
-                    sh.saveUserInfo(msg.obj.toString(),nickname,portrait,"20",gender,"z","中国");
-
-                    postRongyunUserRegister("https://rongyun.banghua.xin/RongCloud/example/User/userregister.php",msg.obj.toString(),nickname,portrait);
+                    JSONObject jsonObject = null;//自定义的
+                    try {
+                        //不管登陆过没有，都保存本地数据
+                        jsonObject = new ParseJSONObject(msg.obj.toString()).getParseJSON();
+                        SharedHelper sh = new SharedHelper(mContext);
+                        sh.saveUserInfo(jsonObject.getString("id"),jsonObject.getString("nickname"),jsonObject.getString("portrait"),"20","男","z","中国");
+                        if (jsonObject.getString("type").equals("1")){
+                            //已存在，直接跳转首页
+                            Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }else if (jsonObject.getString("type").equals("2")){
+                            //不存在，注册融云，然后跳转设置页
+                            postRongyunUserRegister("https://rongyun.banghua.xin/RongCloud/example/User/userregister.php",jsonObject.getString("id"),jsonObject.getString("nickname"),jsonObject.getString("portrait"));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 4:
                     String resultJson1 = msg.obj.toString();
@@ -158,8 +171,13 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
 
                             //跳转首页
                             //Log.d("跳转首页",object1.getString("userNickName"));
-                            Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
-                            startActivity(intent);
+                            //Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
+                            //startActivity(intent);
+                            //跳转设置页
+                            Intent intent1 = new Intent(WXEntryActivity.this, Userset.class);
+                            intent1.putExtra("logtype","2");
+                            intent1.putExtra("openid",openid);
+                            startActivity(intent1);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
