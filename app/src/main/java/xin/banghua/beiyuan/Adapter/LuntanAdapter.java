@@ -1,9 +1,12 @@
 package xin.banghua.beiyuan.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,9 +19,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.io.IOException;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import xin.banghua.beiyuan.Main4Branch.PostListActivity;
 import xin.banghua.beiyuan.Personage.PersonageActivity;
 import xin.banghua.beiyuan.R;
@@ -28,7 +37,7 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
 
     private List<LuntanList> luntanLists;
     private Context mContext;
-
+    ViewHolder viewHolder_btn;
     public LuntanAdapter(List<LuntanList> luntanLists, Context mContext) {
         Log.d(TAG, "LuntanAdapter: start");
         this.luntanLists = luntanLists;
@@ -44,7 +53,7 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final LuntanList currentItem = luntanLists.get(i);
 
         viewHolder.id.setText(currentItem.getId());
@@ -76,7 +85,17 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
                     .load(currentItem.getPostpicture()[0])
                     .into(viewHolder.postpicture);
         }
-        viewHolder.like.setText(currentItem.getLike());
+        viewHolder.like.setText("赞"+currentItem.getLike());
+        viewHolder.like.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: clicked on: " + currentItem.getId());
+                //Toast.makeText(mContext, mUserID.get(i) + mUserNickName.get(i), Toast.LENGTH_LONG).show();
+                viewHolder_btn = viewHolder;
+                like("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntanlike&m=socialchat",currentItem.getId());
+            }
+        });
         viewHolder.favorite.setText(currentItem.getFavorite());
         viewHolder.time.setText(currentItem.getTime());
 
@@ -117,12 +136,12 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
             }
         });
 
-        viewHolder.luntanLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentPostlist(v,currentItem);
-            }
-        });
+//        viewHolder.luntanLayout.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                intentPostlist(v,currentItem);
+//            }
+//        });
 
     }
     public void intentPostlist(View v,LuntanList currentItem){
@@ -186,6 +205,50 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
 
 
         }
+    }
+
+    //网络数据部分
+//处理返回的数据
+    @SuppressLint("HandlerLeak")
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //1是用户数据，2是幻灯片
+            switch (msg.what){
+                case 1:
+                    viewHolder_btn.like.setText("赞"+msg.obj.toString());
+                    break;
+            }
+        }
+    };
+    //TODO okhttp点赞
+    public void like(final String url,final String postid){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("postid", postid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=1;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 }

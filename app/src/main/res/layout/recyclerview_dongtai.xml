@@ -23,8 +23,8 @@
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/authportrait"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:src="@mipmap/ic_launcher" />
 
             <TextView
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="280dp"
                     android:drawableLeft="@drawable/ic_like"
-                    android:text="232"
+                    android:text="赞232"
                     android:textColor="@color/rc_draft_color" />
 
             </RelativeLayout>

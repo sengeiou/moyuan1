@@ -1,10 +1,13 @@
 package xin.banghua.beiyuan.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,10 +29,16 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import xin.banghua.beiyuan.Main4Branch.PostListActivity;
 import xin.banghua.beiyuan.Personage.PersonageActivity;
 import xin.banghua.beiyuan.R;
@@ -39,6 +48,7 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements BaseSl
     //幻灯片
     SliderLayout mDemoSlider;
     JSONArray jsonArray;
+    ViewHolder viewHolder_btn;
     private List<LuntanList> luntanLists;
     private Context mContext;
     private final static int TYPE_HEAD = 0;
@@ -78,7 +88,7 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements BaseSl
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder,final int i) {
+    public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder viewHolder,final int i) {
         if (viewHolder instanceof LuntanSliderAdapter.SliderHolder){
             HashMap<String,String> url_maps = new HashMap<String, String>();
             if (jsonArray.length()>0){
@@ -148,7 +158,17 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements BaseSl
                         .load(currentItem.getPostpicture()[0])
                         .into(((ViewHolder) viewHolder).postpicture);
             }
-            ((ViewHolder) viewHolder).like.setText(currentItem.getLike());
+            ((ViewHolder) viewHolder).like.setText("赞"+currentItem.getLike());
+            ((ViewHolder) viewHolder).like.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    Log.d(TAG, "onClick: clicked on: " + currentItem.getId());
+                    //Toast.makeText(mContext, mUserID.get(i) + mUserNickName.get(i), Toast.LENGTH_LONG).show();
+                    viewHolder_btn = (ViewHolder) viewHolder;
+                    like("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntanlike&m=socialchat",currentItem.getId());
+                }
+            });
             ((ViewHolder) viewHolder).favorite.setText(currentItem.getFavorite());
             ((ViewHolder) viewHolder).time.setText(currentItem.getTime());
 
@@ -292,4 +312,48 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements BaseSl
         }
     }
 
+
+    //网络数据部分
+//处理返回的数据
+    @SuppressLint("HandlerLeak")
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //1是用户数据，2是幻灯片
+            switch (msg.what){
+                case 1:
+                    viewHolder_btn.like.setText("赞"+msg.obj.toString());
+                    break;
+            }
+        }
+    };
+    //TODO okhttp点赞
+    public void like(final String url,final String postid){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("postid", postid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=1;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 }

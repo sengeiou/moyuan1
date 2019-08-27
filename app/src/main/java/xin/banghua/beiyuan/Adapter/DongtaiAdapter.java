@@ -2,6 +2,7 @@ package xin.banghua.beiyuan.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -27,6 +28,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.beiyuan.Personage.PersonageActivity;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 
@@ -63,6 +65,14 @@ public class DongtaiAdapter extends RecyclerView.Adapter<DongtaiAdapter.ViewHold
                 .asBitmap()
                 .load(currentItem.getMyportrait())
                 .into(viewHolder.userPortrait);
+        viewHolder.userPortrait.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), PersonageActivity.class);
+                intent.putExtra("userID",currentItem.getMyid());
+                v.getContext().startActivity(intent);
+            }
+        });
         viewHolder.userNickName.setText(currentItem.getMynickname());
         viewHolder.dongtaiWord.setText(currentItem.getContext());
         Glide.with(mContext)
@@ -81,13 +91,13 @@ public class DongtaiAdapter extends RecyclerView.Adapter<DongtaiAdapter.ViewHold
                 like("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=guangchanglike&m=socialchat",currentItem.getId());
             }
         });
-        viewHolder.dongtaiLayout.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                Log.d(TAG, "onClick: clicked on: "+currentItem.getId());
-                //Toast.makeText(mContext,mUserID.get(i)+mUserNickName.get(i),Toast.LENGTH_LONG).show();
-            }
-        });
+//        viewHolder.dongtaiLayout.setOnClickListener(new View.OnClickListener(){
+//            @Override
+//            public void onClick(View v) {
+//                Log.d(TAG, "onClick: clicked on: "+currentItem.getId());
+//                //Toast.makeText(mContext,mUserID.get(i)+mUserNickName.get(i),Toast.LENGTH_LONG).show();
+//            }
+//        });
     }
 
     @Override
