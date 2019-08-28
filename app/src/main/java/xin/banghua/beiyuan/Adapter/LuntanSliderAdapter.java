@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -129,6 +130,9 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements BaseSl
         }else if (viewHolder instanceof LuntanSliderAdapter.ViewHolder){
             final LuntanList currentItem = luntanLists.get(i-1);
 
+            String authattributes_string = currentItem.getAuthage()+"岁 | "+currentItem.getAuthgender()+" | "+currentItem.getAuthregion()+" | "+currentItem.getAuthproperty();
+            ((ViewHolder) viewHolder).authattributes.setText(authattributes_string);
+
             ((ViewHolder) viewHolder).id.setText(currentItem.getId());
             ((ViewHolder) viewHolder).plateid.setText(currentItem.getPlateid());
             ((ViewHolder) viewHolder).platename.setText(currentItem.getPlatename());
@@ -139,14 +143,26 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements BaseSl
                     .load(currentItem.getAuthportrait())
                     .into(((ViewHolder) viewHolder).authportrait);
             ((ViewHolder) viewHolder).posttip.setText(currentItem.getPosttip().isEmpty()?"":currentItem.getPosttip());
-            if ((currentItem.getPosttip().isEmpty()?"":currentItem.getPosttip()).equals("加精")){
+            if (currentItem.getPosttip().equals("加精")){
                 Resources resources = mContext.getResources();
-                Drawable drawable = resources.getDrawable(R.drawable.jiajing,null);
-                ((ViewHolder) viewHolder).posttip.setForeground(drawable);
-            }else if((currentItem.getPosttip().isEmpty()?"":currentItem.getPosttip()).equals("置顶")){
+                Drawable drawable = resources.getDrawable(R.drawable.ic_essence,null);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                ((ViewHolder) viewHolder).posttip.setCompoundDrawables(drawable,null,null,null);
+            }else if(currentItem.getPosttip().equals("置顶")){
                 Resources resources = mContext.getResources();
-                Drawable drawable = resources.getDrawable(R.drawable.zhiding,null);
-                ((ViewHolder) viewHolder).posttip.setForeground(drawable);
+                Drawable drawable = resources.getDrawable(R.drawable.ic_ontop,null);
+                drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+                ((ViewHolder) viewHolder).posttip.setCompoundDrawables(drawable,null,null,null);
+            }else if (currentItem.getPosttip().equals("置顶,加精")){
+                Resources resources = mContext.getResources();
+                Drawable drawable1 = resources.getDrawable(R.drawable.ic_essence,null);
+                drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
+                Drawable drawable2 = resources.getDrawable(R.drawable.ic_ontop,null);
+                drawable2.setBounds(0, 0, drawable2.getMinimumWidth(), drawable2.getMinimumHeight());
+                ((ViewHolder) viewHolder).posttip.setCompoundDrawables(drawable1,null,drawable2,null);
+            }else {
+                //必须加上，否则会错乱
+                ((ViewHolder) viewHolder).posttip.setCompoundDrawables(null,null,null,null);
             }
             ((ViewHolder) viewHolder).posttitle.setText(currentItem.getPosttitle());
             ((ViewHolder) viewHolder).posttext.setText(currentItem.getPosttext());
@@ -288,6 +304,9 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements BaseSl
         TextView favorite;
         TextView time;
 
+        TextView authattributes;
+        Button menu_btn;
+
         RelativeLayout luntanLayout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -308,7 +327,8 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements BaseSl
 
             luntanLayout = itemView.findViewById(R.id.luntanLayout);
 
-
+            authattributes = itemView.findViewById(R.id.authattributes);
+            menu_btn = itemView.findViewById(R.id.menu_btn);
         }
     }
 

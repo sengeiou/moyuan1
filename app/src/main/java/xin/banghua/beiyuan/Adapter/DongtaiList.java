@@ -2,8 +2,16 @@ package xin.banghua.beiyuan.Adapter;
 
 public class DongtaiList {
     String id,myid,mynickname,myportrait,context,picture,video,share,like,time;
+    String authage;
+    String authgender;
+    String authregion;
+    String authproperty;
 
-    public DongtaiList(String id, String myid, String mynickname, String myportrait, String context, String picture, String video, String share, String like, String time) {
+    public DongtaiList(String authage,String authgender,String authregion,String authproperty,String id, String myid, String mynickname, String myportrait, String context, String picture, String video, String share, String like, String time) {
+        this.authage = authage;
+        this.authgender = authgender;
+        this.authregion = authregion;
+        this.authproperty = authproperty;
         this.id = id;
         this.myid = myid;
         this.mynickname = mynickname;
@@ -14,6 +22,38 @@ public class DongtaiList {
         this.share = share;
         this.like = like;
         this.time = time;
+    }
+
+    public String getAuthage() {
+        return authage;
+    }
+
+    public void setAuthage(String authage) {
+        this.authage = authage;
+    }
+
+    public String getAuthgender() {
+        return authgender;
+    }
+
+    public void setAuthgender(String authgender) {
+        this.authgender = authgender;
+    }
+
+    public String getAuthregion() {
+        return authregion;
+    }
+
+    public void setAuthregion(String authregion) {
+        this.authregion = authregion;
+    }
+
+    public String getAuthproperty() {
+        return authproperty;
+    }
+
+    public void setAuthproperty(String authproperty) {
+        this.authproperty = authproperty;
     }
 
     public String getId() {

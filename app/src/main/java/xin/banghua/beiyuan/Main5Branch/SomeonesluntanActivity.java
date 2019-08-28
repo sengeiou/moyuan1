@@ -73,7 +73,7 @@ public class SomeonesluntanActivity extends AppCompatActivity {
             for (int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 String[] postPicture = jsonObject.getString("postpicture").split(",");
-                LuntanList posts = new LuntanList(jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
+                LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
                 luntanLists.add(posts);
             }
         }

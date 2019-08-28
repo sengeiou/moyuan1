@@ -122,7 +122,8 @@
                 android:id="@+id/luntan_RecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_span="5"/>
+                android:layout_span="5"
+                android:background="#EDF0F5" />
 
         </TableRow>
 

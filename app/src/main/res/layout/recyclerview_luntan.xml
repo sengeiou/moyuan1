@@ -5,8 +5,9 @@
     android:id="@+id/luntanLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rc_btn_voice_hover"
-    android:padding="15dp">
+    android:layout_marginTop="6dp"
+    android:background="#FFFFFF"
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/id"
@@ -46,33 +47,39 @@
         android:id="@+id/authnickname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="15dp"
         android:layout_toRightOf="@id/authportrait"
         android:text="userNickName"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/authattributes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/authportrait"
+        android:text="authattributes"
+        android:textColor="@color/rc_ext_sub_menu_item_text_color" />
+
+    <Button
+        android:id="@+id/menu_btn"
+        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="320dp"
+        android:background="@drawable/ic_threepoints" />
+
+    <TextView
         android:id="@+id/time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
+        android:layout_marginLeft="230dp"
         android:layout_marginTop="30dp"
         android:layout_toRightOf="@id/authportrait"
         android:text="publishTime"
         android:textColor="@color/rc_ext_sub_menu_item_text_color" />
-
-    <TextView
-        android:id="@+id/posttip"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginLeft="250dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/authportrait"
-        android:gravity="center"
-        android:text="TextView"
-        android:textAlignment="center"
-        android:textColor="@color/rc_ad_file_list_select_file_text_state" />
 
     <TableLayout
         android:layout_width="match_parent"
@@ -109,7 +116,8 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="5dp">
 
             <ImageView
                 android:id="@+id/postpicture"
@@ -128,6 +136,17 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/posttip"
+                    android:layout_width="60dp"
+                    android:layout_height="30dp"
+                    android:layout_marginLeft="50dp"
+                    android:drawableRight="@drawable/ic_city"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textAlignment="center"
+                    android:textColor="@color/rc_ad_file_list_select_file_text_state" />
 
                 <TextView
                     android:id="@+id/favorite"
@@ -150,11 +169,5 @@
 
         </TableRow>
     </TableLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_alignParentBottom="true"
-        android:background="#DFDCDC" />
 
 </RelativeLayout>

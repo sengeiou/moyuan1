@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,6 +57,9 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         final LuntanList currentItem = luntanLists.get(i);
 
+        String authattributes_string = currentItem.getAuthage()+"岁 | "+currentItem.getAuthgender()+" | "+currentItem.getAuthregion()+" | "+currentItem.getAuthproperty();
+        viewHolder.authattributes.setText(authattributes_string);
+
         viewHolder.id.setText(currentItem.getId());
         viewHolder.plateid.setText(currentItem.getPlateid());
         viewHolder.platename.setText(currentItem.getPlatename());
@@ -66,14 +70,26 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
                 .load(currentItem.getAuthportrait())
                 .into(viewHolder.authportrait);
         viewHolder.posttip.setText(currentItem.getPosttip().isEmpty()?"":currentItem.getPosttip());
-        if ((currentItem.getPosttip().isEmpty()?"":currentItem.getPosttip()).equals("加精")){
+        if (currentItem.getPosttip().equals("加精")){
             Resources resources = mContext.getResources();
-            Drawable drawable = resources.getDrawable(R.drawable.jiajing,null);
-            viewHolder.posttip.setForeground(drawable);
-        }else if((currentItem.getPosttip().isEmpty()?"":currentItem.getPosttip()).equals("置顶")){
+            Drawable drawable = resources.getDrawable(R.drawable.ic_essence,null);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            viewHolder.posttip.setCompoundDrawables(drawable,null,null,null);
+        }else if(currentItem.getPosttip().equals("置顶")){
             Resources resources = mContext.getResources();
-            Drawable drawable = resources.getDrawable(R.drawable.zhiding,null);
-            viewHolder.posttip.setForeground(drawable);
+            Drawable drawable = resources.getDrawable(R.drawable.ic_ontop,null);
+            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
+            viewHolder.posttip.setCompoundDrawables(drawable,null,null,null);
+        }else if (currentItem.getPosttip().equals("置顶,加精")){
+            Resources resources = mContext.getResources();
+            Drawable drawable1 = resources.getDrawable(R.drawable.ic_essence,null);
+            drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
+            Drawable drawable2 = resources.getDrawable(R.drawable.ic_ontop,null);
+            drawable2.setBounds(0, 0, drawable2.getMinimumWidth(), drawable2.getMinimumHeight());
+            viewHolder.posttip.setCompoundDrawables(drawable1,null,drawable2,null);
+        }else {
+            //必须加上，否则会错乱
+            viewHolder.posttip.setCompoundDrawables(null,null,null,null);
         }
         viewHolder.posttitle.setText(currentItem.getPosttitle());
         viewHolder.posttext.setText(currentItem.getPosttext());
@@ -185,6 +201,9 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
 
         RelativeLayout luntanLayout;
 
+        TextView authattributes;
+        Button menu_btn;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             id = itemView.findViewById(R.id.id);
@@ -203,7 +222,8 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
 
             luntanLayout = itemView.findViewById(R.id.luntanLayout);
 
-
+            authattributes = itemView.findViewById(R.id.authattributes);
+            menu_btn = itemView.findViewById(R.id.menu_btn);
         }
     }
 

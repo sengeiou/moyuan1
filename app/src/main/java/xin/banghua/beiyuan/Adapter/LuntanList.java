@@ -15,7 +15,16 @@ public class LuntanList {
     String favorite;
     String time;
 
-    public LuntanList(String id, String plateid, String platename, String authid, String authnickname, String authportrait, String posttip, String posttitle, String posttext, String[] postpicture, String like, String favorite, String time) {
+    String authage;
+    String authgender;
+    String authregion;
+    String authproperty;
+
+    public LuntanList(String authage,String authgender,String authregion,String authproperty,String id, String plateid, String platename, String authid, String authnickname, String authportrait, String posttip, String posttitle, String posttext, String[] postpicture, String like, String favorite, String time) {
+        this.authage = authage;
+        this.authgender = authgender;
+        this.authregion = authregion;
+        this.authproperty = authproperty;
         this.id = id;
         this.plateid = plateid;
         this.platename = platename;
@@ -29,6 +38,38 @@ public class LuntanList {
         this.like = like;
         this.favorite = favorite;
         this.time = time;
+    }
+
+    public String getAuthage() {
+        return authage;
+    }
+
+    public void setAuthage(String authage) {
+        this.authage = authage;
+    }
+
+    public String getAuthgender() {
+        return authgender;
+    }
+
+    public void setAuthgender(String authgender) {
+        this.authgender = authgender;
+    }
+
+    public String getAuthregion() {
+        return authregion;
+    }
+
+    public void setAuthregion(String authregion) {
+        this.authregion = authregion;
+    }
+
+    public String getAuthproperty() {
+        return authproperty;
+    }
+
+    public void setAuthproperty(String authproperty) {
+        this.authproperty = authproperty;
     }
 
     public void setId(String id) {

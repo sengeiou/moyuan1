@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +61,11 @@ public class DongtaiAdapter extends RecyclerView.Adapter<DongtaiAdapter.ViewHold
         Log.d(TAG, "onBindViewHolder: called");
         final DongtaiList currentItem = dongtaiLists.get(i);
 
+        String authattributes_string = currentItem.getAuthage()+"岁 | "+currentItem.getAuthgender()+" | "+currentItem.getAuthregion()+" | "+currentItem.getAuthproperty();
+        viewHolder.authattributes.setText(authattributes_string);
+
+
+
         viewHolder.userID.setText(currentItem.getMyid());
         Glide.with(mContext)
                 .asBitmap()
@@ -107,6 +113,9 @@ public class DongtaiAdapter extends RecyclerView.Adapter<DongtaiAdapter.ViewHold
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView authattributes;
+        Button menu_btn;
+
         TextView userID;
         CircleImageView userPortrait;
         TextView userNickName;
@@ -126,6 +135,9 @@ public class DongtaiAdapter extends RecyclerView.Adapter<DongtaiAdapter.ViewHold
             like = itemView.findViewById(R.id.like);
 
             dongtaiLayout = itemView.findViewById(R.id.dongtai_layout);
+
+            authattributes = itemView.findViewById(R.id.authattributes);
+            menu_btn = itemView.findViewById(R.id.menu_btn);
         }
     }
 

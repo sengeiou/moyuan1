@@ -3,8 +3,9 @@
     android:id="@+id/dongtai_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rc_btn_voice_hover"
-    android:padding="15dp">
+    android:layout_marginTop="6dp"
+    android:background="#FFFFFF"
+    android:padding="10dp">
 
     <TableLayout
         android:layout_width="match_parent"
@@ -14,27 +15,62 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/userID"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="userID"
-                android:visibility="gone" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/authportrait"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:src="@mipmap/ic_launcher" />
+                <TextView
+                    android:id="@+id/userID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="userID"
+                    android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/userNickName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
-                android:text="userNickName"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="18sp" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/authportrait"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@mipmap/ic_launcher" />
+
+                <TextView
+                    android:id="@+id/authattributes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@id/authportrait"
+                    android:text="authattributes"
+                    android:textColor="@color/rc_ext_sub_menu_item_text_color" />
+
+                <TextView
+                    android:id="@+id/userNickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_toRightOf="@+id/authportrait"
+                    android:text="userNickName"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="18sp" />
+
+                <Button
+                    android:id="@+id/menu_btn"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="40dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="320dp"
+                    android:background="@drawable/ic_threepoints" />
+
+                <TextView
+                    android:id="@+id/dongtaiTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="230dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_toRightOf="@id/authportrait"
+                    android:text="publishTime"
+                    android:textColor="@color/rc_ext_sub_menu_item_text_color" />
+            </RelativeLayout>
+
         </TableRow>
 
         <TableRow
@@ -72,16 +108,6 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/dongtaiTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dp"
-                    android:text="2019-6-21 19:00:00"
-                    android:textColor="@color/rc_ext_sub_menu_item_text_color"
-                    android:textSize="14sp"
-                    android:textStyle="italic" />
-
-                <TextView
                     android:id="@+id/like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -94,16 +120,6 @@
 
         </TableRow>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#555555"
-                android:padding="3dp" />
-        </TableRow>
     </TableLayout>
 
 </RelativeLayout>

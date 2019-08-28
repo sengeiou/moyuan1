@@ -72,7 +72,7 @@ public class CircleActivity extends AppCompatActivity {
         if (jsonArray.length()>0){
             for (int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                DongtaiList dongtaiList = new DongtaiList(jsonObject.getString("id"),jsonObject.getString("myid"),jsonObject.getString("mynickname"),jsonObject.getString("myportrait"),jsonObject.getString("context"),jsonObject.getString("picture"),jsonObject.getString("video"),jsonObject.getString("share"),jsonObject.getString("like"),jsonObject.getString("time"));
+                DongtaiList dongtaiList = new DongtaiList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("myid"),jsonObject.getString("mynickname"),jsonObject.getString("myportrait"),jsonObject.getString("context"),jsonObject.getString("picture"),jsonObject.getString("video"),jsonObject.getString("share"),jsonObject.getString("like"),jsonObject.getString("time"));
                 dongtaiLists.add(dongtaiList);
             }
         }
