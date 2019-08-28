@@ -115,7 +115,9 @@ public class SettingFragment extends Fragment {
         help_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "功能维护中", Toast.LENGTH_LONG).show();
+                //Toast.makeText(mContext, "功能维护中", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(mContext, HelpCenter.class);
+                startActivity(intent);
             }
         });
         version_btn.setOnClickListener(new View.OnClickListener() {
