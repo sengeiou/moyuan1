@@ -25,6 +25,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.orhanobut.dialogplus.DialogPlus;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -229,6 +230,27 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements BaseSl
                 @Override
                 public void onClick(View v) {
                     intentPostlist(v,currentItem);
+                }
+            });
+
+            ((ViewHolder) viewHolder).menu_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    InformBlacklistAdapter adapter = new InformBlacklistAdapter(mContext,"post",currentItem.getId(),currentItem.getAuthid());
+                    final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                            .setAdapter(adapter)
+                            .setFooter(R.layout.inform_blacklist_foot)
+                            .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                            .create();
+                    dialog.show();
+                    View view = dialog.getFooterView();
+                    Button cancel = view.findViewById(R.id.inform_blacklist_cancel_btn);
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
                 }
             });
 

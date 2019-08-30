@@ -81,4 +81,6 @@ dependencies {
     api 'com.huawei.android.hms:base:2.6.1.301'
     api 'com.huawei.android.hms:push:2.6.1.301'
     implementation files('libs/Amap_2DMap_V5.2.0_20170627.jar')
+    //dialog
+    implementation 'com.orhanobut:dialogplus:1.11@aar'
 }

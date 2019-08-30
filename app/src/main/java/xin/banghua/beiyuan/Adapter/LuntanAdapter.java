@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.dialogplus.DialogPlus;
 
 import java.io.IOException;
 import java.util.List;
@@ -158,6 +159,26 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
 //                intentPostlist(v,currentItem);
 //            }
 //        });
+        viewHolder.menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InformBlacklistAdapter adapter = new InformBlacklistAdapter(mContext,"post",currentItem.getId(),currentItem.getAuthid());
+                final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                        .setAdapter(adapter)
+                        .setFooter(R.layout.inform_blacklist_foot)
+                        .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                        .create();
+                dialog.show();
+                View view = dialog.getFooterView();
+                Button cancel = view.findViewById(R.id.inform_blacklist_cancel_btn);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
 
     }
     public void intentPostlist(View v,LuntanList currentItem){

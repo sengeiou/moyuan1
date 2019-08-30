@@ -84,7 +84,7 @@ public class CircleActivity extends AppCompatActivity {
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
         final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.circle_RecyclerView);
-        DongtaiAdapter adapter = new DongtaiAdapter(view.getContext(),dongtaiLists);
+        DongtaiAdapter adapter = new DongtaiAdapter(this,dongtaiLists);
         recyclerView.setAdapter(adapter);
         recyclerView.setLinearLayout();
         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {

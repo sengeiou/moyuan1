@@ -22,6 +22,7 @@ import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.daimajia.slider.library.Tricks.ViewPagerEx;
+import com.orhanobut.dialogplus.DialogPlus;
 import com.zolad.zoominimageview.ZoomInImageView;
 
 import org.json.JSONArray;
@@ -172,6 +173,27 @@ public class DongtaiSliderAdapter extends RecyclerView.Adapter implements BaseSl
 //                    //Toast.makeText(mContext,mUserID.get(i)+mUserNickName.get(i),Toast.LENGTH_LONG).show();
 //                }
 //            });
+
+            ((DongtaiSliderAdapter.ViewHolder) viewHolder).menu_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    InformBlacklistAdapter adapter = new InformBlacklistAdapter(mContext,"circle",currentItem.getId(),currentItem.getMyid());
+                    final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                            .setAdapter(adapter)
+                            .setFooter(R.layout.inform_blacklist_foot)
+                            .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                            .create();
+                    dialog.show();
+                    View view = dialog.getFooterView();
+                    Button cancel = view.findViewById(R.id.inform_blacklist_cancel_btn);
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            });
         }
 
     }

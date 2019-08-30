@@ -17,6 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.OnClickListener;
 import com.zolad.zoominimageview.ZoomInImageView;
 
 import java.io.IOException;
@@ -104,6 +106,32 @@ public class DongtaiAdapter extends RecyclerView.Adapter<DongtaiAdapter.ViewHold
 //                //Toast.makeText(mContext,mUserID.get(i)+mUserNickName.get(i),Toast.LENGTH_LONG).show();
 //            }
 //        });
+        viewHolder.menu_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InformBlacklistAdapter adapter = new InformBlacklistAdapter(mContext,"circle",currentItem.getId(),currentItem.getMyid());
+                final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                        .setAdapter(adapter)
+                        .setFooter(R.layout.inform_blacklist_foot)
+                        .setOnClickListener(new OnClickListener() {
+                            @Override
+                            public void onClick(DialogPlus dialog, View view) {
+                                dialog.dismiss();
+                            }
+                        })
+                        .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                        .create();
+                dialog.show();
+                View view = dialog.getFooterView();
+                Button cancel = view.findViewById(R.id.inform_blacklist_cancel_btn);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+            }
+        });
     }
 
     @Override

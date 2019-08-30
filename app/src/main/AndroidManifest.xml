@@ -49,8 +49,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Main5Branch.HelpCenter"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".Main4Branch.InformReasonActivity"></activity>
+        <activity
+            android:name=".Main5Branch.HelpCenter"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main5Branch.SomeonesluntanActivity"
             android:theme="@style/AppTheme.ActionBar.Show" />
