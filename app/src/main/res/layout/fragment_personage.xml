@@ -212,6 +212,23 @@
                 android:drawableTop="@drawable/ic_makefriend"
                 android:text="申请好友"
                 android:textColor="@color/colorPrimaryDark" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/add_blacklist"
+                style="@android:style/Widget.DeviceDefault.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rc_btn_voice_hover"
+                android:drawableTop="@drawable/ic_blacklist"
+                android:text="加入黑名单"
+                android:textColor="@color/callkit_normal_text" />
+
         </TableRow>
 
     </TableLayout>

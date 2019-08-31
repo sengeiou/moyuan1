@@ -32,6 +32,15 @@
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/userAttribtes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="35dp"
+        android:layout_toRightOf="@id/authportrait"
+        android:text="TextView" />
+
+    <TextView
         android:id="@+id/userLeaveWords"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +48,8 @@
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/authportrait"
         android:text="userLeaveWords"
-        android:textColor="@color/rc_ext_root_menu_item_text_color" />
+        android:textColor="@color/rc_ext_root_menu_item_text_color"
+        tools:visibility="gone" />
 
     <Button
         android:id="@+id/userinfo_btn"

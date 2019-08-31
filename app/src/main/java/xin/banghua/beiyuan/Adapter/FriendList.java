@@ -4,10 +4,50 @@ public class FriendList {
     String mUserID;
     String mUserPortrait;
     String mUserNickName;
-    public FriendList(String userID, String userPotrait, String userNickName){
+    String mUserAge;
+    String mUserGender;
+    String mUserRegion;
+    String mUserProperty;
+    public FriendList(String userID, String userPotrait, String userNickName,String userAge,String userGender,String userRegion,String userProperty){
         this.mUserID = userID;
         this.mUserPortrait = userPotrait;
         this.mUserNickName = userNickName;
+        this.mUserAge = userAge;
+        this.mUserGender = userGender;
+        this.mUserRegion = userRegion;
+        this.mUserProperty = userProperty;
+    }
+
+    public String getmUserAge() {
+        return mUserAge;
+    }
+
+    public void setmUserAge(String mUserAge) {
+        this.mUserAge = mUserAge;
+    }
+
+    public String getmUserGender() {
+        return mUserGender;
+    }
+
+    public void setmUserGender(String mUserGender) {
+        this.mUserGender = mUserGender;
+    }
+
+    public String getmUserRegion() {
+        return mUserRegion;
+    }
+
+    public void setmUserRegion(String mUserRegion) {
+        this.mUserRegion = mUserRegion;
+    }
+
+    public String getmUserProperty() {
+        return mUserProperty;
+    }
+
+    public void setmUserProperty(String mUserProperty) {
+        this.mUserProperty = mUserProperty;
     }
 
     public String getmUserID() {

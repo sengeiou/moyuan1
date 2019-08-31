@@ -49,7 +49,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Main4Branch.InformReasonActivity"></activity>
+        <activity android:name=".Main2Branch.BlackListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"
+            ></activity>
+        <activity android:name=".Main4Branch.InformReasonActivity" />
         <activity
             android:name=".Main5Branch.HelpCenter"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -81,7 +85,9 @@
             android:name=".Main5Branch.CircleActivity"
             android:parentActivityName=".Main5Activity"
             android:theme="@style/AppTheme.ActionBar.Show" />
-        <activity android:name=".Main2Branch.NewFriend" />
+        <activity android:name=".Main2Branch.NewFriend"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".Personage.PersonageActivity"
             android:theme="@style/AppTheme.ActionBar.Show" />

@@ -67,6 +67,8 @@ public class PersonageFragment extends Fragment {
     private Button make_friend;
     private Button user_tiezi;
 
+    private Button balcklist_btn;
+
     private Context mContext;
 
 
@@ -125,6 +127,15 @@ public class PersonageFragment extends Fragment {
             }
         });
 
+        balcklist_btn = view.findViewById(R.id.add_blacklist);
+        balcklist_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addBlacklist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=addblacklist&m=socialchat");
+            }
+        });
+
+
         getDataPersonage("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=personage&m=socialchat");
 
         addSawMe("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=addsawme&m=socialchat");
@@ -182,8 +193,11 @@ public class PersonageFragment extends Fragment {
                     break;
                 case 2:
                     Toast.makeText(mContext,"已申请好友",Toast.LENGTH_LONG);
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    startActivity(intent);
+//                    Intent intent = new Intent(mContext, MainActivity.class);
+//                    startActivity(intent);
+                    break;
+                case 3:
+                    Toast.makeText(mContext,"已加入黑名单",Toast.LENGTH_LONG);
                     break;
             }
         }
@@ -281,6 +295,41 @@ public class PersonageFragment extends Fragment {
                     if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
                     Log.d(TAG, "run: 谁看过我"+request.body().toString());
 
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
+    //TODO okhttp加入黑名单
+    public void addBlacklist(final String url){
+        Toast.makeText(mContext, "已加入黑名单", Toast.LENGTH_LONG).show();
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("myid", myid)
+                        .add("yourid", mUserID)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=3;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
                 }catch (Exception e) {
                     e.printStackTrace();
                 }

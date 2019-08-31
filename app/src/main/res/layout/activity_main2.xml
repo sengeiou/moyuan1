@@ -47,6 +47,19 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+            <Button
+                android:id="@+id/blacklist_friends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rc_btn_voice_hover"
+                android:text="黑名单"
+                android:textColor="@color/colorPrimaryDark" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
                 android:id="@+id/haoyou_RecyclerView"
                 android:layout_width="match_parent"

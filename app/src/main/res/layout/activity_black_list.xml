@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Main2Branch.NewFriend">
+    tools:context=".Main2Branch.BlackListActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,9 +25,16 @@
 
         </android.support.design.widget.AppBarLayout>
 
-        <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
-            android:id="@+id/newfriend_RecyclerView"
+        <SearchView
+            android:id="@+id/friend_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
+        <com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView
+            android:id="@+id/blacklist_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
     </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>

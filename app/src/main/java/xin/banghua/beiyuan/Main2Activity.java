@@ -40,6 +40,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.Adapter.FriendAdapter;
 import xin.banghua.beiyuan.Adapter.FriendList;
+import xin.banghua.beiyuan.Main2Branch.BlackListActivity;
 import xin.banghua.beiyuan.Main2Branch.NewFriend;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
@@ -133,6 +134,14 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
                 startActivity(intent);
             }
         });
+        Button blacklist_friends = findViewById(R.id.blacklist_friends);
+        blacklist_friends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Main2Activity.this, BlackListActivity.class);
+                startActivity(intent);
+            }
+        });
 
         SearchView searchView = findViewById(R.id.friend_search);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -188,7 +197,7 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
         if (jsonArray.length()>0){
             for (int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                FriendList friends = new FriendList(jsonObject.getString("id"),jsonObject.getString("portrait"),jsonObject.getString("nickname"));
+                FriendList friends = new FriendList(jsonObject.getString("id"),jsonObject.getString("portrait"),jsonObject.getString("nickname"),jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"));
                 friendList.add(friends);
             }
         }

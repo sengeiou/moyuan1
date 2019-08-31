@@ -1,7 +1,6 @@
 package xin.banghua.beiyuan.Main2Branch;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.SearchView;
 
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
@@ -20,40 +19,52 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import xin.banghua.beiyuan.Adapter.FriendAdapter;
-import xin.banghua.beiyuan.Adapter.NewFriendsAdapter;
-import xin.banghua.beiyuan.Main2Activity;
+import xin.banghua.beiyuan.Adapter.BlackListAdapter;
+import xin.banghua.beiyuan.Adapter.FriendList;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 
-public class NewFriend extends AppCompatActivity {
+public class BlackListActivity extends AppCompatActivity {
 
-    private static final String TAG = "NewFriend";
+    private static final String TAG = "BlackListActivity";
 
-    //vars
-    private ArrayList<String> mUserID = new ArrayList<>();
-    private ArrayList<String> mUserPortrait = new ArrayList<>();
-    private ArrayList<String> mUserNickName = new ArrayList<>();
-    private ArrayList<String> mUserLeaveWords = new ArrayList<>();
-    private ArrayList<Integer> mUserAgree = new ArrayList<>();
+    private List<FriendList> friendList = new ArrayList<>();
+
+    private BlackListAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_new_friend);
+        setContentView(R.layout.activity_black_list);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getDataFriends("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapply&m=socialchat");
+        SearchView searchView = findViewById(R.id.friend_search);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+                return false;
+            }
+        });
+
+        getBlackList("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=getblacklist&m=socialchat");
     }
 
     @Override  //菜单的点击，其中返回键的id是android.R.id.home
@@ -70,18 +81,17 @@ public class NewFriend extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //TODO 初始化好友申请
-    private void initFriends(View view, JSONArray jsonArray) throws JSONException {
+
+
+    //TODO 初始化用户列表
+    private void initBlackList(View view, JSONArray jsonArray) throws JSONException {
         Log.d(TAG, "initFriends: ");
 
         if (jsonArray.length()>0){
             for (int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                mUserID.add(jsonObject.getString("yourid"));
-                mUserPortrait.add(jsonObject.getString("yourportrait"));
-                mUserNickName.add(jsonObject.getString("yournickname"));
-                mUserLeaveWords.add(jsonObject.getString("yourleavewords"));
-                mUserAgree.add(jsonObject.getInt("agree"));
+                FriendList friends = new FriendList(jsonObject.getString("id"),jsonObject.getString("portrait"),jsonObject.getString("nickname"),jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"));
+                friendList.add(friends);
             }
         }
 
@@ -93,8 +103,8 @@ public class NewFriend extends AppCompatActivity {
     private void initRecyclerView(View view){
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
-        final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.newfriend_RecyclerView);
-        NewFriendsAdapter adapter = new NewFriendsAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserLeaveWords,mUserAgree);
+        final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.blacklist_RecyclerView);
+        adapter = new BlackListAdapter(BlackListActivity.this,friendList);
         recyclerView.setAdapter(adapter);
         recyclerView.setLinearLayout();
         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
@@ -127,7 +137,7 @@ public class NewFriend extends AppCompatActivity {
                         Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
 
                         JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
-                        initFriends(getWindow().getDecorView(),jsonArray);
+                        initBlackList(getWindow().getDecorView(),jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -135,16 +145,17 @@ public class NewFriend extends AppCompatActivity {
             }
         }
     };
-    //TODO okhttp获取用户信息
-    public void getDataFriends(final String url){
+    //TODO okhttp获取黑名单信息
+    public void getBlackList(final String url){
         new Thread(new Runnable() {
             @Override
             public void run(){
                 SharedHelper shvalue = new SharedHelper(getApplicationContext());
-                String userID = shvalue.readUserInfo().get("userID");
+                String myid = shvalue.readUserInfo().get("userID");
+
                 OkHttpClient client = new OkHttpClient();
                 RequestBody formBody = new FormBody.Builder()
-                        .add("myid", userID)
+                        .add("myid", myid)
                         .build();
                 Request request = new Request.Builder()
                         .url(url)
