@@ -407,9 +407,13 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
         new Thread(new Runnable() {
             @Override
             public void run(){
+                SharedHelper sh = new SharedHelper(getActivity());
+                String myid = sh.readUserInfo().get("userID");
+
                 OkHttpClient client = new OkHttpClient();
                 RequestBody formBody = new FormBody.Builder()
                         .add("type", "getPostlist")
+                        .add("myid", myid)
                         .add("platename", subNav)
                         .build();
                 Request request = new Request.Builder()

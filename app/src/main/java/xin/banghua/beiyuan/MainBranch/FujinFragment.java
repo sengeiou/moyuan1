@@ -221,10 +221,12 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
             public void run(){
                 SharedHelper sh = new SharedHelper(getActivity());
                 Map<String,String> locationInfo = sh.readLocation();
+                String myid = sh.readUserInfo().get("userID");
 
                 OkHttpClient client = new OkHttpClient();
                 RequestBody formBody = new FormBody.Builder()
                         .add("type", "getUserInfo")
+                        .add("myid", myid)
                         .add("latitude",locationInfo.get("latitude"))
                         .add("longitude",locationInfo.get("longitude"))
                         .build();
