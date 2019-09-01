@@ -1,7 +1,9 @@
 package xin.banghua.beiyuan;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,6 +30,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
@@ -44,10 +47,12 @@ import xin.banghua.beiyuan.Main2Branch.BlackListActivity;
 import xin.banghua.beiyuan.Main2Branch.NewFriend;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
+import xin.banghua.beiyuan.Signin.SigninActivity;
 
 public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoProvider{
     private static final String TAG = "Main2Activity";
 
+    Uniquelogin uniquelogin;
 
     private List<FriendList> friendList = new ArrayList<>();
 
@@ -101,6 +106,8 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
+        //登录判断
+        ifSignin();
 
         //设置融云当前用户信息
         SharedHelper shuserinfo = new SharedHelper(getApplicationContext());
@@ -163,6 +170,21 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
 
     }
 
+    public void ifSignin(){
+        Map<String,String> userInfo;
+        SharedHelper sh;
+        sh = new SharedHelper(getApplicationContext());
+        userInfo = sh.readUserInfo();
+        //Toast.makeText(mContext, userInfo.toString(), Toast.LENGTH_SHORT).show();
+        if(userInfo.get("userID")==""){
+            Intent intentSignin = new Intent(Main2Activity.this, SigninActivity.class);
+            startActivity(intentSignin);
+        }else{
+            //唯一登录验证
+            uniquelogin = new Uniquelogin(this,handler);
+            uniquelogin.compareUniqueLoginToken("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=uniquelogin&m=socialchat");
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -254,6 +276,18 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
                         Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
                         friendApply = findViewById(R.id.new_friend);
                         friendApply.setText("+新朋友 "+msg.obj.toString());
+                    break;
+                case 10:
+                    if (msg.obj.toString().equals("false")){
+                        uniquelogin.uniqueNotification();
+                        SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("userID", "");
+                        editor.commit();
+                        Intent intent = new Intent(Main2Activity.this, SigninActivity.class);
+                        intent.putExtra("uniquelogin","强制退出");
+                        startActivity(intent);
+                    }
                     break;
             }
         }

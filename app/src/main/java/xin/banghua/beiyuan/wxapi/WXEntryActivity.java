@@ -36,6 +36,7 @@ import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 import xin.banghua.beiyuan.Signin.SigninActivity;
 import xin.banghua.beiyuan.Signin.SignupActivity;
 import xin.banghua.beiyuan.Signin.Userset;
+import xin.banghua.beiyuan.Uniquelogin;
 
 public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private static final String TAG = "WXEntryActivity";
@@ -256,6 +257,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         .add("openid", openid)
                         .add("nickname", nickname)
                         .add("portrait", portrait)
+                        .add("uniquelogintoken",new Uniquelogin(mContext,handler).saveToken())
                         .build();
                 Request request = new Request.Builder()
                         .url(url)

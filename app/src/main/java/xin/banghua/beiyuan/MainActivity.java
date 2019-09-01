@@ -1,14 +1,18 @@
 package xin.banghua.beiyuan;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 //import android.support.design.widget.BottomNavigationView;
 import android.support.design.internal.BottomNavigationItemView;
@@ -49,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
-    public Map<String,String> userInfo;
+    Uniquelogin uniquelogin;
 
     //super果 18673668974
     private static final String token1 = "FnqsejuE+d830KfLY+PQ/r2N7KVbcvzutnIpZ+Sh9wDFjYfKqXxBctd4ec0OeFSRUAuX4eO3BltHQ60BVeZ2HA==";
@@ -59,7 +63,6 @@ public class MainActivity extends AppCompatActivity {
     private static final String token3 = "PxvEuLbavYH5sNKqsxX7lb2N7KVbcvzutnIpZ+Sh9wDFjYfKqXxBcvx+1j1Oq44Au22Gnok3QTNHQ60BVeZ2HA==";
 
 
-    private SharedHelper sh;
     private Context mContext = this;
 
 
@@ -187,6 +190,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     public void ifSignin(){
+        Map<String,String> userInfo;
+        SharedHelper sh;
         sh = new SharedHelper(getApplicationContext());
         userInfo = sh.readUserInfo();
         //Toast.makeText(mContext, userInfo.toString(), Toast.LENGTH_SHORT).show();
@@ -194,6 +199,9 @@ public class MainActivity extends AppCompatActivity {
             Intent intentSignin = new Intent(MainActivity.this, SigninActivity.class);
             startActivity(intentSignin);
         }else{
+            //唯一登录验证
+            uniquelogin = new Uniquelogin(this,handler);
+            uniquelogin.compareUniqueLoginToken("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=uniquelogin&m=socialchat");
             //登录后，更新定位信息，包括经纬度和更新时间
             //获取用户id和定位值
             SharedHelper shlocation = new SharedHelper(getApplicationContext());
@@ -264,5 +272,30 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //1是用户数据，2是幻灯片
+            switch (msg.what){
+                case 10:
+                    if (msg.obj.toString().equals("false")){
+                        //通知
+                        uniquelogin.uniqueNotification();
+                        SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("userID", "");
+                        editor.commit();
+                        Intent intent = new Intent(MainActivity.this, SigninActivity.class);
+                        intent.putExtra("uniquelogin","强制退出");
+                        startActivity(intent);
+                    }
+                    break;
+            }
+        }
+    };
 
 }

@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -38,6 +39,7 @@ import xin.banghua.beiyuan.OkHttp.OkHttpHelper;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
+import xin.banghua.beiyuan.Uniquelogin;
 
 import static io.rong.imkit.fragment.ConversationFragment.TAG;
 
@@ -83,6 +85,12 @@ public class SigninActivity extends Activity {
         setContentView(R.layout.activity_signin);
         regToWx();
         mContext = this;
+
+        Intent intent = getIntent();
+        String data = intent.getStringExtra("uniquelogin");
+        if (data!=null){
+            Toast.makeText(this, "您的账号在其他设备登录，强制退出", Toast.LENGTH_LONG).show();
+        }
 
         signIn = (Button) findViewById(R.id.signin_btn);
         signUp = (Button) findViewById(R.id.signup_btn);
@@ -200,6 +208,7 @@ public class SigninActivity extends Activity {
                 RequestBody formBody = new FormBody.Builder()
                         .add("userAccount", userAccount)
                         .add("userPassword",userPassword)
+                        .add("uniquelogintoken",new Uniquelogin(mContext,handler).saveToken())
                         .build();
                 Request request = new Request.Builder()
                         .url(url)

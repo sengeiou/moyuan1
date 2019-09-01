@@ -1,7 +1,12 @@
 package xin.banghua.beiyuan;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationItemView;
@@ -16,13 +21,16 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Map;
 
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.model.Conversation;
+import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
+import xin.banghua.beiyuan.Signin.SigninActivity;
 
 public class Main4Activity extends AppCompatActivity {
-
+    Uniquelogin uniquelogin;
     private static final String TAG = "Main4Activity";
 
     private TextView mTextMessage;
@@ -71,7 +79,7 @@ public class Main4Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main4);
-
+        ifSignin();
         mTextMessage = (TextView) findViewById(R.id.message);
 
         //底部导航初始化和配置监听，默认选项
@@ -87,6 +95,21 @@ public class Main4Activity extends AppCompatActivity {
             }
         };
         RongIM.getInstance().addUnReadMessageCountChangedObserver(iUnReadMessageObserver, Conversation.ConversationType.PRIVATE);
+    }
+    public void ifSignin(){
+        Map<String,String> userInfo;
+        SharedHelper sh;
+        sh = new SharedHelper(getApplicationContext());
+        userInfo = sh.readUserInfo();
+        //Toast.makeText(mContext, userInfo.toString(), Toast.LENGTH_SHORT).show();
+        if(userInfo.get("userID")==""){
+            Intent intentSignin = new Intent(Main4Activity.this, SigninActivity.class);
+            startActivity(intentSignin);
+        }else{
+            //唯一登录验证
+            uniquelogin = new Uniquelogin(this,handler);
+            uniquelogin.compareUniqueLoginToken("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=uniquelogin&m=socialchat");
+        }
     }
     @Override
     protected void onDestroy() {
@@ -138,4 +161,28 @@ public class Main4Activity extends AppCompatActivity {
         }
 
     }
+
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //1是用户数据，2是幻灯片
+            switch (msg.what){
+                case 10:
+                    if (msg.obj.toString().equals("false")){
+                        uniquelogin.uniqueNotification();
+                        SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("userID", "");
+                        editor.commit();
+                        Intent intent = new Intent(Main4Activity.this, SigninActivity.class);
+                        intent.putExtra("uniquelogin","强制退出");
+                        startActivity(intent);
+                    }
+                    break;
+            }
+        }
+    };
 }
