@@ -88,9 +88,14 @@ public class SigninActivity extends Activity {
         mContext = this;
 
         Intent intent = getIntent();
-        String data = intent.getStringExtra("uniquelogin");
-        if (data!=null){
+        String uniquelogin = intent.getStringExtra("uniquelogin");
+        String forbidtime = intent.getStringExtra("forbidtime");
+        if (uniquelogin!=null){
             Toast.makeText(this, "您的账号在其他设备登录，强制退出", Toast.LENGTH_LONG).show();
+        }
+        if (forbidtime!=null){
+            Log.d(TAG, "onCreate: forbidtime"+forbidtime);
+            Toast.makeText(this, "已被封禁"+forbidtime+"天", Toast.LENGTH_LONG).show();
         }
 
         signIn = (Button) findViewById(R.id.signin_btn);
@@ -166,7 +171,7 @@ public class SigninActivity extends Activity {
 
                         }else {
                             Log.d(TAG, "handleMessage: test");
-                            Toast.makeText(SigninActivity.this,"账号或密码错误",Toast.LENGTH_LONG).show();
+                            Toast.makeText(SigninActivity.this,object.getString("info"),Toast.LENGTH_LONG).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

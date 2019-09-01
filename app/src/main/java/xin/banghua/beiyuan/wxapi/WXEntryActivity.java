@@ -142,8 +142,16 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                     mContext = getApplicationContext();
                     JSONObject jsonObject = null;//自定义的
                     try {
-                        //不管登陆过没有，都保存本地数据
                         jsonObject = new ParseJSONObject(msg.obj.toString()).getParseJSON();
+
+                        if (jsonObject.getString("type").equals("3")){
+                            //被禁用，跳转登录页
+                            Log.d(TAG, "handleMessage: forbidtime"+jsonObject.get("forbidtime"));
+                            Intent intent1 = new Intent(WXEntryActivity.this, SigninActivity.class);
+                            intent1.putExtra("forbidtime",jsonObject.get("forbidtime")+"");
+                            startActivity(intent1);
+                        }
+                        //不管登陆过没有，都保存本地数据
                         SharedHelper sh = new SharedHelper(mContext);
                         sh.saveUserInfo(jsonObject.getString("id"),jsonObject.getString("nickname"),jsonObject.getString("portrait"),"20","男","z","中国");
                         if (jsonObject.getString("type").equals("1")){
