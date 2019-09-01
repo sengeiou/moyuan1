@@ -39,7 +39,7 @@
 
     <meta-data
         android:name="com.amap.api.v2.apikey"
-        android:value="f85a0df118494327655e72cdc541c78f" />
+        android:value="f0c1f7d9d1447712dab45332883b5fc1" />
 
     <application
         android:name=".App"
@@ -188,6 +188,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <provider
+            android:name=".MyFileProvider"
+            android:authorities="xin.banghua.beiyuan.FileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/rc_file_path" />
+        </provider>
         <activity android:name="io.rong.callkit.CallSelectMemberActivity" /> <!-- 小米 配置开始 < -->
         <service
             android:name="com.xiaomi.push.service.XMPushService"

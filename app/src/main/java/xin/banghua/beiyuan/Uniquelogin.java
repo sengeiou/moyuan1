@@ -36,7 +36,7 @@ public class Uniquelogin {
 
     public String saveToken(){
         String uniquelogintoken = System.currentTimeMillis()+"";
-        SharedPreferences sp = context.getApplicationContext().getSharedPreferences("uniquelogintoken", Context.MODE_PRIVATE);
+        SharedPreferences sp = context.getSharedPreferences("uniquelogintoken", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("uniquelogintoken", uniquelogintoken);
         editor.commit();

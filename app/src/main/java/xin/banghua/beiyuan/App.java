@@ -45,6 +45,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
     @Override
     public void onCreate() {
         super.onCreate();
+        Log.d(TAG, "onCreate: onActivityonCreate:");
         registerActivityLifecycleCallbacks(this);
         //融云
         PushConfig config = new PushConfig.Builder()
@@ -67,6 +68,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
 //        SharedHelper shuserinfo = new SharedHelper(getApplicationContext());
 //        String token = shuserinfo.readRongtoken().get("Rongtoken");
 //        connect(token);
+
     }
 
     /**
@@ -157,7 +159,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
     @Override
     public void onActivityPaused(Activity activity) {
         Log.d(TAG, "onActivityPaused: ");
-        RongIM.getInstance().disconnect();//断开融云
+        //RongIM.getInstance().disconnect();//断开融云
     }
 
     @Override

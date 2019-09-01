@@ -31,9 +31,9 @@
 
             <EditText
                 android:id="@+id/title_et"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_span="4"
+                android:layout_span="3"
                 android:ems="10"
                 android:hint="标题"
                 android:inputType="text" />
@@ -46,10 +46,9 @@
 
             <EditText
                 android:id="@+id/content_et"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_span="4"
-                android:ems="10"
+                android:layout_span="3"
                 android:gravity="top"
                 android:hint="内容"
                 android:inputType="textMultiLine|textPersonName"

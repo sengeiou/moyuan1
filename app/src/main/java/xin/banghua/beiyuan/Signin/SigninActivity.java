@@ -34,6 +34,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.beiyuan.Main3Branch.RongyunConnect;
 import xin.banghua.beiyuan.MainActivity;
 import xin.banghua.beiyuan.OkHttp.OkHttpHelper;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
@@ -161,7 +162,6 @@ public class SigninActivity extends Activity {
                             SharedHelper sh = new SharedHelper(mContext);
                             sh.saveUserInfo(object.getString("userID"),object.getString("userNickName"),object.getString("userPortrait"),object.getString("userAge"),object.getString("userGender"),object.getString("userProperty"),object.getString("userRegion"));
                             //判断token是否存在
-
                             postRongyunUserRegister("https://rongyun.banghua.xin/RongCloud/example/User/userregister.php",object.getString("userID"),object.getString("userNickName"),object.getString("userPortrait"));
 
                         }else {
@@ -185,6 +185,9 @@ public class SigninActivity extends Activity {
                             SharedHelper sh = new SharedHelper(mContext);
                             sh.saveRongtoken(object1.getString("token"));
 
+                            //链接融云
+                            RongyunConnect rongyunConnect = new RongyunConnect();
+                            rongyunConnect.connect(object1.getString("token"));
                             //跳转首页
                             //Log.d("跳转首页",object1.getString("userNickName"));
                             Intent intent = new Intent(SigninActivity.this, MainActivity.class);
@@ -234,7 +237,7 @@ public class SigninActivity extends Activity {
         }).start();
     }
 
-    //TODO 登录 form形式的post
+    //TODO 登录 注册融云
     public void postRongyunUserRegister(final String url, final String userID, final String userNickName,final String userPortrait){
         new Thread(new Runnable() {
             @Override
