@@ -9,15 +9,18 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:stretchColumns="*">
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center">
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/userID"
@@ -32,56 +35,62 @@
                     android:layout_height="60dp"
                     android:src="@mipmap/ic_launcher" />
 
-                <TextView
-                    android:id="@+id/authattributes"
+                <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_toRightOf="@id/authportrait"
-                    android:text="authattributes"
-                    android:textColor="@color/rc_ext_sub_menu_item_text_color" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/userNickName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_toRightOf="@+id/authportrait"
-                    android:text="userNickName"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/authattributes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="authattributes"
+                        android:textColor="@color/rc_ext_sub_menu_item_text_color" />
 
-                <Button
-                    android:id="@+id/menu_btn"
-                    style="@style/Base.Widget.AppCompat.Button.Borderless"
-                    android:layout_width="30dp"
-                    android:layout_height="25dp"
-                    android:layout_marginLeft="320dp"
-                    android:background="@drawable/ic_threepoints" />
+                    <TextView
+                        android:id="@+id/userNickName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="userNickName"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="18sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/dongtaiTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="230dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_toRightOf="@id/authportrait"
-                    android:text="publishTime"
-                    android:textColor="@color/rc_ext_sub_menu_item_text_color" />
-            </RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/menu_btn"
+                        style="@style/Base.Widget.AppCompat.Button.Borderless"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:background="@drawable/ic_threepoints" />
+
+                    <TextView
+                        android:id="@+id/dongtaiTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="publishTime"
+                        android:textColor="@color/rc_ext_sub_menu_item_text_color" />
+                </LinearLayout>
+            </LinearLayout>
 
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="center">
 
             <TextView
                 android:id="@+id/dongtaiWord"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp"
                 android:text="99999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999"
                 android:textColor="@color/colorAccent"
                 android:textSize="18sp" />
@@ -90,33 +99,28 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="center"
             android:padding="5dp">
 
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/dongtaiImage"
-                android:layout_width="300dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="50dp" />
+                android:adjustViewBounds="true"
+                android:maxHeight="200dp" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:gravity="right">
 
-            <RelativeLayout
+            <TextView
+                android:id="@+id/like"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <TextView
-                    android:id="@+id/like"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="280dp"
-                    android:drawableLeft="@drawable/ic_like"
-                    android:text="赞232"
-                    android:textColor="@color/rc_draft_color" />
-
-            </RelativeLayout>
+                android:layout_height="match_parent"
+                android:drawableRight="@drawable/ic_like"
+                android:text="赞232"
+                android:textAlignment="textEnd"
+                android:textColor="@color/rc_draft_color" />
 
         </TableRow>
 

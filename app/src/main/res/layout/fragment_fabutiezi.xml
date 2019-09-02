@@ -6,122 +6,125 @@
     android:layout_height="match_parent"
     tools:context=".Main4Branch.FabutieziFragment">
 
-    <TableLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:stretchColumns="*">
+        android:layout_height="match_parent">
 
-        <TableRow
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="right">
+            android:layout_height="wrap_content"
+            android:stretchColumns="*">
 
-            <Button
-                android:id="@+id/release_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="发布"
-                android:textColor="@color/colorAccent" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <EditText
-                android:id="@+id/title_et"
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_span="3"
-                android:ems="10"
-                android:hint="标题"
-                android:inputType="text" />
-        </TableRow>
+                android:layout_height="match_parent"
+                android:gravity="right">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+                <Button
+                    android:id="@+id/release_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="发布"
+                    android:textColor="@color/colorAccent" />
+            </TableRow>
 
-            <EditText
-                android:id="@+id/content_et"
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_span="3"
-                android:gravity="top"
-                android:hint="内容"
-                android:inputType="textMultiLine|textPersonName"
-                android:minLines="20" />
-        </TableRow>
+                android:layout_height="match_parent">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+                <EditText
+                    android:id="@+id/title_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:ems="10"
+                    android:hint="标题"
+                    android:inputType="text" />
+            </TableRow>
 
-            <RadioGroup
-                android:id="@+id/bankuai_rg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_span="4"
-                android:checkedButton="@+id/zipai_rb"
-                android:orientation="horizontal">
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-                <RadioButton
-                    android:id="@+id/zipai_rb"
+                <EditText
+                    android:id="@+id/content_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_span="3"
+                    android:gravity="top"
+                    android:hint="内容"
+                    android:inputType="textMultiLine|textPersonName"
+                    android:minLines="10" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RadioGroup
+                    android:id="@+id/bankuai_rg"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="自拍" />
+                    android:layout_span="4"
+                    android:checkedButton="@+id/zipai_rb"
+                    android:orientation="horizontal">
 
-                <RadioButton
-                    android:id="@+id/zhenshi_rb"
-                    android:layout_width="wrap_content"
+                    <RadioButton
+                        android:id="@+id/zipai_rb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="自拍" />
+
+                    <RadioButton
+                        android:id="@+id/zhenshi_rb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="真实" />
+
+                    <RadioButton
+                        android:id="@+id/qinggan_rb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="情感" />
+
+                    <RadioButton
+                        android:id="@+id/daquan_rb"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="大圈" />
+                </RadioGroup>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="125dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="真实" />
+                    tools:src="@tools:sample/avatars" />
 
-                <RadioButton
-                    android:id="@+id/qinggan_rb"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="125dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="情感" />
+                    android:visibility="invisible"
+                    tools:src="@tools:sample/avatars" />
 
-                <RadioButton
-                    android:id="@+id/daquan_rb"
-                    android:layout_width="wrap_content"
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="125dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="大圈" />
-            </RadioGroup>
-        </TableRow>
+                    android:visibility="invisible"
+                    tools:src="@tools:sample/avatars" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
 
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="125dp"
-                android:layout_height="wrap_content"
-                tools:src="@tools:sample/avatars" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="125dp"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                tools:src="@tools:sample/avatars" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="125dp"
-                android:layout_height="wrap_content"
-                android:visibility="invisible"
-                tools:src="@tools:sample/avatars" />
-
-        </TableRow>
-    </TableLayout>
 </FrameLayout>

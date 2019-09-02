@@ -7,7 +7,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -53,6 +56,13 @@ public class ResetPersonalInfoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle("个人信息修改");
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setHasOptionsMenu(true);
 
         reset_portrait_btn = view.findViewById(R.id.reset_portrait_btn);
         reset_portrait_btn.setOnClickListener(new View.OnClickListener() {
@@ -121,5 +131,22 @@ public class ResetPersonalInfoFragment extends Fragment {
 
         //ImageView back_btn = view.findViewById(R.id.iv_back_left);
         //back_btn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.reset_me_action));
+    }
+
+    @Override  //菜单的点击，其中返回键的id是android.R.id.home
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().onBackPressed(); // back button
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

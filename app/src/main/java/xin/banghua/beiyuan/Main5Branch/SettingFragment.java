@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -38,6 +41,8 @@ public class SettingFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.mContext = getActivity();
+
+
     }
     public SettingFragment() {
         // Required empty public constructor
@@ -53,6 +58,13 @@ public class SettingFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        toolbar.setTitle("设置");
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        setHasOptionsMenu(true);
+
         super.onViewCreated(view, savedInstanceState);
         phone_reset = view.findViewById(R.id.phone_reset);
         email_reset = view.findViewById(R.id.email_reset);
@@ -140,5 +152,23 @@ public class SettingFragment extends Fragment {
         });
 
 
+    }
+
+
+    @Override  //菜单的点击，其中返回键的id是android.R.id.home
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                getActivity().onBackPressed(); // back button
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
