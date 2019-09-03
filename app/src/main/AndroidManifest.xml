@@ -49,10 +49,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".Main2Branch.BlackListActivity"
+        <activity android:name=".SliderWebViewActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            ></activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".Main2Branch.BlackListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Main4Branch.InformReasonActivity" />
         <activity
             android:name=".Main5Branch.HelpCenter"
@@ -85,9 +88,10 @@
             android:name=".Main5Branch.CircleActivity"
             android:parentActivityName=".Main5Activity"
             android:theme="@style/AppTheme.ActionBar.Show" />
-        <activity android:name=".Main2Branch.NewFriend"
+        <activity
+            android:name=".Main2Branch.NewFriend"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Personage.PersonageActivity"
             android:theme="@style/AppTheme.ActionBar.Show" />
@@ -135,8 +139,8 @@
         <activity
             android:name=".ConversationActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden|adjustResize"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -189,6 +193,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
         <provider
             android:name=".MyFileProvider"
             android:authorities="xin.banghua.beiyuan.FileProvider"
@@ -198,6 +203,7 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/rc_file_path" />
         </provider>
+
         <activity android:name="io.rong.callkit.CallSelectMemberActivity" /> <!-- 小米 配置开始 < -->
         <service
             android:name="com.xiaomi.push.service.XMPushService"

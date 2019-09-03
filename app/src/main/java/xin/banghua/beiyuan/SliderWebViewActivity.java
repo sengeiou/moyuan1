@@ -1,12 +1,11 @@
-package xin.banghua.beiyuan.Main5Branch;
+package xin.banghua.beiyuan;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebResourceRequest;
@@ -14,32 +13,39 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-
-import xin.banghua.beiyuan.R;
-
-public class HelpCenter extends AppCompatActivity {
+public class SliderWebViewActivity extends AppCompatActivity {
     private WebView mWebView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_help_center);
+        setContentView(R.layout.activity_slider_web_view);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        init("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=helpcenter&m=socialchat");
+
+        Intent intent = getIntent();
+        String sliderurl = intent.getStringExtra("sliderurl");
+        String slidername = intent.getStringExtra("slidername");
+
+        getSupportActionBar().setTitle(slidername);
+
+        init(sliderurl);
     }
-
-
-
     @Override  //菜单的点击，其中返回键的id是android.R.id.home
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
+//        if (id == R.id.action_settings) {
+//            return true;
+//        }
         switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish(); // back button
@@ -48,9 +54,10 @@ public class HelpCenter extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @SuppressLint("SetJavaScriptEnabled")
+
+    @SuppressLint({"SetJavaScriptEnabled", "JavascriptInterface"})
     private void init(String url) {
-        mWebView = (WebView) findViewById(R.id.helpcenter_webview);
+        mWebView = (WebView) findViewById(R.id.sliderWebView);
         // 开启JavaScript支持
         mWebView.getSettings().setJavaScriptEnabled(true);
 
@@ -135,8 +142,4 @@ public class HelpCenter extends AppCompatActivity {
             System.out.println("====>html=" + str);
         }
     }
-
-
-
-
 }

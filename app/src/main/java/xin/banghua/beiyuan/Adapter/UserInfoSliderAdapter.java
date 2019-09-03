@@ -32,8 +32,9 @@ import java.util.HashMap;
 import de.hdodenhof.circleimageview.CircleImageView;
 import xin.banghua.beiyuan.Personage.PersonageActivity;
 import xin.banghua.beiyuan.R;
+import xin.banghua.beiyuan.SliderWebViewActivity;
 
-public class UserInfoSliderAdapter extends RecyclerView.Adapter implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener{
+public class UserInfoSliderAdapter extends RecyclerView.Adapter implements  ViewPagerEx.OnPageChangeListener{
     private static final String TAG = "UserInfoSliderAdapter";
     private final static int TYPE_HEAD = 0;
     private final static int TYPE_CONTENT = 1;
@@ -107,10 +108,38 @@ public class UserInfoSliderAdapter extends RecyclerView.Adapter implements BaseS
             HashMap<String,String> url_maps = new HashMap<String, String>();
             if (jsonArray.length()>0){
                 for (int j=0;j<jsonArray.length();j++){
-                    JSONObject jsonObject = null;
                     try {
-                        jsonObject = jsonArray.getJSONObject(j);
-                        url_maps.put(jsonObject.getString("slidename"), jsonObject.getString("slidepicture"));
+                      final JSONObject jsonObject = jsonArray.getJSONObject(j);
+                        //url_maps.put(jsonObject.getString("slidename"), jsonObject.getString("slidepicture"));
+                        TextSliderView textSliderView = new TextSliderView(mContext);
+                        // initialize a SliderLayout
+                        textSliderView
+                                .description(jsonObject.getString("slidename"))
+                                .image(jsonObject.getString("slidepicture"))
+                                .setScaleType(BaseSliderView.ScaleType.Fit)
+                                .setOnSliderClickListener(new BaseSliderView.OnSliderClickListener() {
+                                    @Override
+                                    public void onSliderClick(BaseSliderView slider) {
+                                        try {
+                                            if (!jsonObject.getString("slideurl").isEmpty()){
+                                                Log.d(TAG, "onSliderClick: 链接是"+jsonObject.getString("slideurl"));
+                                                Intent intent = new Intent(mContext, SliderWebViewActivity.class);
+                                                intent.putExtra("slidername",jsonObject.getString("slidename"));
+                                                intent.putExtra("sliderurl",jsonObject.getString("slideurl"));
+                                                mContext.startActivity(intent);
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                });
+
+                        //add your extra information
+                        textSliderView.bundle(new Bundle());
+                        textSliderView.getBundle()
+                                .putString("extra",jsonObject.getString("slidename"));
+
+                        mDemoSlider.addSlider(textSliderView);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -118,22 +147,7 @@ public class UserInfoSliderAdapter extends RecyclerView.Adapter implements BaseS
                 }
             }
 
-            for(String name : url_maps.keySet()){
-                TextSliderView textSliderView = new TextSliderView(mContext);
-                // initialize a SliderLayout
-                textSliderView
-                        .description(name)
-                        .image(url_maps.get(name))
-                        .setScaleType(BaseSliderView.ScaleType.Fit)
-                        .setOnSliderClickListener(this);
 
-                //add your extra information
-                textSliderView.bundle(new Bundle());
-                textSliderView.getBundle()
-                        .putString("extra",name);
-
-                mDemoSlider.addSlider(textSliderView);
-            }
             mDemoSlider.setMinimumHeight(100);
             mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
             mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
@@ -200,10 +214,6 @@ public class UserInfoSliderAdapter extends RecyclerView.Adapter implements BaseS
         return mUserID.size()+1;
     }
 
-    @Override
-    public void onSliderClick(BaseSliderView slider) {
-
-    }
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
