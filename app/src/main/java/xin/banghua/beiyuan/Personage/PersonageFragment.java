@@ -123,7 +123,7 @@ public class PersonageFragment extends Fragment {
         make_friend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                makeFriend("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=addfriend&m=socialchat");
+                getFriendNumber("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsnumber&m=socialchat");
             }
         });
 
@@ -192,12 +192,22 @@ public class PersonageFragment extends Fragment {
                     }
                     break;
                 case 2:
-                    Toast.makeText(mContext,"已申请好友",Toast.LENGTH_LONG);
+                    Toast.makeText(mContext,"已申请好友",Toast.LENGTH_LONG).show();
 //                    Intent intent = new Intent(mContext, MainActivity.class);
 //                    startActivity(intent);
                     break;
                 case 3:
-                    Toast.makeText(mContext,"已加入黑名单",Toast.LENGTH_LONG);
+                    Toast.makeText(mContext,"已加入黑名单",Toast.LENGTH_LONG).show();
+                    break;
+                case 4:
+                    Log.d(TAG, "handleMessage: 进入好友判断");
+                    if (msg.obj.toString().equals("好友人数未超过限制")){
+                        Log.d(TAG, "handleMessage: 跳转添加好友");
+                        makeFriend("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=addfriend&m=socialchat");
+                    }else {
+                        Log.d(TAG, "handleMessage: 会员数量满");
+                        Toast.makeText(mContext,msg.obj.toString(),Toast.LENGTH_LONG).show();
+                    }
                     break;
             }
         }
@@ -233,7 +243,7 @@ public class PersonageFragment extends Fragment {
 
     //TODO 添加好友
     public void makeFriend(final String url){
-        Toast.makeText(mContext, "申请成功", Toast.LENGTH_LONG).show();
+        //Toast.makeText(mContext, "申请成功", Toast.LENGTH_LONG).show();
         new Thread(new Runnable() {
             @Override
             public void run(){
@@ -305,7 +315,7 @@ public class PersonageFragment extends Fragment {
 
     //TODO okhttp加入黑名单
     public void addBlacklist(final String url){
-        Toast.makeText(mContext, "已加入黑名单", Toast.LENGTH_LONG).show();
+        //Toast.makeText(mContext, "已加入黑名单", Toast.LENGTH_LONG).show();
         new Thread(new Runnable() {
             @Override
             public void run(){
@@ -328,6 +338,38 @@ public class PersonageFragment extends Fragment {
                     Message message=handler.obtainMessage();
                     message.obj=response.body().string();
                     message.what=3;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    //TODO okhttp获取好友人数
+    public void getFriendNumber(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("myid", myid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=4;
                     Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
                     handler.sendMessageDelayed(message,10);
                 }catch (Exception e) {

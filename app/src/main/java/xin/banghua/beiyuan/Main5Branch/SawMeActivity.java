@@ -1,14 +1,20 @@
 package xin.banghua.beiyuan.Main5Branch;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.OnItemClickListener;
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
 import org.json.JSONArray;
@@ -57,9 +63,43 @@ public class SawMeActivity extends AppCompatActivity {
             }
         });
 
-        getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=sawme&m=socialchat");
-    }
 
+        //vip
+        getVipinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=viptimeinsousuo&m=socialchat");
+
+
+    }
+    //TODO okhttp获取用户信息
+    public void getVipinfo(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("id", myid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=2;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
     //TODO 初始化用户列表
     private void initUserInfo(View view,JSONArray jsonArray) throws JSONException {
         Log.d(TAG, "initUserInfo: preparing userinfo");
@@ -161,6 +201,56 @@ public class SawMeActivity extends AppCompatActivity {
                         initUserInfo(getWindow().getDecorView(),jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
+
+                    if (msg.obj.toString().equals("会员已到期")){
+                        final DialogPlus dialog = DialogPlus.newDialog(SawMeActivity.this)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_foot_needvip)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        Button buvip = view.findViewById(R.id.buyvip_btn);
+                        buvip.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                Intent intent = new Intent(SawMeActivity.this, BuyvipActivity.class);
+                                startActivity(intent);
+                            }
+                        });
+                        Button cancel = view.findViewById(R.id.goback_btn);
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                finish();
+                            }
+                        });
+                    }else {
+                        getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=sawme&m=socialchat");
                     }
                     break;
             }
