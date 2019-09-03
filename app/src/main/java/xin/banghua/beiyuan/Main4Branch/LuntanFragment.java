@@ -72,6 +72,8 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
     ToggleButton toggleButton1,toggleButton2,toggleButton3,toggleButton4,toggleButton5;
 
     private View mView;
+
+    private String subtitle;
     public LuntanFragment() {
         // Required empty public constructor
     }
@@ -125,7 +127,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                 toggleButton5.setChecked(false);
                 getDataGonggao("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat");
                 getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","首页");
-                getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","首页");
+                //getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","首页");
             }
         });
         toggleButton2 = view.findViewById(R.id.toggleButton2);
@@ -138,7 +140,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                 toggleButton5.setChecked(false);
                 marqueeTv.setVisibility(View.GONE);
                 getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","自拍");
-                getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","自拍");
+                //getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","自拍");
             }
         });
         toggleButton3 = view.findViewById(R.id.toggleButton3);
@@ -151,7 +153,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                 toggleButton5.setChecked(false);
                 marqueeTv.setVisibility(View.GONE);
                 getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","真实");
-                getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","真实");
+                //getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","真实");
             }
         });
         toggleButton4 = view.findViewById(R.id.toggleButton4);
@@ -164,7 +166,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                 toggleButton5.setChecked(false);
                 marqueeTv.setVisibility(View.GONE);
                 getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","情感");
-                getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","情感");
+                //getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","情感");
             }
         });
         toggleButton5 = view.findViewById(R.id.toggleButton5);
@@ -177,7 +179,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                 toggleButton4.setChecked(false);
                 marqueeTv.setVisibility(View.GONE);
                 getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","大圈");
-                getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","大圈");
+                //getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","大圈");
             }
         });
     }
@@ -328,7 +330,8 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                         Log.d(TAG, "handleMessage: 幻灯片接收的值"+msg.obj.toString());
                         JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
                         sliderJsonArray = jsonArray;
-                        getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","首页");
+                        Log.d(TAG, "handleMessage: subtitle"+subtitle);
+                        getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat",subtitle);
                         //initSlider(mView,jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -338,6 +341,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                     try {
 
                         Log.d(TAG, "handleMessage: 帖子接收的值"+msg.obj.toString());
+
                         JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
                         initPostList(mView,jsonArray);
                     } catch (JSONException e) {
@@ -388,7 +392,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                         .url(url)
                         .post(formBody)
                         .build();
-
+                subtitle = subNav;
                 try (Response response = client.newCall(request).execute()) {
                     if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
 
