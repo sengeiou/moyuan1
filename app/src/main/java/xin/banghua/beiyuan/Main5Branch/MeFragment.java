@@ -14,11 +14,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.dialogplus.DialogPlus;
 
 import androidx.navigation.Navigation;
 
@@ -33,6 +35,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.beiyuan.Main5Activity;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
@@ -57,6 +60,7 @@ public class MeFragment extends Fragment {
     Button setting_btn;
 
     private Context mContext;
+
     public MeFragment() {
         // Required empty public constructor
     }
@@ -180,12 +184,53 @@ public class MeFragment extends Fragment {
             //1是用户数据，2是幻灯片
             switch (msg.what){
                 case 1:
-                        String resultJson1 = msg.obj.toString();
-                        Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
-                        Toast.makeText(mContext, "共拥有"+resultJson1+"积分", Toast.LENGTH_LONG).show();
+                    final String allscore = msg.obj.toString();
+                    final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                            .setAdapter(new BaseAdapter() {
+                                @Override
+                                public int getCount() {
+                                    return 0;
+                                }
+
+                                @Override
+                                public Object getItem(int position) {
+                                    return null;
+                                }
+
+                                @Override
+                                public long getItemId(int position) {
+                                    return 0;
+                                }
+
+                                @Override
+                                public View getView(int position, View convertView, ViewGroup parent) {
+                                    return null;
+                                }
+                            })
+                            .setFooter(R.layout.dialog_foot_vipconversion)
+                            .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                            .create();
+                    dialog.show();
+                    View view = dialog.getFooterView();
+                    TextView scoreresult = view.findViewById(R.id.scoreresult);
+                    scoreresult.setText("您共有"+allscore+"积分！");
+                    Button vipconversion_btn = view.findViewById(R.id.vipconversion_btn);
+                    vipconversion_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            sorttovip("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=sorttovip&m=socialchat",allscore);
+                        }
+                    });
+                    Button dismissdialog_btn = view.findViewById(R.id.dismissdialog_btn);
+                    dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
                     break;
                 case 2:
-
+                    Toast.makeText(mContext, msg.obj.toString(), Toast.LENGTH_LONG).show();
                     break;
             }
         }
@@ -213,6 +258,39 @@ public class MeFragment extends Fragment {
                     Message message=handler.obtainMessage();
                     message.obj=response.body().string();
                     message.what=1;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    //TODO okhttp获取用户信息
+    public void sorttovip(final String url,final String allscore){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("myid", myid)
+                        .add("allscore", allscore)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=2;
                     Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
                     handler.sendMessageDelayed(message,10);
                 }catch (Exception e) {
