@@ -37,8 +37,6 @@
     <!-- 如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
-
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -47,12 +45,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".Main3Branch.ConversationSettingActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="f0c1f7d9d1447712dab45332883b5fc1" />
-        <activity android:name=".SliderWebViewActivity"
+
+        <activity
+            android:name=".SliderWebViewActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Main2Branch.BlackListActivity"
             android:label="@string/app_name"

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main3Branch.ConversationSettingActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#EDF0F5"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="6dp"
+                android:background="#FFFFFF"
+                android:gravity="center|center_vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/portrait"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:padding="10dp"
+                    tools:src="@tools:sample/avatars" />
+
+                <TextView
+                    android:id="@+id/nickname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="TextView" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="6dp"
+                android:background="#FFFFFF">
+
+                <Switch
+                    android:id="@+id/istop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_span="2"
+                    android:padding="12dp"
+                    android:text="置顶聊天" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="6dp"
+                android:background="#FFFFFF">
+
+                <Switch
+                    android:id="@+id/donot_disturb"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_span="2"
+                    android:padding="12dp"
+                    android:text="屏蔽此人消息" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="6dp"
+                android:background="#FFFFFF">
+
+                <Button
+                    android:id="@+id/record_clear"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_span="2"
+                    android:drawableRight="@drawable/ic_right"
+                    android:text="清空聊天记录"
+                    android:textAlignment="textStart" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="6dp"
+                android:background="#FFFFFF">
+
+                <Button
+                    android:id="@+id/blacklist_btn"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="45dp"
+                    android:layout_span="2"
+                    android:drawableRight="@drawable/ic_right"
+                    android:text="拉黑"
+                    android:textAlignment="textStart" />
+            </TableRow>
+        </TableLayout>
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>
