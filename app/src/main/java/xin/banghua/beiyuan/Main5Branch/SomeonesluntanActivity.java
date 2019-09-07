@@ -1,6 +1,7 @@
 package xin.banghua.beiyuan.Main5Branch;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
@@ -26,8 +27,11 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.Adapter.LuntanAdapter;
 import xin.banghua.beiyuan.Adapter.LuntanList;
+import xin.banghua.beiyuan.Main4Branch.FabugentieActivity;
+import xin.banghua.beiyuan.Main5Activity;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.beiyuan.R;
+import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 
 public class SomeonesluntanActivity extends AppCompatActivity {
     private static final String TAG = "SomeonesluntanActivity";
@@ -49,7 +53,8 @@ public class SomeonesluntanActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        authid = getIntent().getStringExtra("authid");
+        SharedHelper shuserinfo = new SharedHelper(getApplicationContext());
+        authid = shuserinfo.readUserInfo().get("userID");
         Log.d(TAG, "onCreate: authid"+authid);
         getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=someonesluntan&m=socialchat",authid);
 
@@ -59,7 +64,8 @@ public class SomeonesluntanActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish(); // back button
+                Intent intent = new Intent(SomeonesluntanActivity.this, Main5Activity.class);
+                startActivity(intent);
                 return true;
         }
         return super.onOptionsItemSelected(item);

@@ -29,6 +29,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.beiyuan.Main5Branch.SomeonesluntanActivity;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 
@@ -195,20 +196,23 @@ public class FabugentieActivity extends AppCompatActivity {
             Log.d("进入handler", "handler");
             if (msg.arg1==1) {
                 Log.d("跳转", "Navigation");
-                Intent intent = new Intent(FabugentieActivity.this,PostListActivity.class);
-                intent.putExtra("postid",id);
-                intent.putExtra("plateid",plateid);
-                intent.putExtra("platename",platename);
-                intent.putExtra("authid",authid);
-                intent.putExtra("authnickname",authnickname);
-                intent.putExtra("authportrait",authportrait);
-                intent.putExtra("posttip",posttip);
-                intent.putExtra("posttitle",posttitle);
-                intent.putExtra("posttext",posttext);
-                intent.putExtra("postpicture",postpicture);
-                intent.putExtra("like",like);
-                intent.putExtra("favorite",favorite);
-                intent.putExtra("time",time);
+//                Intent intent = new Intent(FabugentieActivity.this,PostListActivity.class);
+//                intent.putExtra("postid",id);
+//                intent.putExtra("plateid",plateid);
+//                intent.putExtra("platename",platename);
+//                intent.putExtra("authid",authid);
+//                intent.putExtra("authnickname",authnickname);
+//                intent.putExtra("authportrait",authportrait);
+//                intent.putExtra("posttip",posttip);
+//                intent.putExtra("posttitle",posttitle);
+//                intent.putExtra("posttext",posttext);
+//                intent.putExtra("postpicture",postpicture);
+//                intent.putExtra("like",like);
+//                intent.putExtra("favorite",favorite);
+//                intent.putExtra("time",time);
+//                startActivity(intent);
+                //改为跳转个人帖子
+                Intent intent = new Intent(FabugentieActivity.this, SomeonesluntanActivity.class);
                 startActivity(intent);
             }
 

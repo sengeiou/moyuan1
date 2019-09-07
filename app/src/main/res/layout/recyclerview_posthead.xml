@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:padding="15dp">
 
     <TableLayout
@@ -103,9 +104,9 @@
                 android:id="@+id/postpicture1"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
+                android:layout_span="3"
                 android:visibility="gone"
-                tools:srcCompat="@tools:sample/backgrounds/scenic"
-                android:layout_span="3"/>
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         </TableRow>
 
@@ -119,9 +120,9 @@
                 android:id="@+id/postpicture2"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
+                android:layout_span="3"
                 android:visibility="gone"
-                tools:srcCompat="@tools:sample/backgrounds/scenic"
-                android:layout_span="3"/>
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         </TableRow>
 
@@ -135,17 +136,18 @@
                 android:id="@+id/postpicture3"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
+                android:layout_span="3"
                 android:visibility="gone"
-                tools:srcCompat="@tools:sample/backgrounds/scenic"
-                android:layout_span="3"/>
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
         </TableRow>
 
     </TableLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#555555"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true"
+        android:background="#555555" />
 
 </RelativeLayout>

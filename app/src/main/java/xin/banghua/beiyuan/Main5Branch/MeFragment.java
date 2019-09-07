@@ -165,10 +165,7 @@ public class MeFragment extends Fragment {
         luntan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
-                String myid = shuserinfo.readUserInfo().get("userID");
                 Intent intent = new Intent(getActivity(),SomeonesluntanActivity.class);
-                intent.putExtra("authid",myid);
                 startActivity(intent);
             }
         });
