@@ -2,6 +2,7 @@ package xin.banghua.beiyuan.Adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -26,6 +27,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.beiyuan.Personage.PersonageActivity;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 
@@ -89,6 +91,20 @@ public class NewFriendsAdapter extends RecyclerView.Adapter<NewFriendsAdapter.Vi
             Log.d(TAG, "onBindViewHolder: 876543");
             viewHolder.agree_btn.setText("已同意");
         }
+
+        viewHolder.haoyouLayout.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: rongyun开始");
+                //跳转个人信息
+                Log.d(TAG, "onClick: rongyun开始");
+                Intent intent = new Intent(v.getContext(), PersonageActivity.class);
+                intent.putExtra("userID",mUserID.get(i));
+                Log.d(TAG, "onClick: 跳转个人页面");
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

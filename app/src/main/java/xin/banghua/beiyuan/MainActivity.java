@@ -72,29 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
     private IUnReadMessageObserver iUnReadMessageObserver;
     private TextView unreadNumber;
-    //微信
-    // APP_ID 替换为你的应用从官方网站申请到的合法appID
-    private static final String APP_ID = "wx88888888";
-    // IWXAPI 是第三方app和微信通信的openApi接口
-    private IWXAPI api;
-    private void regToWx() {
-        // 通过WXAPIFactory工厂，获取IWXAPI的实例
-        api = WXAPIFactory.createWXAPI(this, APP_ID, true);
 
-        // 将应用的appId注册到微信
-        api.registerApp(APP_ID);
-
-        //建议动态监听微信启动广播进行注册到微信
-        registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-
-                // 将该app注册到微信
-                api.registerApp(APP_ID);
-            }
-        }, new IntentFilter(ConstantsAPI.ACTION_REFRESH_WXAPP));
-
-    }
     //初始化底部导航按钮监听
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {

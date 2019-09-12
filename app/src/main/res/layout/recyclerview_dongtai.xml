@@ -41,14 +41,6 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/authattributes"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="authattributes"
-                        android:textColor="@color/rc_ext_sub_menu_item_text_color" />
-
-                    <TextView
                         android:id="@+id/userNickName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -56,6 +48,15 @@
                         android:text="userNickName"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/authattributes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="authattributes"
+                        android:textColor="@color/rc_ext_sub_menu_item_text_color" />
+
                 </LinearLayout>
 
                 <LinearLayout

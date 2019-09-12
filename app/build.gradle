@@ -4,8 +4,8 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "xin.banghua.beiyuan"
-        minSdkVersion 26
-        targetSdkVersion 28
+        minSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -80,7 +80,7 @@ dependencies {
     //华为推送
     api 'com.huawei.android.hms:base:2.6.1.301'
     api 'com.huawei.android.hms:push:2.6.1.301'
-    implementation files('libs/Amap_2DMap_V5.2.0_20170627.jar')
     //dialog
     implementation 'com.orhanobut:dialogplus:1.11@aar'
+    implementation files('libs/Amap_2DMap_V5.2.0_20170627.jar')
 }
