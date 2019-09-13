@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TableRow;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
 import com.daimajia.slider.library.SliderLayout;
@@ -52,6 +53,11 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
     private View mView;
 
     private SliderLayout mDemoSlider;
+    UserInfoSliderAdapter adapter;
+    PullLoadMoreRecyclerView recyclerView;
+    //button
+    TableRow seewho_tablerow;
+    Button seewho_btn,seeall_btn,seefemale_btn,seemale_btn;
     //vars
     private ArrayList<String> mUserID = new ArrayList<>();
     private ArrayList<String> mUserPortrait = new ArrayList<>();
@@ -64,6 +70,17 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
     private ArrayList<String> mUserVIP = new ArrayList<>();
     private ArrayList<String> mAllowLocation = new ArrayList<>();
 
+    //vars用来存放快捷键后的值
+    private ArrayList<String> mUserID1 = new ArrayList<>();
+    private ArrayList<String> mUserPortrait1 = new ArrayList<>();
+    private ArrayList<String> mUserNickName1 = new ArrayList<>();
+    private ArrayList<String> mUserAge1 = new ArrayList<>();
+    private ArrayList<String> mUserGender1 = new ArrayList<>();
+    private ArrayList<String> mUserProperty1 = new ArrayList<>();
+    private ArrayList<String> mUserLocation1 = new ArrayList<>();
+    private ArrayList<String> mUserRegion1 = new ArrayList<>();
+    private ArrayList<String> mUserVIP1 = new ArrayList<>();
+    private ArrayList<String> mAllowLocation1 = new ArrayList<>();
     public FujinFragment() {
         // Required empty public constructor
     }
@@ -92,6 +109,96 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
         getDataSlide("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=fujin&m=socialchat");
 
         initNavigateButton(view);
+
+        recyclerView = view.findViewById(R.id.tuijian_RecyclerView);
+        //快捷按钮
+        seewho_tablerow = mView.findViewById(R.id.seewho_tablerow);
+        seewho_btn = view.findViewById(R.id.seewho_btn);
+        seewho_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (seewho_tablerow.getVisibility()==View.VISIBLE){
+                    seewho_tablerow.setVisibility(View.GONE);
+                }else {
+                    seewho_tablerow.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+        seeall_btn = view.findViewById(R.id.seeall_btn);
+        seeall_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //显示全部
+                initRecyclerView(mView,mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
+            }
+        });
+        seefemale_btn = view.findViewById(R.id.seefemale_btn);
+        seefemale_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUserID1.clear();
+                mUserPortrait1.clear();
+                mUserNickName1.clear();
+                mUserAge1.clear();
+                mUserGender1.clear();
+                mUserProperty1.clear();
+                mUserLocation1.clear();
+                mUserRegion1.clear();
+                mUserVIP1.clear();
+                mAllowLocation1.clear();
+                //剔除男的
+                for (int i=0;i<mUserID.size();i++){
+                    if (mUserGender.get(i).equals("女")){
+                        mUserID1.add(mUserID.get(i));
+                        mUserPortrait1.add(mUserPortrait.get(i));
+                        mUserNickName1.add(mUserNickName.get(i));
+                        mUserAge1.add(mUserAge.get(i));
+                        mUserGender1.add(mUserGender.get(i));
+                        mUserProperty1.add(mUserProperty.get(i));
+                        mUserLocation1.add(mUserLocation.get(i));
+                        mUserRegion1.add(mUserRegion.get(i));
+                        mUserVIP1.add(mUserVIP.get(i));
+                        mAllowLocation1.add(mAllowLocation.get(i));
+                    }
+                }
+                //显示女
+                adapter.swapData(mUserID1,mUserPortrait1,mUserNickName1,mUserAge1,mUserGender1,mUserProperty1,mUserLocation1,mUserRegion1,mUserVIP1,mAllowLocation1);
+            }
+        });
+        seemale_btn = view.findViewById(R.id.seemale_btn);
+        seemale_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUserID1.clear();
+                mUserPortrait1.clear();
+                mUserNickName1.clear();
+                mUserAge1.clear();
+                mUserGender1.clear();
+                mUserProperty1.clear();
+                mUserLocation1.clear();
+                mUserRegion1.clear();
+                mUserVIP1.clear();
+                mAllowLocation1.clear();
+                //剔除男的
+                for (int i=0;i<mUserID.size();i++){
+                    if (mUserGender.get(i).equals("男")){
+                        mUserID1.add(mUserID.get(i));
+                        mUserPortrait1.add(mUserPortrait.get(i));
+                        mUserNickName1.add(mUserNickName.get(i));
+                        mUserAge1.add(mUserAge.get(i));
+                        mUserGender1.add(mUserGender.get(i));
+                        mUserProperty1.add(mUserProperty.get(i));
+                        mUserLocation1.add(mUserLocation.get(i));
+                        mUserRegion1.add(mUserRegion.get(i));
+                        mUserVIP1.add(mUserVIP.get(i));
+                        mAllowLocation1.add(mAllowLocation.get(i));
+                    }
+                }
+                //显示男
+                adapter.swapData(mUserID1,mUserPortrait1,mUserNickName1,mUserAge1,mUserGender1,mUserProperty1,mUserLocation1,mUserRegion1,mUserVIP1,mAllowLocation1);
+            }
+        });
     }
 
     //三个按钮初始化
@@ -186,14 +293,13 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
         }
 
 
-        initRecyclerView(view);
+        initRecyclerView(view,mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
     }
 
-    private void initRecyclerView(View view){
+    private void initRecyclerView(View view,ArrayList<String> mUserID,ArrayList<String> mUserPortrait,ArrayList<String> mUserNickName,ArrayList<String> mUserAge,ArrayList<String> mUserGender,ArrayList<String> mUserProperty,ArrayList<String> mUserLocation,ArrayList<String> mUserRegion,ArrayList<String> mUserVIP,ArrayList<String> mAllowLocation){
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
-        final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.tuijian_RecyclerView);
-        UserInfoSliderAdapter adapter = new UserInfoSliderAdapter(view.getContext(),sliderJsonArray,mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
+        adapter = new UserInfoSliderAdapter(view.getContext(),sliderJsonArray,mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
         recyclerView.setAdapter(adapter);
         recyclerView.setLinearLayout();
         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {

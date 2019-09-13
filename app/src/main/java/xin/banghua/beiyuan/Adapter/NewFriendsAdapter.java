@@ -92,7 +92,7 @@ public class NewFriendsAdapter extends RecyclerView.Adapter<NewFriendsAdapter.Vi
             viewHolder.agree_btn.setText("已同意");
         }
 
-        viewHolder.haoyouLayout.setOnClickListener(new View.OnClickListener(){
+        viewHolder.haoyouapply_layout.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
@@ -120,7 +120,7 @@ public class NewFriendsAdapter extends RecyclerView.Adapter<NewFriendsAdapter.Vi
         TextView userLeaveWords;
         Button agree_btn;
 
-        RelativeLayout haoyouLayout;
+        RelativeLayout haoyouapply_layout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             userID = itemView.findViewById(R.id.userID);
@@ -130,7 +130,7 @@ public class NewFriendsAdapter extends RecyclerView.Adapter<NewFriendsAdapter.Vi
             agree_btn = itemView.findViewById(R.id.agree_btn);
 
 
-            haoyouLayout = itemView.findViewById(R.id.haoyou_layout);
+            haoyouapply_layout = itemView.findViewById(R.id.haoyouapply_layout);
         }
     }
 

@@ -57,7 +57,7 @@
             android:padding="5dp">
 
             <com.zolad.zoominimageview.ZoomInImageView
-                android:id="@+id/dongtaiImage"
+                android:id="@+id/dongtaiImage1"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 android:layout_marginLeft="50dp" />

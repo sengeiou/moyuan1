@@ -49,6 +49,7 @@ public class BlackListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("黑名单");
 
         SearchView searchView = findViewById(R.id.friend_search);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {

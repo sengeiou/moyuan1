@@ -174,7 +174,27 @@ public class GuangchangFragment extends Fragment implements BaseSliderView.OnSli
         if (jsonArray.length()>0){
             for (int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                DongtaiList dongtaiList = new DongtaiList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("myid"),jsonObject.getString("mynickname"),jsonObject.getString("myportrait"),jsonObject.getString("context"),jsonObject.getString("picture"),jsonObject.getString("video"),jsonObject.getString("share"),jsonObject.getString("like"),jsonObject.getString("time"));
+                String[] picture = jsonObject.getString("picture").split(",");
+
+                String circlePicture1 = "";
+                String circlePicture2 = "";
+                String circlePicture3 = "";
+
+                switch (picture.length){
+                    case 1:
+                        circlePicture1 = picture[0];
+                        break;
+                    case 2:
+                        circlePicture1 = picture[0];
+                        circlePicture2 = picture[1];
+                        break;
+                    case 3:
+                        circlePicture1 = picture[0];
+                        circlePicture2 = picture[1];
+                        circlePicture3 = picture[2];
+                        break;
+                }
+                DongtaiList dongtaiList = new DongtaiList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("myid"),jsonObject.getString("mynickname"),jsonObject.getString("myportrait"),jsonObject.getString("context"),circlePicture1,circlePicture2,circlePicture3,jsonObject.getString("video"),jsonObject.getString("share"),jsonObject.getString("like"),jsonObject.getString("time"));
                 dongtaiLists.add(dongtaiList);
             }
         }

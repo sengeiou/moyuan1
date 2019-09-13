@@ -59,11 +59,11 @@ public class FabudongtaiFragment extends Fragment {
     View mView;
 
     EditText dongtaiWord_et;
-    ImageView dongtaiImage_iv;
-
+    ImageView dongtaiImage_iv1,dongtaiImage_iv2,dongtaiImage_iv3;
+    int imageView_state;
     Button release_btn;
 
-    String userID,userNickname,userPortrait,dongtaiWord,dongtaiImage,dongtaiShare;
+    String userID,userNickname,userPortrait,dongtaiWord,dongtaiImage1,dongtaiImage2,dongtaiImage3,dongtaiShare;
 
     private Context mContext;
     public FabudongtaiFragment() {
@@ -89,15 +89,18 @@ public class FabudongtaiFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         dongtaiWord_et = mView.findViewById(R.id.dongtai_word);
-        dongtaiImage_iv = mView.findViewById(R.id.dongtai_image);
+        dongtaiImage_iv1 = mView.findViewById(R.id.dongtai_image1);
+        dongtaiImage_iv2 = mView.findViewById(R.id.dongtai_image2);
+        dongtaiImage_iv3 = mView.findViewById(R.id.dongtai_image3);
         guangchang_rg = mView.findViewById(R.id.guangchang_rg);
         yes_rb = mView.findViewById(R.id.yes_rb);
         no_rb = mView.findViewById(R.id.no_rb);
         release_btn = mView.findViewById(R.id.release_btn);
-        dongtaiImage_iv.setImageResource(R.drawable.plus);
-        dongtaiImage = "";
+        dongtaiImage1 = "";
+        dongtaiImage2 = "";
+        dongtaiImage3 = "";
 
-        dongtaiImage_iv.setOnClickListener(new View.OnClickListener() {
+        dongtaiImage_iv1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new ImagePicker.Builder(getActivity())
@@ -109,6 +112,37 @@ public class FabudongtaiFragment extends Fragment {
                         .allowMultipleImages(false)
                         .enableDebuggingMode(true)
                         .build();
+                imageView_state = 1;
+            }
+        });
+        dongtaiImage_iv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ImagePicker.Builder(getActivity())
+                        .mode(ImagePicker.Mode.CAMERA_AND_GALLERY)
+                        .compressLevel(ImagePicker.ComperesLevel.MEDIUM)
+                        .directory(ImagePicker.Directory.DEFAULT)
+                        .extension(ImagePicker.Extension.PNG)
+                        .scale(600, 600)
+                        .allowMultipleImages(false)
+                        .enableDebuggingMode(true)
+                        .build();
+                imageView_state = 2;
+            }
+        });
+        dongtaiImage_iv3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new ImagePicker.Builder(getActivity())
+                        .mode(ImagePicker.Mode.CAMERA_AND_GALLERY)
+                        .compressLevel(ImagePicker.ComperesLevel.MEDIUM)
+                        .directory(ImagePicker.Directory.DEFAULT)
+                        .extension(ImagePicker.Extension.PNG)
+                        .scale(600, 600)
+                        .allowMultipleImages(false)
+                        .enableDebuggingMode(true)
+                        .build();
+                imageView_state = 3;
             }
         });
 
@@ -156,20 +190,22 @@ public class FabudongtaiFragment extends Fragment {
             public void run(){
                 //获取文件名
                 Log.d("进入run","run");
-                File tempFile =new File(dongtaiImage.trim());
+                File tempFile =new File(dongtaiImage1.trim());
                 String fileName = tempFile.getName();
                 //开始网络传输
                 OkHttpClient client = new OkHttpClient();
                 MediaType MEDIA_TYPE_PNG = MediaType.parse("image");
-                RequestBody requestBody = new MultipartBody.Builder()
-                        .setType(MultipartBody.FORM)
-                        .addFormDataPart("userID", userID)
-                        .addFormDataPart("userNickname", userNickname)
-                        .addFormDataPart("userPortrait", userPortrait)
-                        .addFormDataPart("dongtaiWord", dongtaiWord)
-                        .addFormDataPart("dongtaiShare", dongtaiShare)
-                        .addFormDataPart("dongtaiImage",fileName,RequestBody.create(new File(dongtaiImage),MEDIA_TYPE_PNG))
-                        .build();
+
+                MultipartBody.Builder multipartBody = new MultipartBody.Builder();
+                multipartBody.setType(MultipartBody.FORM);
+                multipartBody.addFormDataPart("userID", userID);
+                multipartBody.addFormDataPart("dongtaiWord",dongtaiWord);
+                multipartBody.addFormDataPart("dongtaiShare", dongtaiShare);
+                if (!dongtaiImage1.isEmpty())multipartBody.addFormDataPart("dongtaiImage1",fileName, RequestBody.create(new File(dongtaiImage1),MEDIA_TYPE_PNG));
+                if (!dongtaiImage2.isEmpty())multipartBody.addFormDataPart("dongtaiImage2",fileName,RequestBody.create(new File(dongtaiImage2),MEDIA_TYPE_PNG));
+                if (!dongtaiImage3.isEmpty())multipartBody.addFormDataPart("dongtaiImage3",fileName,RequestBody.create(new File(dongtaiImage3),MEDIA_TYPE_PNG));
+                RequestBody requestBody = multipartBody.build();
+
                 Request request = new Request.Builder()
                         .url(url)
                         .post(requestBody)
@@ -182,7 +218,7 @@ public class FabudongtaiFragment extends Fragment {
                     //格式：{"error":"0","info":"登陆成功"}
                     Message message=handler.obtainMessage();
                     message.arg1=1;
-                    Log.d("动态",userID+"/"+userPortrait+"/"+userNickname+"/"+"/"+"/"+dongtaiShare+"/"+dongtaiWord);
+
                     handler.sendMessageDelayed(message,10);
                 }catch (Exception e) {
                     e.printStackTrace();
@@ -204,9 +240,22 @@ public class FabudongtaiFragment extends Fragment {
                 String mPath = listIterator.next();
 
                 Log.d("path", mPath);
-                dongtaiImage_iv.setImageURI(Uri.parse(mPath));
-                dongtaiImage = mPath;
-                //Log.d(TAG, "onActivityResult: 动态图片地址"+dongtaiImage);
+                switch (imageView_state){
+                    case 1:
+                        dongtaiImage_iv1.setImageURI(Uri.parse(mPath));
+                        dongtaiImage1 = mPath;
+                        dongtaiImage_iv2.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        dongtaiImage_iv2.setImageURI(Uri.parse(mPath));
+                        dongtaiImage2 = mPath;
+                        dongtaiImage_iv3.setVisibility(View.VISIBLE);
+                        break;
+                    case 3:
+                        dongtaiImage_iv3.setImageURI(Uri.parse(mPath));
+                        dongtaiImage3 = mPath;
+                        break;
+                }
             }
         }
     }

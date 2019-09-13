@@ -226,7 +226,7 @@
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="高级选项（VIP）"
+                android:text="高级选项（会员专享）"
                 android:textAlignment="center" />
         </TableRow>
 

@@ -101,10 +101,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:orientation="vertical"
             android:padding="5dp">
 
             <com.zolad.zoominimageview.ZoomInImageView
-                android:id="@+id/dongtaiImage"
+                android:id="@+id/dongtaiImage1"
+                android:adjustViewBounds="true"
+                android:maxHeight="200dp" />
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <com.zolad.zoominimageview.ZoomInImageView
+                android:id="@+id/dongtaiImage2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:maxHeight="200dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <com.zolad.zoominimageview.ZoomInImageView
+                android:id="@+id/dongtaiImage3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:maxHeight="200dp" />
         </TableRow>

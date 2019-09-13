@@ -30,7 +30,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -165,8 +164,16 @@ public class DongtaiSliderAdapter extends RecyclerView.Adapter implements ViewPa
             ((ViewHolder) viewHolder).dongtaiWord.setText(currentItem.getContext());
             Glide.with(mContext)
                     .asBitmap()
-                    .load(currentItem.getPicture())
-                    .into(((ViewHolder) viewHolder).dongtaiImage);
+                    .load(currentItem.getPicture1())
+                    .into(((ViewHolder) viewHolder).dongtaiImage1);
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load(currentItem.getPicture2())
+                    .into(((ViewHolder) viewHolder).dongtaiImage2);
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load(currentItem.getPicture3())
+                    .into(((ViewHolder) viewHolder).dongtaiImage3);
             ((ViewHolder) viewHolder).dongtaiTime.setText(currentItem.getTime());
             ((ViewHolder) viewHolder).like.setText("赞"+currentItem.getLike());
             ((ViewHolder) viewHolder).like.setOnClickListener(new View.OnClickListener() {
@@ -247,7 +254,9 @@ public class DongtaiSliderAdapter extends RecyclerView.Adapter implements ViewPa
         CircleImageView userPortrait;
         TextView userNickName;
         TextView dongtaiWord;
-        ZoomInImageView dongtaiImage;
+        ZoomInImageView dongtaiImage1;
+        ZoomInImageView dongtaiImage2;
+        ZoomInImageView dongtaiImage3;
         TextView dongtaiTime;
         TextView like;
         RelativeLayout dongtaiLayout;
@@ -261,7 +270,9 @@ public class DongtaiSliderAdapter extends RecyclerView.Adapter implements ViewPa
             userPortrait = itemView.findViewById(R.id.authportrait);
             userNickName = itemView.findViewById(R.id.userNickName);
             dongtaiWord = itemView.findViewById(R.id.dongtaiWord);
-            dongtaiImage = itemView.findViewById(R.id.dongtaiImage);
+            dongtaiImage1 = itemView.findViewById(R.id.dongtaiImage1);
+            dongtaiImage2 = itemView.findViewById(R.id.dongtaiImage2);
+            dongtaiImage3 = itemView.findViewById(R.id.dongtaiImage3);
             dongtaiTime = itemView.findViewById(R.id.dongtaiTime);
             like = itemView.findViewById(R.id.like);
 

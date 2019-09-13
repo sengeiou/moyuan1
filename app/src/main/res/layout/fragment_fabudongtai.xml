@@ -9,7 +9,8 @@
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center">
+        android:gravity="center"
+        android:stretchColumns="*">
 
         <TableRow
             android:layout_width="match_parent"
@@ -21,6 +22,7 @@
                 style="@style/AlertDialog.AppCompat.Light"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_span="3"
                 android:ems="10"
                 android:hint="这一刻的想法"
                 android:inputType="textPersonName"
@@ -33,10 +35,27 @@
             android:gravity="center">
 
             <ImageView
-                android:id="@+id/dongtai_image"
-                android:layout_width="235dp"
-                android:layout_height="158dp"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                android:id="@+id/dongtai_image1"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                app:srcCompat="@drawable/plus"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/dongtai_image2"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/plus"
+                tools:src="@tools:sample/avatars" />
+
+            <ImageView
+                android:id="@+id/dongtai_image3"
+                android:layout_width="125dp"
+                android:layout_height="125dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/plus"
+                tools:src="@tools:sample/avatars" />
         </TableRow>
 
         <TableRow
@@ -48,6 +67,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_span="3"
                 android:text="是否在广场页展示?" />
         </TableRow>
 
@@ -60,6 +80,7 @@
                 android:id="@+id/guangchang_rg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_span="3"
                 android:checkedButton="@+id/yes_rb"
                 android:orientation="horizontal">
 
@@ -89,6 +110,7 @@
                 style="@android:style/Widget.DeviceDefault.Button.Borderless.Colored"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_span="3"
                 android:text="发布动态" />
         </TableRow>
 

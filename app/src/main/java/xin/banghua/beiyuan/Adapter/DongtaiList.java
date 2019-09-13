@@ -1,13 +1,13 @@
 package xin.banghua.beiyuan.Adapter;
 
 public class DongtaiList {
-    String id,myid,mynickname,myportrait,context,picture,video,share,like,time;
+    String id,myid,mynickname,myportrait,context,picture1,picture2,picture3,video,share,like,time;
     String authage;
     String authgender;
     String authregion;
     String authproperty;
 
-    public DongtaiList(String authage,String authgender,String authregion,String authproperty,String id, String myid, String mynickname, String myportrait, String context, String picture, String video, String share, String like, String time) {
+    public DongtaiList(String authage,String authgender,String authregion,String authproperty,String id, String myid, String mynickname, String myportrait, String context, String picture1,String picture2,String picture3, String video, String share, String like, String time) {
         this.authage = authage;
         this.authgender = authgender;
         this.authregion = authregion;
@@ -17,43 +17,13 @@ public class DongtaiList {
         this.mynickname = mynickname;
         this.myportrait = myportrait;
         this.context = context;
-        this.picture = picture;
+        this.picture1 = picture1;
+        this.picture2 = picture2;
+        this.picture3 = picture3;
         this.video = video;
         this.share = share;
         this.like = like;
         this.time = time;
-    }
-
-    public String getAuthage() {
-        return authage;
-    }
-
-    public void setAuthage(String authage) {
-        this.authage = authage;
-    }
-
-    public String getAuthgender() {
-        return authgender;
-    }
-
-    public void setAuthgender(String authgender) {
-        this.authgender = authgender;
-    }
-
-    public String getAuthregion() {
-        return authregion;
-    }
-
-    public void setAuthregion(String authregion) {
-        this.authregion = authregion;
-    }
-
-    public String getAuthproperty() {
-        return authproperty;
-    }
-
-    public void setAuthproperty(String authproperty) {
-        this.authproperty = authproperty;
     }
 
     public String getId() {
@@ -96,12 +66,28 @@ public class DongtaiList {
         this.context = context;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getPicture1() {
+        return picture1;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setPicture1(String picture1) {
+        this.picture1 = picture1;
+    }
+
+    public String getPicture2() {
+        return picture2;
+    }
+
+    public void setPicture2(String picture2) {
+        this.picture2 = picture2;
+    }
+
+    public String getPicture3() {
+        return picture3;
+    }
+
+    public void setPicture3(String picture3) {
+        this.picture3 = picture3;
     }
 
     public String getVideo() {
@@ -134,5 +120,37 @@ public class DongtaiList {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public String getAuthage() {
+        return authage;
+    }
+
+    public void setAuthage(String authage) {
+        this.authage = authage;
+    }
+
+    public String getAuthgender() {
+        return authgender;
+    }
+
+    public void setAuthgender(String authgender) {
+        this.authgender = authgender;
+    }
+
+    public String getAuthregion() {
+        return authregion;
+    }
+
+    public void setAuthregion(String authregion) {
+        this.authregion = authregion;
+    }
+
+    public String getAuthproperty() {
+        return authproperty;
+    }
+
+    public void setAuthproperty(String authproperty) {
+        this.authproperty = authproperty;
     }
 }

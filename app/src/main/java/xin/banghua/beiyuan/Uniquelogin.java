@@ -61,7 +61,7 @@ public class Uniquelogin {
         Notification.Builder builder = new Notification.Builder(context,notificationChannel.getId());
         builder.setAutoCancel(true)  //设置点击通知后自动取消通知
                 .setContentTitle("登出")  //通知标题
-                .setContentText("您的账号在其他设备登录，强制退出")  //通知第二行的内容
+                .setContentText("您的账号已被禁用或在其他设备登录，强制退出")  //通知第二行的内容
                 .setContentIntent(pendingIntent)  //点击通知后，发送指定的PendingIntent
                 .setSmallIcon(R.drawable.logo);  //通知图标，必须设置否则通知不显示
         Notification build = builder.build();

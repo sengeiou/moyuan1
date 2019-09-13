@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.orhanobut.dialogplus.DialogPlus;
@@ -22,7 +21,6 @@ import com.orhanobut.dialogplus.OnClickListener;
 import com.zolad.zoominimageview.ZoomInImageView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -33,7 +31,6 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.Personage.PersonageActivity;
 import xin.banghua.beiyuan.R;
-import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 
 public class DongtaiAdapter extends RecyclerView.Adapter<DongtaiAdapter.ViewHolder>{
     private static final String TAG = "DongtaiAdapter";
@@ -85,8 +82,16 @@ public class DongtaiAdapter extends RecyclerView.Adapter<DongtaiAdapter.ViewHold
         viewHolder.dongtaiWord.setText(currentItem.getContext());
         Glide.with(mContext)
                 .asBitmap()
-                .load(currentItem.getPicture())
-                .into(viewHolder.dongtaiImage);
+                .load(currentItem.getPicture1())
+                .into(viewHolder.dongtaiImage1);
+        Glide.with(mContext)
+                .asBitmap()
+                .load(currentItem.getPicture2())
+                .into(viewHolder.dongtaiImage2);
+        Glide.with(mContext)
+                .asBitmap()
+                .load(currentItem.getPicture3())
+                .into(viewHolder.dongtaiImage3);
         viewHolder.dongtaiTime.setText(currentItem.getTime());
         viewHolder.like.setText("赞"+currentItem.getLike());
         viewHolder.like.setOnClickListener(new View.OnClickListener() {
@@ -148,7 +153,9 @@ public class DongtaiAdapter extends RecyclerView.Adapter<DongtaiAdapter.ViewHold
         CircleImageView userPortrait;
         TextView userNickName;
         TextView dongtaiWord;
-        ZoomInImageView dongtaiImage;
+        ZoomInImageView dongtaiImage1;
+        ZoomInImageView dongtaiImage2;
+        ZoomInImageView dongtaiImage3;
         TextView dongtaiTime;
         TextView like;
         RelativeLayout dongtaiLayout;
@@ -158,7 +165,9 @@ public class DongtaiAdapter extends RecyclerView.Adapter<DongtaiAdapter.ViewHold
             userPortrait = itemView.findViewById(R.id.authportrait);
             userNickName = itemView.findViewById(R.id.userNickName);
             dongtaiWord = itemView.findViewById(R.id.dongtaiWord);
-            dongtaiImage = itemView.findViewById(R.id.dongtaiImage);
+            dongtaiImage1 = itemView.findViewById(R.id.dongtaiImage1);
+            dongtaiImage2 = itemView.findViewById(R.id.dongtaiImage2);
+            dongtaiImage3 = itemView.findViewById(R.id.dongtaiImage3);
             dongtaiTime = itemView.findViewById(R.id.dongtaiTime);
             like = itemView.findViewById(R.id.like);
 

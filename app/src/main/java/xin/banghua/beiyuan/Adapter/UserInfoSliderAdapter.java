@@ -54,7 +54,20 @@ public class UserInfoSliderAdapter extends RecyclerView.Adapter implements  View
     private ArrayList<String> mAllowLocation = new ArrayList<>();
     private Context mContext;
 
-
+    //替换数据，并更新
+    public void swapData(ArrayList<String> mUserID,ArrayList<String> mUserPortrait,ArrayList<String> mUserNickName,ArrayList<String> mUserAge,ArrayList<String> mUserGender,ArrayList<String> mUserProperty,ArrayList<String> mUserLocation,ArrayList<String> mUserRegion,ArrayList<String> mUserVIP,ArrayList<String> mAllowLocation){
+        this.mUserID = mUserID;
+        this.mUserPortrait = mUserPortrait;
+        this.mUserNickName = mUserNickName;
+        this.mUserAge = mUserAge;
+        this.mUserGender = mUserGender;
+        this.mUserProperty = mUserProperty;
+        this.mUserLocation = mUserLocation;
+        this.mUserRegion = mUserRegion;
+        this.mUserVIP = mUserVIP;
+        this.mAllowLocation = mAllowLocation;
+        notifyDataSetChanged();
+    }
 
     public UserInfoSliderAdapter(Context mContext,JSONArray jsonArray,ArrayList<String> userID, ArrayList<String> userPortrait, ArrayList<String> userNickName,ArrayList<String> userAge,ArrayList<String> userGender,ArrayList<String> userProperty,ArrayList<String> userLocation,ArrayList<String> userRegion,ArrayList<String> userVIP,ArrayList<String> allowLocation) {
         this.jsonArray = jsonArray;
