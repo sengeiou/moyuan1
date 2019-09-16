@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -162,18 +163,168 @@ public class DongtaiSliderAdapter extends RecyclerView.Adapter implements ViewPa
             });
             ((ViewHolder) viewHolder).userNickName.setText(currentItem.getMynickname());
             ((ViewHolder) viewHolder).dongtaiWord.setText(currentItem.getContext());
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(currentItem.getPicture1())
-                    .into(((ViewHolder) viewHolder).dongtaiImage1);
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(currentItem.getPicture2())
-                    .into(((ViewHolder) viewHolder).dongtaiImage2);
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(currentItem.getPicture3())
-                    .into(((ViewHolder) viewHolder).dongtaiImage3);
+
+            if (currentItem.getPicture1() != ""){
+                Glide.with(mContext)
+                        .asBitmap()
+                        .load(currentItem.getPicture1())
+                        .into(((ViewHolder) viewHolder).dongtaiImage1);
+                ((ViewHolder) viewHolder).dongtaiImage1.setVisibility(View.VISIBLE);
+                ((ViewHolder) viewHolder).dongtaiImage1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_original_image)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                        Glide.with(mContext)
+                                .asBitmap()
+                                .load(currentItem.getPicture1())
+                                .into(originalImage);
+                        Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                        dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }else {
+                ((ViewHolder) viewHolder).dongtaiImage1.setVisibility(View.GONE);
+            }
+            if (currentItem.getPicture2() != ""){
+                Glide.with(mContext)
+                        .asBitmap()
+                        .load(currentItem.getPicture2())
+                        .into(((ViewHolder) viewHolder).dongtaiImage2);
+                ((ViewHolder) viewHolder).dongtaiImage2.setVisibility(View.VISIBLE);
+                ((ViewHolder) viewHolder).dongtaiImage2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_original_image)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                        Glide.with(mContext)
+                                .asBitmap()
+                                .load(currentItem.getPicture2())
+                                .into(originalImage);
+                        Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                        dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }else {
+                ((ViewHolder) viewHolder).dongtaiImage2.setVisibility(View.GONE);
+            }
+            if (currentItem.getPicture3() != ""){
+                Glide.with(mContext)
+                        .asBitmap()
+                        .load(currentItem.getPicture3())
+                        .into(((ViewHolder) viewHolder).dongtaiImage3);
+                ((ViewHolder) viewHolder).dongtaiImage3.setVisibility(View.VISIBLE);
+                ((ViewHolder) viewHolder).dongtaiImage3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_original_image)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                        Glide.with(mContext)
+                                .asBitmap()
+                                .load(currentItem.getPicture3())
+                                .into(originalImage);
+                        Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                        dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }else {
+                ((ViewHolder) viewHolder).dongtaiImage3.setVisibility(View.GONE);
+            }
+
+
             ((ViewHolder) viewHolder).dongtaiTime.setText(currentItem.getTime());
             ((ViewHolder) viewHolder).like.setText("赞"+currentItem.getLike());
             ((ViewHolder) viewHolder).like.setOnClickListener(new View.OnClickListener() {

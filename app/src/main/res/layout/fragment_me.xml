@@ -59,7 +59,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableTop="@drawable/ic_beiyuanhao"
-                            android:text="贝缘号"
+                            android:text="乐园号"
                             android:textColor="@color/colorPrimaryDark" />
 
                         <Button

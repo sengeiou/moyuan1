@@ -125,7 +125,7 @@ public class MeFragment extends Fragment {
         usernickname_tv.setText(mynickname);
 
 
-        beiyuanid_btn.setText("贝缘号："+myid);
+        beiyuanid_btn.setText("乐园号："+myid);
         personalinfo_btn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.me_reset_action));
         setting_btn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.me_setting_action));
         xiangce_btn.setOnClickListener(new View.OnClickListener() {

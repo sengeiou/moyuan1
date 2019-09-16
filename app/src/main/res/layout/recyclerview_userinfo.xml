@@ -3,7 +3,6 @@
     android:id="@+id/userinfo_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rc_btn_voice_hover"
     android:padding="15dp">
 
     <TextView
@@ -15,8 +14,8 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/authportrait"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
@@ -71,23 +70,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="70dp"
+        android:layout_marginLeft="60dp"
         android:layout_toRightOf="@id/userProperty"
         android:text="4km"
         android:textColor="@color/rc_divider_line"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/userRegion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@id/authportrait"
-        android:text="北京"
-        android:textColor="@color/rc_rich_content"
-        android:textSize="15sp"
-        android:textStyle="italic" />
+        android:textSize="13sp" />
 
     <TextView
         android:id="@+id/userVIP"
@@ -95,17 +82,23 @@
         android:layout_height="15dp"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@id/userRegion"
+        android:layout_toRightOf="@id/authportrait"
         android:foreground="@drawable/nonmember"
         android:text="VIP"
         android:textColor="@color/rc_extension_normal"
         android:textSize="15sp"
         android:textStyle="italic" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
+    <TextView
+        android:id="@+id/userRegion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#D5D0D0" />
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@id/userVIP"
+        android:text="北京"
+        android:textColor="@color/rc_rich_content"
+        android:textSize="14sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
