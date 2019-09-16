@@ -88,6 +88,10 @@ public class FabudongtaiFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ImageView back_btn = view.findViewById(R.id.iv_back_left);
+        back_btn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.fubudongtai_guangchang_action));
+
+
         dongtaiWord_et = mView.findViewById(R.id.dongtai_word);
         dongtaiImage_iv1 = mView.findViewById(R.id.dongtai_image1);
         dongtaiImage_iv2 = mView.findViewById(R.id.dongtai_image2);

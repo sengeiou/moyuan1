@@ -77,6 +77,9 @@ public class FabutieziFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ImageView back_btn = view.findViewById(R.id.iv_back_left);
+        back_btn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.fabutiezi_luntan_action));
+
         title_et = view.findViewById(R.id.title_et);
         content_et = view.findViewById(R.id.content_et);
         bankuai_rg = view.findViewById(R.id.bankuai_rg);

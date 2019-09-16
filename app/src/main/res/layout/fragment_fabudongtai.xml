@@ -4,12 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="20dp"
     tools:context=".Main4Branch.FabudongtaiFragment">
+
+    <ImageView
+        android:id="@+id/iv_back_left"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_margin="10dp"
+        android:layout_marginLeft="16dp"
+        android:contentDescription="TODO"
+        android:src="@mipmap/item_left_back_btn"
+        android:visibility="visible" />
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp"
         android:gravity="center"
         android:stretchColumns="*">
 
