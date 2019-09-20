@@ -16,12 +16,18 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,17 +36,27 @@ import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.model.Conversation;
+import io.rong.imlib.model.UserInfo;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import xin.banghua.beiyuan.Adapter.FriendList;
+import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 import xin.banghua.beiyuan.Signin.SigninActivity;
 
 public class Main3Activity extends AppCompatActivity {
+    private static final String TAG = "Main3Activity";
+
     Uniquelogin uniquelogin;
     private ViewPager mViewPager;
     private FragmentPagerAdapter mFragmentPagerAdapter;//将tab页面持久在内存中
     private Fragment mConversationList;
     private Fragment mConversationFragment = null;
     private List<Fragment> mFragment = new ArrayList<>();
-
+    private List<FriendList> friendList = new ArrayList<>();
     private ImageView iv_back_left;
 
     private TextView mTextMessage;
@@ -92,6 +108,8 @@ public class Main3Activity extends AppCompatActivity {
         ifSignin();
         mTextMessage = (TextView) findViewById(R.id.message);
 
+        getDataFriends("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friends&m=socialchat");
+
         //底部导航初始化和配置监听，默认选项
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -107,6 +125,7 @@ public class Main3Activity extends AppCompatActivity {
         RongIM.getInstance().addUnReadMessageCountChangedObserver(iUnReadMessageObserver, Conversation.ConversationType.PRIVATE);
 
         initView();
+
     }
 
 
@@ -209,6 +228,17 @@ public class Main3Activity extends AppCompatActivity {
             super.handleMessage(msg);
             //1是用户数据，2是幻灯片
             switch (msg.what){
+                case 1:
+                    try {
+                        String resultJson1 = msg.obj.toString();
+                        Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
+
+                        JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
+                        initFriends(getWindow().getDecorView(),jsonArray);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    break;
                 case 10:
                     if (msg.obj.toString().equals("false")){
                         uniquelogin.uniqueNotification();
@@ -224,5 +254,65 @@ public class Main3Activity extends AppCompatActivity {
             }
         }
     };
+    //TODO okhttp获取好友信息
+    public void getDataFriends(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shvalue = new SharedHelper(getApplicationContext());
+                String userID = shvalue.readUserInfo().get("userID");
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("myid", userID)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=1;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+    //TODO 初始化用户列表
+    private void initFriends(View view, JSONArray jsonArray) throws JSONException {
+        Log.d(TAG, "initFriends: ");
+
+        if (jsonArray.length()>0){
+            for (int i=0;i<jsonArray.length();i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                FriendList friends = new FriendList(jsonObject.getString("id"),jsonObject.getString("portrait"),jsonObject.getString("nickname"),jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"));
+                friendList.add(friends);
+                RongIM.getInstance().refreshUserInfoCache(new UserInfo(jsonObject.getString("id"), jsonObject.getString("nickname"), Uri.parse(jsonObject.getString("portrait"))));
+            }
+        }
+        RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
+
+            @Override
+            public UserInfo getUserInfo(String userId) {
+                //获取用户信息
+                for (FriendList i:friendList){
+                    if (i.getmUserID().equals(userId)){
+                        Log.d(TAG, "getUserInfo: 进入"+userId);
+                        return new UserInfo(i.getmUserID(),i.getmUserNickName(), Uri.parse(i.getmUserPortrait()));
+                    }
+                }
+                Log.d(TAG, "getUserInfo: 没进入"+userId);
+                return null;
+            }
+
+        }, true);
+    }
+
 
 }

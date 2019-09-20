@@ -107,33 +107,30 @@
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/dongtaiImage1"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
                 android:layout_marginRight="3dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:maxHeight="150dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:visibility="gone" />
 
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/dongtaiImage2"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:maxHeight="150dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:visibility="gone" />
 
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/dongtaiImage3"
                 android:layout_width="0dp"
-                android:layout_height="150dp"
+                android:layout_height="100dp"
                 android:layout_marginLeft="3dp"
                 android:layout_weight="1"
                 android:adjustViewBounds="true"
-                android:maxHeight="150dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:visibility="gone" />
 
         </TableRow>

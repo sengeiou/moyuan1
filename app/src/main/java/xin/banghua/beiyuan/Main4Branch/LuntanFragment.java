@@ -16,6 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.daimajia.slider.library.Animations.DescriptionAnimation;
@@ -178,7 +179,8 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                 toggleButton3.setChecked(false);
                 toggleButton4.setChecked(false);
                 marqueeTv.setVisibility(View.GONE);
-                getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","大圈");
+                getVipinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=viptimeinsousuo&m=socialchat");
+                //getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","大圈");
                 //getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","大圈");
             }
         });
@@ -348,6 +350,13 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                         e.printStackTrace();
                     }
                     break;
+                case 4:
+                    if (msg.obj.toString().equals("会员已到期")){
+                        Toast.makeText(getActivity(), "此版块需要开通会员", Toast.LENGTH_LONG).show();
+                    }else {
+                        getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","大圈");
+                    }
+                    break;
             }
         }
     };
@@ -431,6 +440,38 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                     Message message=handler.obtainMessage();
                     message.obj=response.body().string();
                     message.what=3;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    //TODO okhttp获取用户信息
+    public void getVipinfo(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("id", myid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=4;
                     Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
                     handler.sendMessageDelayed(message,10);
                 }catch (Exception e) {

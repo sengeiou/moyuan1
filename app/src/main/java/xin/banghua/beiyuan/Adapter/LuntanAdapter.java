@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -20,6 +21,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.orhanobut.dialogplus.DialogPlus;
+import com.zolad.zoominimageview.ZoomInImageView;
 
 import java.io.IOException;
 import java.util.List;
@@ -93,15 +95,192 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
             viewHolder.posttip.setCompoundDrawables(null,null,null,null);
         }
         viewHolder.posttitle.setText(currentItem.getPosttitle());
-        viewHolder.posttext.setText(currentItem.getPosttext());
-        if (currentItem.getPostpicture().length==0){
-            viewHolder.postpicture.setVisibility(View.GONE);
+        if (currentItem.getPosttext().length()>50) {
+            viewHolder.posttext.setText(currentItem.getPosttext().substring(0, 50)+"......");
+            viewHolder.detail_content.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewHolder.posttext.setText(currentItem.getPosttext());
+                    viewHolder.detail_content.setVisibility(View.GONE);
+                }
+            });
+        }else {
+            viewHolder.posttext.setText(currentItem.getPosttext());
+            viewHolder.detail_content.setVisibility(View.GONE);
+        }
+        if (currentItem.getPosttext().length()>50) {
+            viewHolder.posttext.setText(currentItem.getPosttext().substring(0, 50)+"  查看全文");
+            viewHolder.posttext.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    viewHolder.posttext.setText(currentItem.getPosttext());
+                }
+            });
+        }else {
+            viewHolder.posttext.setText(currentItem.getPosttext());
+        }
+        if (currentItem.getPostpicture().length<1){
+            viewHolder.postpicture1.setVisibility(View.GONE);
         }else {
             Glide.with(mContext)
                     .asBitmap()
                     .load(currentItem.getPostpicture()[0])
-                    .into(viewHolder.postpicture);
+                    .into(viewHolder.postpicture1);
+            viewHolder.postpicture1.setVisibility(View.VISIBLE);
+            viewHolder.postpicture1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                            .setAdapter(new BaseAdapter() {
+                                @Override
+                                public int getCount() {
+                                    return 0;
+                                }
+
+                                @Override
+                                public Object getItem(int position) {
+                                    return null;
+                                }
+
+                                @Override
+                                public long getItemId(int position) {
+                                    return 0;
+                                }
+
+                                @Override
+                                public View getView(int position, View convertView, ViewGroup parent) {
+                                    return null;
+                                }
+                            })
+                            .setFooter(R.layout.dialog_original_image)
+                            .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                            .create();
+                    dialog.show();
+                    View view = dialog.getFooterView();
+                    ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(currentItem.getPostpicture()[0])
+                            .into(originalImage);
+                    Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                    dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            });
         }
+        if (currentItem.getPostpicture().length<2){
+            viewHolder.postpicture1.setVisibility(View.GONE);
+        }else {
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load(currentItem.getPostpicture()[1])
+                    .into(viewHolder.postpicture2);
+            viewHolder.postpicture2.setVisibility(View.VISIBLE);
+            viewHolder.postpicture2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                            .setAdapter(new BaseAdapter() {
+                                @Override
+                                public int getCount() {
+                                    return 0;
+                                }
+
+                                @Override
+                                public Object getItem(int position) {
+                                    return null;
+                                }
+
+                                @Override
+                                public long getItemId(int position) {
+                                    return 0;
+                                }
+
+                                @Override
+                                public View getView(int position, View convertView, ViewGroup parent) {
+                                    return null;
+                                }
+                            })
+                            .setFooter(R.layout.dialog_original_image)
+                            .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                            .create();
+                    dialog.show();
+                    View view = dialog.getFooterView();
+                    ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(currentItem.getPostpicture()[1])
+                            .into(originalImage);
+                    Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                    dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            });
+        }
+        if (currentItem.getPostpicture().length<3){
+            viewHolder.postpicture1.setVisibility(View.GONE);
+        }else {
+            Glide.with(mContext)
+                    .asBitmap()
+                    .load(currentItem.getPostpicture()[2])
+                    .into(viewHolder.postpicture3);
+            viewHolder.postpicture3.setVisibility(View.VISIBLE);
+            viewHolder.postpicture3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                            .setAdapter(new BaseAdapter() {
+                                @Override
+                                public int getCount() {
+                                    return 0;
+                                }
+
+                                @Override
+                                public Object getItem(int position) {
+                                    return null;
+                                }
+
+                                @Override
+                                public long getItemId(int position) {
+                                    return 0;
+                                }
+
+                                @Override
+                                public View getView(int position, View convertView, ViewGroup parent) {
+                                    return null;
+                                }
+                            })
+                            .setFooter(R.layout.dialog_original_image)
+                            .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                            .create();
+                    dialog.show();
+                    View view = dialog.getFooterView();
+                    ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(currentItem.getPostpicture()[2])
+                            .into(originalImage);
+                    Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                    dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+            });
+        }
+
+
+
         viewHolder.like.setText("赞"+currentItem.getLike());
         viewHolder.like.setOnClickListener(new View.OnClickListener() {
 
@@ -134,24 +313,24 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
             }
         });
 
-        viewHolder.posttitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentPostlist(v,currentItem);
-            }
-        });
-        viewHolder.posttext.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentPostlist(v,currentItem);
-            }
-        });
-        viewHolder.postpicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentPostlist(v,currentItem);
-            }
-        });
+//        viewHolder.posttitle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                intentPostlist(v,currentItem);
+//            }
+//        });
+//        viewHolder.posttext.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                intentPostlist(v,currentItem);
+//            }
+//        });
+//        viewHolder.postpicture.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                intentPostlist(v,currentItem);
+//            }
+//        });
 
 //        viewHolder.luntanLayout.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -215,13 +394,15 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
         TextView posttip;
         TextView posttitle;
         TextView posttext;
-        ImageView postpicture;
+        ZoomInImageView postpicture1;
+        ZoomInImageView postpicture2;
+        ZoomInImageView postpicture3;
         TextView like;
         TextView favorite;
         TextView time;
 
         RelativeLayout luntanLayout;
-
+        Button detail_content;
         TextView authattributes;
         Button menu_btn;
 
@@ -236,7 +417,9 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
             posttip = itemView.findViewById(R.id.posttip);
             posttitle = itemView.findViewById(R.id.posttitle);
             posttext = itemView.findViewById(R.id.posttext);
-            postpicture = itemView.findViewById(R.id.postpicture);
+            postpicture1 = itemView.findViewById(R.id.postpicture1);
+            postpicture2 = itemView.findViewById(R.id.postpicture2);
+            postpicture3 = itemView.findViewById(R.id.postpicture3);
             like = itemView.findViewById(R.id.like);
             favorite = itemView.findViewById(R.id.favorite);
             time = itemView.findViewById(R.id.time);
@@ -245,6 +428,8 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
 
             authattributes = itemView.findViewById(R.id.authattributes);
             menu_btn = itemView.findViewById(R.id.menu_btn);
+
+            detail_content = itemView.findViewById(R.id.detail_content);
         }
     }
 

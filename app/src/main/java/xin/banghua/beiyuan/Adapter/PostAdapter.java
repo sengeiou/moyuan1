@@ -7,10 +7,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.dialogplus.DialogPlus;
+import com.zolad.zoominimageview.ZoomInImageView;
 
 import java.util.List;
 
@@ -81,6 +85,52 @@ public class PostAdapter extends RecyclerView.Adapter{
                         .load(currentItem.getPostpicture1())
                         .into(((HeadHolder) viewHolder).postpicture1);
                 ((HeadHolder) viewHolder).postpicture1.setVisibility(View.VISIBLE);
+                ((HeadHolder) viewHolder).postpicture1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_original_image)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                        Glide.with(mContext)
+                                .asBitmap()
+                                .load(currentItem.getPostpicture1())
+                                .into(originalImage);
+                        Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                        dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }else {
+                ((HeadHolder) viewHolder).postpicture1.setVisibility(View.GONE);
             }
             if (currentItem.getPostpicture2()!=""){
                 Glide.with(mContext)
@@ -88,6 +138,52 @@ public class PostAdapter extends RecyclerView.Adapter{
                         .load(currentItem.getPostpicture2())
                         .into(((HeadHolder) viewHolder).postpicture2);
                 ((HeadHolder) viewHolder).postpicture2.setVisibility(View.VISIBLE);
+                ((HeadHolder) viewHolder).postpicture2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_original_image)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                        Glide.with(mContext)
+                                .asBitmap()
+                                .load(currentItem.getPostpicture2())
+                                .into(originalImage);
+                        Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                        dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }else {
+                ((HeadHolder) viewHolder).postpicture2.setVisibility(View.GONE);
             }
             if (currentItem.getPostpicture3()!=""){
                 Glide.with(mContext)
@@ -95,7 +191,54 @@ public class PostAdapter extends RecyclerView.Adapter{
                         .load(currentItem.getPostpicture3())
                         .into(((HeadHolder) viewHolder).postpicture3);
                 ((HeadHolder) viewHolder).postpicture3.setVisibility(View.VISIBLE);
+                ((HeadHolder) viewHolder).postpicture3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_original_image)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                        Glide.with(mContext)
+                                .asBitmap()
+                                .load(currentItem.getPostpicture3())
+                                .into(originalImage);
+                        Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                        dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }else {
+                ((HeadHolder) viewHolder).postpicture3.setVisibility(View.GONE);
             }
+
             ((HeadHolder) viewHolder).time.setText(currentItem.getTime());
         }else if(viewHolder instanceof PostAdapter.ContentHolder){ // 内容
             final PostHead currentItem = postHeads.get(i);
@@ -112,6 +255,52 @@ public class PostAdapter extends RecyclerView.Adapter{
                         .load(currentItem.getFollowpicture1())
                         .into(((ContentHolder) viewHolder).followpicture1);
                 ((ContentHolder) viewHolder).followpicture1.setVisibility(View.VISIBLE);
+                ((ContentHolder) viewHolder).followpicture1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_original_image)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                        Glide.with(mContext)
+                                .asBitmap()
+                                .load(currentItem.getFollowpicture1())
+                                .into(originalImage);
+                        Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                        dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }else {
+                ((ContentHolder) viewHolder).followpicture1.setVisibility(View.GONE);
             }
             if (currentItem.getFollowpicture2()!=""){
                 Glide.with(mContext)
@@ -119,6 +308,52 @@ public class PostAdapter extends RecyclerView.Adapter{
                         .load(currentItem.getFollowpicture2())
                         .into(((ContentHolder) viewHolder).followpicture2);
                 ((ContentHolder) viewHolder).followpicture2.setVisibility(View.VISIBLE);
+                ((ContentHolder) viewHolder).followpicture2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_original_image)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                        Glide.with(mContext)
+                                .asBitmap()
+                                .load(currentItem.getFollowpicture2())
+                                .into(originalImage);
+                        Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                        dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }else {
+                ((ContentHolder) viewHolder).followpicture2.setVisibility(View.GONE);
             }
             if (currentItem.getFollowpicture3()!=""){
                 Glide.with(mContext)
@@ -126,7 +361,54 @@ public class PostAdapter extends RecyclerView.Adapter{
                         .load(currentItem.getFollowpicture3())
                         .into(((ContentHolder) viewHolder).followpicture3);
                 ((ContentHolder) viewHolder).followpicture3.setVisibility(View.VISIBLE);
+                ((ContentHolder) viewHolder).followpicture3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_original_image)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                        Glide.with(mContext)
+                                .asBitmap()
+                                .load(currentItem.getFollowpicture3())
+                                .into(originalImage);
+                        Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                        dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }else {
+                ((ContentHolder) viewHolder).followpicture3.setVisibility(View.GONE);
             }
+
             ((ContentHolder) viewHolder).time.setText(currentItem.getTime());
             ((ContentHolder) viewHolder).louceng.setText(i+"楼");
 

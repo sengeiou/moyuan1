@@ -40,6 +40,8 @@ import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 
+import static cn.rongcloud.rtc.core.ContextUtils.getApplicationContext;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -165,7 +167,10 @@ public class MeFragment extends Fragment {
         luntan_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedHelper shuserinfo = new SharedHelper(getActivity());
+                String mUserID = shuserinfo.readUserInfo().get("userID");
                 Intent intent = new Intent(getActivity(),SomeonesluntanActivity.class);
+                intent.putExtra("authid",mUserID);
                 startActivity(intent);
             }
         });

@@ -20,37 +20,10 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="postID"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/plateid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="plateid"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/authid"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="userID"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/platename"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="platename"
-                    android:visibility="gone" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/authportrait"
@@ -101,6 +74,35 @@
                         android:text="publishTime"
                         android:textColor="@color/rc_ext_sub_menu_item_text_color" />
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/authid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="userID"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/platename"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="platename"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="postID"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/plateid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="plateid"
+                    android:visibility="gone" />
+
             </LinearLayout>
         </TableRow>
 
@@ -110,8 +112,9 @@
 
             <TextView
                 android:id="@+id/posttitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="TextView"
                 android:textColor="@color/colorPrimary"
                 android:textSize="20dp" />
@@ -122,12 +125,29 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <TextView
-                android:id="@+id/posttext"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="TextView"
-                android:textColor="@color/rc_ext_root_menu_item_text_color" />
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/posttext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="TextView"
+                    android:textColor="@color/rc_ext_root_menu_item_text_color" />
+
+                <Button
+                    android:id="@+id/detail_content"
+                    style="@style/Base.Widget.AppCompat.Button.Borderless"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="查看全文"
+                    android:textColor="@color/callkit_color_primary" />
+            </LinearLayout>
+
         </TableRow>
 
         <TableRow
@@ -135,10 +155,44 @@
             android:layout_height="match_parent"
             android:padding="5dp">
 
-            <ImageView
-                android:id="@+id/postpicture"
-                android:adjustViewBounds="true"
-                android:maxHeight="200dp" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <com.zolad.zoominimageview.ZoomInImageView
+                    android:id="@+id/postpicture1"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dp"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+
+                <com.zolad.zoominimageview.ZoomInImageView
+                    android:id="@+id/postpicture2"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dp"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+
+                <com.zolad.zoominimageview.ZoomInImageView
+                    android:id="@+id/postpicture3"
+                    android:layout_width="0dp"
+                    android:layout_height="150dp"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dp"
+                    android:scaleType="fitXY"
+                    android:visibility="gone" />
+            </LinearLayout>
 
 
         </TableRow>
@@ -148,8 +202,9 @@
             android:layout_height="match_parent">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:orientation="horizontal">
 
                 <TextView

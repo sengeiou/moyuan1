@@ -30,7 +30,7 @@ public class InformBlacklistAdapter extends BaseAdapter {
     String type;//circle或post
     String itemid;
     String userid;
-
+    SharedHelper shuserinfo;
 
     LayoutInflater layoutInflater;
 
@@ -42,6 +42,7 @@ public class InformBlacklistAdapter extends BaseAdapter {
         this.itemid = itemid;
         this.userid = userid;
         layoutInflater = LayoutInflater.from(context);
+        shuserinfo = new SharedHelper(context.getApplicationContext());
     }
 
     @Override
@@ -64,6 +65,7 @@ public class InformBlacklistAdapter extends BaseAdapter {
         View view = layoutInflater.inflate(R.layout.infrom_blacklist_layout,null);
         Button inform_btn = view.findViewById(R.id.inform_btn);
         Button blacklist_btn = view.findViewById(R.id.blacklist_btn);
+        Button delete_btn = view.findViewById(R.id.delete_btn);
         inform_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,7 +83,21 @@ public class InformBlacklistAdapter extends BaseAdapter {
                 addblacklist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=addblacklist&m=socialchat");
             }
         });
+
+        String myid = shuserinfo.readUserInfo().get("userID");
+        if (myid.equals(userid)){
+            delete_btn.setVisibility(View.VISIBLE);
+            delete_btn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deletepost("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=deletepost&m=socialchat");
+                }
+            });
+        }
+
+
         return view;
+
     }
 
     //网络数据部分
@@ -96,6 +112,9 @@ public class InformBlacklistAdapter extends BaseAdapter {
                 case 1:
                     Toast.makeText(context, "拉黑成功", Toast.LENGTH_LONG).show();
                     break;
+                case 2:
+                    Toast.makeText(context, "删除已提交", Toast.LENGTH_LONG).show();
+                    break;
             }
         }
     };
@@ -104,7 +123,7 @@ public class InformBlacklistAdapter extends BaseAdapter {
         new Thread(new Runnable() {
             @Override
             public void run(){
-                SharedHelper shuserinfo = new SharedHelper(context.getApplicationContext());
+                shuserinfo = new SharedHelper(context.getApplicationContext());
                 String myid = shuserinfo.readUserInfo().get("userID");
 
                 OkHttpClient client = new OkHttpClient();
@@ -124,6 +143,35 @@ public class InformBlacklistAdapter extends BaseAdapter {
                     message.obj=response.body().string();
                     message.what=1;
                     Log.d(TAG, "run: addblacklist"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    //TODO okhttp获取用户信息
+    public void deletepost(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("postid",itemid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=2;
+                    Log.d(TAG, "run: deletepost"+message.obj.toString());
                     handler.sendMessageDelayed(message,10);
                 }catch (Exception e) {
                     e.printStackTrace();

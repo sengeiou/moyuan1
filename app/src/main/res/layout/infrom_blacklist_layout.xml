@@ -18,4 +18,12 @@
         android:background="@drawable/rc_btn_voice_hover"
         android:text="拉黑" />
 
+    <Button
+        android:id="@+id/delete_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rc_btn_voice_hover"
+        android:text="删除"
+        android:visibility="gone" />
+
 </LinearLayout>

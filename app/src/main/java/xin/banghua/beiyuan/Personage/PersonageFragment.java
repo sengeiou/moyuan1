@@ -139,6 +139,8 @@ public class PersonageFragment extends Fragment {
         getDataPersonage("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=personage&m=socialchat");
 
         addSawMe("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=addsawme&m=socialchat");
+
+        ifFriend("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=iffriend&m=socialchat");
     }
 
     public void initPersonage(View view,JSONObject jsonObject) throws JSONException {
@@ -192,7 +194,7 @@ public class PersonageFragment extends Fragment {
                     }
                     break;
                 case 2:
-                    Toast.makeText(mContext,"已申请好友",Toast.LENGTH_LONG).show();
+                      Toast.makeText(mContext,msg.obj.toString(),Toast.LENGTH_LONG).show();
 //                    Intent intent = new Intent(mContext, MainActivity.class);
 //                    startActivity(intent);
                     break;
@@ -206,6 +208,14 @@ public class PersonageFragment extends Fragment {
                         makeFriend("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=addfriend&m=socialchat");
                     }else {
                         Log.d(TAG, "handleMessage: 会员数量满");
+                        Toast.makeText(mContext,msg.obj.toString(),Toast.LENGTH_LONG).show();
+                    }
+                    break;
+                case 5:
+                    Log.d(TAG, "handleMessage: 判断是否为好友"+msg.obj.toString());
+                    if (!msg.obj.toString().equals("还未申请好友")){
+                        make_friend.setEnabled(false);
+                        make_friend.setText(msg.obj.toString());
                         Toast.makeText(mContext,msg.obj.toString(),Toast.LENGTH_LONG).show();
                     }
                     break;
@@ -279,7 +289,38 @@ public class PersonageFragment extends Fragment {
         }).start();
     }
 
+    //TODO 判断是否已是好友好友
+    public void ifFriend(final String url){
+        //Toast.makeText(mContext, "申请成功", Toast.LENGTH_LONG).show();
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
+                String yourid = shuserinfo.readUserInfo().get("userID");
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("myid", mUserID)
+                        .add("yourid", yourid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
 
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=5;
+                    Log.d(TAG, "run: getDataPersonage"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
     //TODO okhttp谁看过我
     public void addSawMe(final String url){
         new Thread(new Runnable() {

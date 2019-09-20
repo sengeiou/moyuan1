@@ -104,30 +104,32 @@
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/postpicture1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_marginRight="3dp"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:visibility="gone"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/postpicture2"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="150dp"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:visibility="gone"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
             <com.zolad.zoominimageview.ZoomInImageView
                 android:id="@+id/postpicture3"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
+                android:layout_height="150dp"
                 android:layout_marginLeft="3dp"
                 android:layout_weight="1"
-                android:adjustViewBounds="false"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
                 android:visibility="gone"
                 tools:srcCompat="@tools:sample/backgrounds/scenic" />
 

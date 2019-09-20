@@ -53,8 +53,10 @@ public class SomeonesluntanActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        SharedHelper shuserinfo = new SharedHelper(getApplicationContext());
-        authid = shuserinfo.readUserInfo().get("userID");
+//        SharedHelper shuserinfo = new SharedHelper(getApplicationContext());
+//        authid = shuserinfo.readUserInfo().get("userID");
+        Intent intent = getIntent();
+        authid = intent.getStringExtra("authid");
         Log.d(TAG, "onCreate: authid"+authid);
         getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=someonesluntan&m=socialchat",authid);
 
