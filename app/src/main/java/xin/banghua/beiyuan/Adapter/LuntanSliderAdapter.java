@@ -184,6 +184,7 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements  ViewP
             ((ViewHolder) viewHolder).posttitle.setText(currentItem.getPosttitle());
             if (currentItem.getPosttext().length()>50) {
                 ((ViewHolder) viewHolder).posttext.setText(currentItem.getPosttext().substring(0, 50)+"......");
+                ((ViewHolder) viewHolder).detail_content.setVisibility(View.VISIBLE);
                 ((ViewHolder) viewHolder).detail_content.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -97,6 +97,7 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
         viewHolder.posttitle.setText(currentItem.getPosttitle());
         if (currentItem.getPosttext().length()>50) {
             viewHolder.posttext.setText(currentItem.getPosttext().substring(0, 50)+"......");
+            viewHolder.detail_content.setVisibility(View.VISIBLE);
             viewHolder.detail_content.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

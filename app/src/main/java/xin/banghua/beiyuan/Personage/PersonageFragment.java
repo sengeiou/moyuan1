@@ -194,11 +194,15 @@ public class PersonageFragment extends Fragment {
                     }
                     break;
                 case 2:
-                      Toast.makeText(mContext,msg.obj.toString(),Toast.LENGTH_LONG).show();
+                    make_friend.setEnabled(false);
+                    make_friend.setText("已申请，等待对方同意");
+                    Toast.makeText(mContext,msg.obj.toString(),Toast.LENGTH_LONG).show();
 //                    Intent intent = new Intent(mContext, MainActivity.class);
 //                    startActivity(intent);
                     break;
                 case 3:
+                    make_friend.setEnabled(false);
+                    make_friend.setText("已加入黑名单");
                     Toast.makeText(mContext,"已加入黑名单",Toast.LENGTH_LONG).show();
                     break;
                 case 4:
