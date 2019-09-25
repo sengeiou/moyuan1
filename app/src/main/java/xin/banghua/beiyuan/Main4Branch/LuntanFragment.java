@@ -68,7 +68,8 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
     //帖子列表
     private List<LuntanList> luntanLists = new ArrayList<>();
     private LuntanSliderAdapter adapter;
-
+    //页码
+    private Integer pageindex = 1;
     //二级菜单
     ToggleButton toggleButton1,toggleButton2,toggleButton3,toggleButton4,toggleButton5;
 
@@ -122,6 +123,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
         toggleButton1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pageindex = 1;
                 toggleButton2.setChecked(false);
                 toggleButton3.setChecked(false);
                 toggleButton4.setChecked(false);
@@ -135,6 +137,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
         toggleButton2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pageindex = 1;
                 toggleButton1.setChecked(false);
                 toggleButton3.setChecked(false);
                 toggleButton4.setChecked(false);
@@ -148,6 +151,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
         toggleButton3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pageindex = 1;
                 toggleButton1.setChecked(false);
                 toggleButton2.setChecked(false);
                 toggleButton4.setChecked(false);
@@ -161,6 +165,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
         toggleButton4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pageindex = 1;
                 toggleButton1.setChecked(false);
                 toggleButton2.setChecked(false);
                 toggleButton3.setChecked(false);
@@ -174,6 +179,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
         toggleButton5.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pageindex = 1;
                 toggleButton1.setChecked(false);
                 toggleButton2.setChecked(false);
                 toggleButton3.setChecked(false);
@@ -274,40 +280,54 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
     @SuppressLint("ClickableViewAccessibility")
     private void initPostList(View view, JSONArray jsonArray) throws JSONException {
         Log.d(TAG, "initPostList: start");
-        luntanLists.clear();
-        if (jsonArray.length()>0){
-            for (int i=0;i<jsonArray.length();i++){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String[] postPicture = jsonObject.getString("postpicture").split(",");
-                LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
-                luntanLists.add(posts);
+        if (pageindex>1){
+            //不是第一页，不用清零，直接更新
+            if (jsonArray.length()>0){
+                for (int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String[] postPicture = jsonObject.getString("postpicture").split(",");
+                    LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
+                    luntanLists.add(posts);
+                }
             }
+            adapter.swapData(luntanLists);
+        }else {
+            //不同板块，需要先清零
+            luntanLists.clear();
+            if (jsonArray.length()>0){
+                for (int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String[] postPicture = jsonObject.getString("postpicture").split(",");
+                    LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
+                    luntanLists.add(posts);
+                }
+            }
+
+            final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.luntan_RecyclerView);
+            adapter = new LuntanSliderAdapter(luntanLists,sliderJsonArray,view.getContext());
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLinearLayout();
+            recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
+                @Override
+                public void onRefresh() {
+                    Log.d(TAG, "onLoadMore: start");
+
+                    recyclerView.setPullLoadMoreCompleted();
+
+                }
+
+                @Override
+                public void onLoadMore() {
+
+                    pageindex = pageindex+1;
+
+                    getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat",subtitle,pageindex+"");
+                    Log.d(TAG, "论坛页码："+pageindex);
+                    recyclerView.setPullLoadMoreCompleted();
+                }
+
+            });
         }
-
-        final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.luntan_RecyclerView);
-        adapter = new LuntanSliderAdapter(luntanLists,sliderJsonArray,view.getContext());
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLinearLayout();
-        recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
-            @Override
-            public void onRefresh() {
-                Log.d(TAG, "onLoadMore: start");
-
-                recyclerView.setPullLoadMoreCompleted();
-
-            }
-
-            @Override
-            public void onLoadMore() {
-
-                  recyclerView.setPullLoadMoreCompleted();
-            }
-
-        });
-
-
-
-
     }
     //网络数据部分
     //处理返回的数据
@@ -333,7 +353,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                         JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
                         sliderJsonArray = jsonArray;
                         Log.d(TAG, "handleMessage: subtitle"+subtitle);
-                        getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat",subtitle);
+                        getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat",subtitle,"1");
                         //initSlider(mView,jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -416,7 +436,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
             }
         }).start();
     }
-    public void getDataPostlist(final String url,final String subNav){
+    public void getDataPostlist(final String url,final String subNav,final String pageindex){
         new Thread(new Runnable() {
             @Override
             public void run(){
@@ -428,6 +448,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                         .add("type", "getPostlist")
                         .add("myid", myid)
                         .add("platename", subNav)
+                        .add("pageindex",pageindex)
                         .build();
                 Request request = new Request.Builder()
                         .url(url)

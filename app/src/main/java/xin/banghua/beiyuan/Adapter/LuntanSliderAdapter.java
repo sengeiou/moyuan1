@@ -64,6 +64,11 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements  ViewP
         this.luntanLists = luntanLists;
         this.mContext = mContext;
     }
+    //替换数据，并更新
+    public void swapData(List<LuntanList> luntanLists){
+        this.luntanLists = luntanLists;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemViewType(int position) {
         Log.d(TAG, "getItemViewType: position"+position);

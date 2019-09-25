@@ -51,7 +51,7 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
     private static final String TAG = "TuijianFragment";
     JSONArray sliderJsonArray;
     private View mView;
-
+    private Integer pageindex = 1;
     private SliderLayout mDemoSlider;
     UserInfoSliderAdapter adapter;
     PullLoadMoreRecyclerView recyclerView;
@@ -130,7 +130,7 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
             @Override
             public void onClick(View v) {
                 //显示全部
-                initRecyclerView(mView,mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
+                adapter.swapData(mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
             }
         });
         seefemale_btn = view.findViewById(R.id.seefemale_btn);
@@ -292,8 +292,13 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
             }
         }
 
-
-        initRecyclerView(view,mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
+        if (pageindex>1){
+            //第二页以上，只加载刷新，不新建recyclerView
+            adapter.swapData(mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
+        }else {
+            //初次加载
+            initRecyclerView(view,mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
+        }
     }
 
     private void initRecyclerView(View view,ArrayList<String> mUserID,ArrayList<String> mUserPortrait,ArrayList<String> mUserNickName,ArrayList<String> mUserAge,ArrayList<String> mUserGender,ArrayList<String> mUserProperty,ArrayList<String> mUserLocation,ArrayList<String> mUserRegion,ArrayList<String> mUserVIP,ArrayList<String> mAllowLocation){
@@ -313,7 +318,10 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
             @Override
             public void onLoadMore() {
 
-                Log.d(TAG, "onLoadMore: start");
+                pageindex = pageindex+1;
+
+                getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=tuijian&m=socialchat",pageindex+"");
+                Log.d(TAG, "附近页码："+pageindex);
                 recyclerView.setPullLoadMoreCompleted();
             }
         });
@@ -321,7 +329,7 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
 
 
     //TODO okhttp获取用户信息
-    public void getDataUserinfo(final String url){
+    public void getDataUserinfo(final String url,final String pageindex){
         new Thread(new Runnable() {
             @Override
             public void run(){
@@ -335,6 +343,7 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
                         .add("myid", myid)
                         .add("latitude",locationInfo.get("latitude"))
                         .add("longitude",locationInfo.get("longitude"))
+                        .add("pageindex",pageindex)
                         .build();
                 Request request = new Request.Builder()
                         .url(url)
@@ -411,7 +420,7 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
                         Log.d(TAG, "handleMessage: 幻灯片接收的值"+msg.obj.toString());
                         JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
                         sliderJsonArray = jsonArray;
-                        getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=fujin&m=socialchat");
+                        getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=fujin&m=socialchat","1");
                         //initSlider(mView,jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();

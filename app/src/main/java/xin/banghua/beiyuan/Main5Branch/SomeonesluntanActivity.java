@@ -39,7 +39,8 @@ public class SomeonesluntanActivity extends AppCompatActivity {
     //帖子列表
     private List<LuntanList> luntanLists = new ArrayList<>();
     private LuntanAdapter adapter;
-
+    //页码
+    private Integer pageindex = 1;
     private String authid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +59,7 @@ public class SomeonesluntanActivity extends AppCompatActivity {
         Intent intent = getIntent();
         authid = intent.getStringExtra("authid");
         Log.d(TAG, "onCreate: authid"+authid);
-        getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=someonesluntan&m=socialchat",authid);
+        getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=someonesluntan&m=socialchat",authid,"1");
 
     }
 
@@ -76,36 +77,55 @@ public class SomeonesluntanActivity extends AppCompatActivity {
     @SuppressLint("ClickableViewAccessibility")
     private void initPostList(JSONArray jsonArray) throws JSONException {
         Log.d(TAG, "initPostList: start");
-        luntanLists.clear();
-        if (jsonArray.length()>0){
-            for (int i=0;i<jsonArray.length();i++){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String[] postPicture = jsonObject.getString("postpicture").split(",");
-                LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
-                luntanLists.add(posts);
+        if (pageindex>1){
+            //不是第一页，不用清零，直接更新
+            if (jsonArray.length()>0){
+                for (int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String[] postPicture = jsonObject.getString("postpicture").split(",");
+                    LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
+                    luntanLists.add(posts);
+                }
             }
+            adapter.swapData(luntanLists);
+        }else {
+            //不同板块，需要先清零
+            luntanLists.clear();
+            if (jsonArray.length()>0){
+                for (int i=0;i<jsonArray.length();i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                    String[] postPicture = jsonObject.getString("postpicture").split(",");
+                    LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
+                    luntanLists.add(posts);
+                }
+            }
+
+            final PullLoadMoreRecyclerView recyclerView = findViewById(R.id.luntan_RecyclerView);
+            adapter = new LuntanAdapter(luntanLists,this);
+            recyclerView.setAdapter(adapter);
+            recyclerView.setLinearLayout();
+            recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
+                @Override
+                public void onRefresh() {
+                    Log.d(TAG, "onLoadMore: start");
+
+                    recyclerView.setPullLoadMoreCompleted();
+
+                }
+
+                @Override
+                public void onLoadMore() {
+                    pageindex = pageindex+1;
+                    getDataPostlist("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=someonesluntan&m=socialchat",authid,pageindex+"");
+                    Log.d(TAG, "个人帖子页码："+pageindex);
+                    recyclerView.setPullLoadMoreCompleted();
+                }
+
+            });
         }
 
-        final PullLoadMoreRecyclerView recyclerView = findViewById(R.id.luntan_RecyclerView);
-        adapter = new LuntanAdapter(luntanLists,this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLinearLayout();
-        recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
-            @Override
-            public void onRefresh() {
-                Log.d(TAG, "onLoadMore: start");
 
-                recyclerView.setPullLoadMoreCompleted();
 
-            }
-
-            @Override
-            public void onLoadMore() {
-
-                recyclerView.setPullLoadMoreCompleted();
-            }
-
-        });
 
 
 
@@ -132,13 +152,14 @@ public class SomeonesluntanActivity extends AppCompatActivity {
             }
         }
     };
-    public void getDataPostlist(final String url,final String authid){
+    public void getDataPostlist(final String url,final String authid,final String pageindex){
         new Thread(new Runnable() {
             @Override
             public void run(){
                 OkHttpClient client = new OkHttpClient();
                 RequestBody formBody = new FormBody.Builder()
                         .add("authid", authid)
+                        .add("pageindex",pageindex)
                         .build();
                 Request request = new Request.Builder()
                         .url(url)

@@ -47,7 +47,11 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
         this.luntanLists = luntanLists;
         this.mContext = mContext;
     }
-
+    //替换数据，并更新
+    public void swapData(List<LuntanList> luntanLists){
+        this.luntanLists = luntanLists;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

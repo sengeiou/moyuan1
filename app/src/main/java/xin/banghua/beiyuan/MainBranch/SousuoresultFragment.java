@@ -48,7 +48,8 @@ public class SousuoresultFragment extends Fragment {
     private static final String TAG = "SousuoresultFragment";
 
     private View mView;
-
+    private Integer pageindex = 1;
+    UserInfoAdapter adapter;
     private SliderLayout mDemoSlider;
     //vars
     private ArrayList<String> mUserID = new ArrayList<>();
@@ -85,9 +86,9 @@ public class SousuoresultFragment extends Fragment {
 
         if (getArguments().getString("type")=="direct") {
             //获取用户信息
-            getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=directsousuo&m=socialchat",getArguments());
+            getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=directsousuo&m=socialchat",getArguments(),"1");
         }else if(getArguments().getString("type")=="condition"){
-            getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=conditionsousuo&m=socialchat",getArguments());
+            getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=conditionsousuo&m=socialchat",getArguments(),"1");
         }
     }
 
@@ -136,15 +137,21 @@ public class SousuoresultFragment extends Fragment {
             mAllowLocation.add(getJsonObject.getString("allowlocation"));
         }
 
+        if (pageindex>1){
+            //第二页以上，只加载刷新，不新建recyclerView
+            adapter.swapData(mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
+        }else {
+            //初次加载
+            initRecyclerView(view);
+        }
 
-        initRecyclerView(view);
     }
 
     private void initRecyclerView(View view){
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
         final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.tuijian_RecyclerView);
-        UserInfoAdapter adapter = new UserInfoAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
+        adapter = new UserInfoAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserAge,mUserGender,mUserProperty,mUserLocation,mUserRegion,mUserVIP,mAllowLocation);
         recyclerView.setAdapter(adapter);
         recyclerView.setLinearLayout();;
         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
@@ -157,8 +164,9 @@ public class SousuoresultFragment extends Fragment {
 
             @Override
             public void onLoadMore() {
-
-                Log.d(TAG, "onLoadMore: start");
+                pageindex = pageindex+1;
+                getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=conditionsousuo&m=socialchat",getArguments(),pageindex+"");
+                Log.d(TAG, "搜索页码："+pageindex);
                 recyclerView.setPullLoadMoreCompleted();
             }
         });
@@ -166,7 +174,7 @@ public class SousuoresultFragment extends Fragment {
 
 
     //TODO okhttp获取用户信息
-    public void getDataUserinfo(final String url,Bundle bundle){
+    public void getDataUserinfo(final String url,Bundle bundle,final String pageindex){
         new Thread(new Runnable() {
             @Override
             public void run(){
@@ -193,6 +201,7 @@ public class SousuoresultFragment extends Fragment {
                             .add("userProperty",getArguments().getString("userProperty"))
                             .add("latitude",locationInfo.get("latitude"))
                             .add("longitude",locationInfo.get("longitude"))
+                            .add("pageindex",pageindex)
                             .build();
                 }
 

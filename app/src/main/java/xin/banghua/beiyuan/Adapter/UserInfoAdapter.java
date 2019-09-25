@@ -53,7 +53,20 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
         this.mAllowLocation = allowLocation;
         this.mContext = mContext;
     }
-
+    //替换数据，并更新
+    public void swapData(ArrayList<String> mUserID,ArrayList<String> mUserPortrait,ArrayList<String> mUserNickName,ArrayList<String> mUserAge,ArrayList<String> mUserGender,ArrayList<String> mUserProperty,ArrayList<String> mUserLocation,ArrayList<String> mUserRegion,ArrayList<String> mUserVIP,ArrayList<String> mAllowLocation){
+        this.mUserID = mUserID;
+        this.mUserPortrait = mUserPortrait;
+        this.mUserNickName = mUserNickName;
+        this.mUserAge = mUserAge;
+        this.mUserGender = mUserGender;
+        this.mUserProperty = mUserProperty;
+        this.mUserLocation = mUserLocation;
+        this.mUserRegion = mUserRegion;
+        this.mUserVIP = mUserVIP;
+        this.mAllowLocation = mAllowLocation;
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
