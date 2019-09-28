@@ -20,12 +20,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.model.Conversation;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 import xin.banghua.beiyuan.Signin.SigninActivity;
 
@@ -86,12 +92,15 @@ public class Main4Activity extends AppCompatActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         bottomNavigationView.setSelectedItemId(R.id.navigation_dongtai);
-
+        //好友申请数
+        BadgeBottomNav badgeBottomNav = new BadgeBottomNav(this,handler);
+        badgeBottomNav.getDataFriendsapply("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapplynumber&m=socialchat");
         //未读信息监听
         iUnReadMessageObserver = new IUnReadMessageObserver() {
             @Override
             public void onCountChanged(int i) {
-                    initUnreadBadge(bottomNavigationView,i);
+                BadgeBottomNav.unreadMessageBadge(bottomNavigationView,i,getApplicationContext());
+                //initUnreadBadge(bottomNavigationView,i);
             }
         };
         RongIM.getInstance().addUnReadMessageCountChangedObserver(iUnReadMessageObserver, Conversation.ConversationType.PRIVATE);
@@ -170,6 +179,11 @@ public class Main4Activity extends AppCompatActivity {
             super.handleMessage(msg);
             //1是用户数据，2是幻灯片
             switch (msg.what){
+                case 11:
+                    String resultJson1 = msg.obj.toString();
+                    Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
+                    BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    break;
                 case 10:
                     if (msg.obj.toString().equals("false")){
                         uniquelogin.uniqueNotification();

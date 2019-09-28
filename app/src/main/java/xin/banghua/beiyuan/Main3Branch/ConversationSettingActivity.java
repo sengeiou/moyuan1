@@ -47,7 +47,7 @@ public class ConversationSettingActivity extends AppCompatActivity {
     CircleImageView portrait;
     TextView nickname;
     Switch istop,donotdisturb;
-    Button recored_clear,blacklist_btn;
+    Button recored_clear,blacklist_btn,deletefriend_btn;
 
 
     @Override
@@ -186,6 +186,14 @@ public class ConversationSettingActivity extends AppCompatActivity {
             }
         });
 
+        deletefriend_btn = findViewById(R.id.deletefriend_btn);
+        deletefriend_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteFriend("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=deletefriend&m=socialchat",targetId);
+            }
+        });
+
         getDataPersonage("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=personage&m=socialchat",targetId);
     }
     public void initPersonage(JSONObject jsonObject) throws JSONException {
@@ -216,7 +224,9 @@ public class ConversationSettingActivity extends AppCompatActivity {
                 case 3:
                     Toast.makeText(getApplicationContext(),"已加入黑名单",Toast.LENGTH_LONG).show();
                     break;
-
+                case 4:
+                    Toast.makeText(getApplicationContext(),"已删除好友",Toast.LENGTH_LONG).show();
+                    break;
             }
         }
     };
@@ -275,6 +285,39 @@ public class ConversationSettingActivity extends AppCompatActivity {
                     Message message=handler.obtainMessage();
                     message.obj=response.body().string();
                     message.what=3;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+    //TODO okhttp删除好友
+    public void deleteFriend(final String url,final String targetId){
+        //Toast.makeText(mContext, "已加入黑名单", Toast.LENGTH_LONG).show();
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("myid", myid)
+                        .add("yourid", targetId)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=4;
                     Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
                     handler.sendMessageDelayed(message,10);
                 }catch (Exception e) {

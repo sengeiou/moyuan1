@@ -320,7 +320,7 @@ public class FujinFragment extends Fragment implements BaseSliderView.OnSliderCl
 
                 pageindex = pageindex+1;
 
-                getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=tuijian&m=socialchat",pageindex+"");
+                getDataUserinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=fujin&m=socialchat",pageindex+"");
                 Log.d(TAG, "附近页码："+pageindex);
                 recyclerView.setPullLoadMoreCompleted();
             }

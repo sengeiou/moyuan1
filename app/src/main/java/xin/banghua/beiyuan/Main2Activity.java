@@ -126,13 +126,18 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
         iUnReadMessageObserver = new IUnReadMessageObserver() {
             @Override
             public void onCountChanged(int i) {
-                    initUnreadBadge(bottomNavigationView,i);
+                BadgeBottomNav.unreadMessageBadge(bottomNavigationView,i,getApplicationContext());
+                //initUnreadBadge(bottomNavigationView,i);
             }
         };
         RongIM.getInstance().addUnReadMessageCountChangedObserver(iUnReadMessageObserver, Conversation.ConversationType.PRIVATE);
 
         getDataFriends("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friends&m=socialchat");
-        getDataFriendsapply("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapplynumber&m=socialchat");
+        //好友申请数
+        BadgeBottomNav badgeBottomNav = new BadgeBottomNav(this,handler);
+        badgeBottomNav.getDataFriendsapply("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapplynumber&m=socialchat");
+        //getDataFriendsapply("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapplynumber&m=socialchat");
+
         Button newFriend = findViewById(R.id.new_friend);
         newFriend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -271,11 +276,12 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
                         e.printStackTrace();
                     }
                     break;
-                case 2:
+                case 11:
                         String resultJson1 = msg.obj.toString();
                         Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
                         friendApply = findViewById(R.id.new_friend);
                         friendApply.setText("+新朋友 "+msg.obj.toString());
+                        BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
                     break;
                 case 10:
                     if (msg.obj.toString().equals("false")){
@@ -323,36 +329,7 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
         }).start();
     }
 
-    //TODO okhttp获取好友申请数
-    public void getDataFriendsapply(final String url){
-        new Thread(new Runnable() {
-            @Override
-            public void run(){
-                SharedHelper shvalue = new SharedHelper(getApplicationContext());
-                String userID = shvalue.readUserInfo().get("userID");
-                OkHttpClient client = new OkHttpClient();
-                RequestBody formBody = new FormBody.Builder()
-                        .add("myid", userID)
-                        .build();
-                Request request = new Request.Builder()
-                        .url(url)
-                        .post(formBody)
-                        .build();
 
-                try (Response response = client.newCall(request).execute()) {
-                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
-
-                    Message message=handler.obtainMessage();
-                    message.obj=response.body().string();
-                    message.what=2;
-                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
-                    handler.sendMessageDelayed(message,10);
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
 
     @Override
     public UserInfo getUserInfo(String s) {

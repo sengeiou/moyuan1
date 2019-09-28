@@ -114,12 +114,15 @@ public class Main3Activity extends AppCompatActivity {
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         bottomNavigationView.setSelectedItemId(R.id.navigation_xiaoxi);
-
+        //好友申请数
+        BadgeBottomNav badgeBottomNav = new BadgeBottomNav(this,handler);
+        badgeBottomNav.getDataFriendsapply("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapplynumber&m=socialchat");
         //未读信息监听
         iUnReadMessageObserver = new IUnReadMessageObserver() {
             @Override
             public void onCountChanged(int i) {
-                    initUnreadBadge(bottomNavigationView,i);
+                BadgeBottomNav.unreadMessageBadge(bottomNavigationView,i,getApplicationContext());
+                //initUnreadBadge(bottomNavigationView,i);
             }
         };
         RongIM.getInstance().addUnReadMessageCountChangedObserver(iUnReadMessageObserver, Conversation.ConversationType.PRIVATE);
@@ -239,6 +242,11 @@ public class Main3Activity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     break;
+                case 11:
+                    String resultJson1 = msg.obj.toString();
+                    Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
+                    BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    break;
                 case 10:
                     if (msg.obj.toString().equals("false")){
                         uniquelogin.uniqueNotification();
@@ -254,6 +262,7 @@ public class Main3Activity extends AppCompatActivity {
             }
         }
     };
+
     //TODO okhttp获取好友信息
     public void getDataFriends(final String url){
         new Thread(new Runnable() {
