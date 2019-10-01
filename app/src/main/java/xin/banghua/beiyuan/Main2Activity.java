@@ -13,6 +13,9 @@ import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -22,6 +25,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
+import com.xp.wavesidebar.WaveSideBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,6 +33,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +48,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.Adapter.FriendAdapter;
 import xin.banghua.beiyuan.Adapter.FriendList;
+import xin.banghua.beiyuan.AlphabeticalOrder.PinyinComparator;
+import xin.banghua.beiyuan.AlphabeticalOrder.PinyinUtils;
+import xin.banghua.beiyuan.AlphabeticalOrder.TitleItemDecoration;
 import xin.banghua.beiyuan.Main2Branch.BlackListActivity;
 import xin.banghua.beiyuan.Main2Branch.NewFriend;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
@@ -65,6 +73,16 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
 
     //朋友申请
     private TextView friendApply;
+
+    //字母排序相关
+    private WaveSideBar mSideBar;
+    private LinearLayoutManager manager;
+    private TitleItemDecoration mDecoration;
+    private RecyclerView mRecyclerView;
+    /**
+     * 根据拼音来排列RecyclerView里面的数据类
+     */
+    private PinyinComparator mComparator;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -225,37 +243,64 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
             for (int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 FriendList friends = new FriendList(jsonObject.getString("id"),jsonObject.getString("portrait"),jsonObject.getString("nickname"),jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"));
-                friendList.add(friends);
+                friendList.add(filledData(friends));
             }
         }
 
 
         initRecyclerView(view);
     }
+    /**
+     * 将数据中的用户名拼音首字母加入数据数组
+     *
+     * @param data
+     * @return
+     */
+    private FriendList filledData(FriendList data) {
+            //汉字转换成拼音
+            String pinyin = PinyinUtils.getPingYin(data.getmUserNickName());
+            String sortString = pinyin.substring(0, 1).toUpperCase();
 
+            // 正则表达式，判断首字母是否是英文字母
+            if (sortString.matches("[A-Z]")) {
+                data.setLetters(sortString.toUpperCase());
+            } else {
+                data.setLetters("#");
+            }
+        return data;
+    }
     //TODO 初始化好友recyclerview
     private void initRecyclerView(View view){
         Log.d(TAG, "initRecyclerView: init recyclerview");
+        mComparator = new PinyinComparator();
 
-        final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.haoyou_RecyclerView);
-        adapter = new FriendAdapter(Main2Activity.this,friendList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLinearLayout();
-        recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
+        mSideBar = (WaveSideBar) findViewById(R.id.sideBar);
+
+        //设置右侧SideBar触摸监听
+        mSideBar.setOnTouchLetterChangeListener(new WaveSideBar.OnTouchLetterChangeListener() {
             @Override
-            public void onRefresh() {
-
-                Log.d(TAG, "onRefresh: start");
-                recyclerView.setPullLoadMoreCompleted();
-            }
-
-            @Override
-            public void onLoadMore() {
-
-                Log.d(TAG, "onLoadMore: start");
-                recyclerView.setPullLoadMoreCompleted();
+            public void onLetterChange(String letter) {
+                //该字母首次出现的位置
+                int position = adapter.getPositionForSection(letter.charAt(0));
+                if (position != -1) {
+                    manager.scrollToPositionWithOffset(position, 0);
+                }
             }
         });
+        // 根据a-z进行排序源数据
+        Collections.sort(friendList, mComparator);
+
+        mRecyclerView = view.findViewById(R.id.haoyou_RecyclerView);
+        adapter = new FriendAdapter(Main2Activity.this,friendList);
+        mRecyclerView.setAdapter(adapter);
+        //RecyclerView设置manager
+        manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(manager);
+        mDecoration = new TitleItemDecoration(this, friendList);
+        //如果add两个，那么按照先后顺序，依次渲染。
+        mRecyclerView.addItemDecoration(mDecoration);
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(Main2Activity.this, DividerItemDecoration.VERTICAL));
     }
     //处理返回的数据
     @SuppressLint("HandlerLeak")
@@ -350,4 +395,5 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
         Log.d(TAG, "getUserInfo: 没进入"+s);
         return null;
     }
+
 }

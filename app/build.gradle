@@ -83,4 +83,6 @@ dependencies {
     //dialog
     implementation 'com.orhanobut:dialogplus:1.11@aar'
     implementation files('libs/Amap_2DMap_V5.2.0_20170627.jar')
+    implementation files('libs/pinyin4j-2.5.0.jar')
+    implementation project(path: ':wavesidebar')
 }
