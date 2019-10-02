@@ -32,6 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import io.rong.contactcard.ContactCardExtensionModule;
+import io.rong.contactcard.IContactCardInfoProvider;
+import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.fragment.ConversationListFragment;
 import io.rong.imkit.manager.IUnReadMessageObserver;
@@ -44,6 +47,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.Adapter.FriendList;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
+import xin.banghua.beiyuan.RongYunContactCard.MyContactCard;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 import xin.banghua.beiyuan.Signin.SigninActivity;
 
@@ -128,7 +132,6 @@ public class Main3Activity extends AppCompatActivity {
         RongIM.getInstance().addUnReadMessageCountChangedObserver(iUnReadMessageObserver, Conversation.ConversationType.PRIVATE);
 
         initView();
-
     }
 
 
@@ -296,15 +299,23 @@ public class Main3Activity extends AppCompatActivity {
     //TODO 初始化用户列表
     private void initFriends(View view, JSONArray jsonArray) throws JSONException {
         Log.d(TAG, "initFriends: ");
-
+        List<UserInfo> userInfoList = new ArrayList<>();
         if (jsonArray.length()>0){
             for (int i=0;i<jsonArray.length();i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 FriendList friends = new FriendList(jsonObject.getString("id"),jsonObject.getString("portrait"),jsonObject.getString("nickname"),jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"));
                 friendList.add(friends);
-                RongIM.getInstance().refreshUserInfoCache(new UserInfo(jsonObject.getString("id"), jsonObject.getString("nickname"), Uri.parse(jsonObject.getString("portrait"))));
+
+
+                UserInfo userInfo = new UserInfo(jsonObject.getString("id"), jsonObject.getString("nickname"), Uri.parse(jsonObject.getString("portrait")));
+                RongIM.getInstance().refreshUserInfoCache(userInfo);
+                userInfoList.add(userInfo);
             }
+            MyContactCard myContactCard = new MyContactCard();
+            myContactCard.setUserInfoList(userInfoList);
+            myContactCard.initContactCard();
         }
+
         RongIM.setUserInfoProvider(new RongIM.UserInfoProvider() {
 
             @Override
@@ -322,6 +333,8 @@ public class Main3Activity extends AppCompatActivity {
 
         }, true);
     }
+
+
 
 
 }

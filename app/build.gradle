@@ -27,6 +27,10 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
 }
 repositories {
     flatDir {
@@ -72,6 +76,7 @@ dependencies {
     implementation project(':CallLib')
     implementation project(':CallKit')
     implementation project(':Sight')
+    implementation project(':contactcard')
     //支付宝sdk
     implementation(name: 'alipaySdk-15.6.5-20190718211148', ext: 'aar')
     //微信sdk

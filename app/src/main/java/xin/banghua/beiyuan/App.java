@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import io.rong.contactcard.ContactCardContext;
+import io.rong.contactcard.ContactCardExtensionModule;
+import io.rong.contactcard.IContactCardInfoProvider;
+import io.rong.imkit.RongExtension;
 import io.rong.imkit.RongExtensionManager;
 import io.rong.imkit.RongIM;
 import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import io.rong.imlib.model.Message;
 import io.rong.push.RongPushClient;
 import io.rong.push.pushconfig.PushConfig;
@@ -62,6 +68,8 @@ public class App extends Application implements Application.ActivityLifecycleCal
         });
         RongIM.init(this);
         RongExtensionManager.getInstance().registerExtensionModule(new SightExtensionModule());
+
+        //initContactCard();
         //验证连接成功
 //          connect("JeXL+71vahbPjzSTYBlf3Okw/3FJenp53iTgy0iFgV+zWO2xI0jlx8+r479bFjga59uiwpcN87KhrP49wK/ZpQ==");
         //为了测试 这是贝吉塔的token 贝吉塔跟super果实现单聊
@@ -70,7 +78,43 @@ public class App extends Application implements Application.ActivityLifecycleCal
 //        connect(token);
 
     }
+    private void initContactCard(){
+        ContactCardExtensionModule contactCardExtensionModule = new ContactCardExtensionModule(new IContactCardInfoProvider() {
+            /**
+             * 获取所有通讯录用户
+             *
+             * @param contactInfoCallback
+             */
+            @Override
+            public void getContactAllInfoProvider(IContactCardInfoCallback contactInfoCallback) {
+                Log.d(TAG, "getContactAllInfoProvider: 呵呵");
+                //imInfoProvider.getAllContactUserInfo(contactInfoCallback);
+            }
 
+            /**
+             * 获取单一用户
+             *
+             * @param userId
+             * @param name
+             * @param portrait
+             * @param contactInfoCallback
+             */
+            @Override
+            public void getContactAppointedInfoProvider(String userId, String name, String portrait, IContactCardInfoCallback contactInfoCallback) {
+                Log.d(TAG, "getContactAppointedInfoProvider: 哈哈");
+                //imInfoProvider.getContactUserInfo(userId, contactInfoCallback);
+            }
+        }, (view, content) -> {
+            Context activityContext = view.getContext();
+            // 点击名片进入到个人详细界面
+            Intent intent = new Intent(activityContext, Main3Activity.class);
+            intent.putExtra("sadasdasada", content.getId());
+            activityContext.startActivity(intent);
+        });
+        //ContactCardContext.getInstance().setContactCardSelectListProvider(new MyIContactCardSelectListProvider());
+
+        RongExtensionManager.getInstance().registerExtensionModule(contactCardExtensionModule);
+    }
     /**
      * 建立与融云服务器的连接
      *
