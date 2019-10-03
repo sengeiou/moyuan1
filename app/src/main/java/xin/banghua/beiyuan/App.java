@@ -68,7 +68,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
         });
         RongIM.init(this);
         RongExtensionManager.getInstance().registerExtensionModule(new SightExtensionModule());
-
+        RongIM.getInstance().setConversationClickListener(new MyConversationClickListener());
         //initContactCard();
         //验证连接成功
 //          connect("JeXL+71vahbPjzSTYBlf3Okw/3FJenp53iTgy0iFgV+zWO2xI0jlx8+r479bFjga59uiwpcN87KhrP49wK/ZpQ==");
@@ -114,6 +114,7 @@ public class App extends Application implements Application.ActivityLifecycleCal
         //ContactCardContext.getInstance().setContactCardSelectListProvider(new MyIContactCardSelectListProvider());
 
         RongExtensionManager.getInstance().registerExtensionModule(contactCardExtensionModule);
+
     }
     /**
      * 建立与融云服务器的连接
@@ -220,4 +221,5 @@ public class App extends Application implements Application.ActivityLifecycleCal
     public void onActivityDestroyed(Activity activity) {
         Log.d(TAG, "onActivityDestroyed: ");
     }
+
 }

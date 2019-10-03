@@ -201,7 +201,61 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements  ViewP
                 ((ViewHolder) viewHolder).posttext.setText(currentItem.getPosttext());
                 ((ViewHolder) viewHolder).detail_content.setVisibility(View.GONE);
             }
-            if (currentItem.getPostpicture().length<1){
+
+            if (currentItem.getPostpicture().length!=1){
+                ((ViewHolder) viewHolder).postpicture.setVisibility(View.GONE);
+            }else if (currentItem.getPostpicture().length==1){
+                Glide.with(mContext)
+                        .asBitmap()
+                        .load(currentItem.getPostpicture()[0])
+                        .into(((ViewHolder) viewHolder).postpicture);
+                ((ViewHolder) viewHolder).postpicture.setVisibility(View.VISIBLE);
+                ((ViewHolder) viewHolder).postpicture.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                                .setAdapter(new BaseAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        return null;
+                                    }
+                                })
+                                .setFooter(R.layout.dialog_original_image)
+                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .create();
+                        dialog.show();
+                        View view = dialog.getFooterView();
+                        ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                        Glide.with(mContext)
+                                .asBitmap()
+                                .load(currentItem.getPostpicture()[0])
+                                .into(originalImage);
+                        Button dismissdialog_btn = view.findViewById(R.id.cancel);
+                        dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss();
+                            }
+                        });
+                    }
+                });
+            }
+            if (currentItem.getPostpicture().length<2){
                 ((ViewHolder) viewHolder).postpicture1.setVisibility(View.GONE);
             }else {
                 Glide.with(mContext)
@@ -504,6 +558,7 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements  ViewP
         TextView posttip;
         TextView posttitle;
         TextView posttext;
+        ZoomInImageView postpicture;
         ZoomInImageView postpicture1;
         ZoomInImageView postpicture2;
         ZoomInImageView postpicture3;
@@ -528,6 +583,7 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements  ViewP
             posttip = itemView.findViewById(R.id.posttip);
             posttitle = itemView.findViewById(R.id.posttitle);
             posttext = itemView.findViewById(R.id.posttext);
+            postpicture = itemView.findViewById(R.id.postpicture);
             postpicture1 = itemView.findViewById(R.id.postpicture1);
             postpicture2 = itemView.findViewById(R.id.postpicture2);
             postpicture3 = itemView.findViewById(R.id.postpicture3);

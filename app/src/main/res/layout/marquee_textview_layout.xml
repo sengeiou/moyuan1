@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/callkit_conference_select_member_bottom_color"
+    android:orientation="horizontal"
     android:paddingTop="3dp"
-    android:paddingBottom="3dp"
-    android:background="@color/colorAccent"
-    android:orientation="horizontal">
+    android:paddingBottom="3dp">
 
     <ViewFlipper
         android:id="@+id/viewFlipper"
@@ -13,6 +13,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:flipInterval="5000"
-        android:padding="4dp">
-    </ViewFlipper>
+        android:padding="4dp"></ViewFlipper>
 </LinearLayout>

@@ -49,7 +49,7 @@ public class SomeonesluntanActivity extends AppCompatActivity {
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar();
         if(actionBar != null){
-            actionBar.setTitle("个人发帖和跟帖");
+            actionBar.setTitle("个人发帖");
             actionBar.setHomeButtonEnabled(true);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }

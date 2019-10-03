@@ -162,6 +162,16 @@
                 android:orientation="horizontal">
 
                 <com.zolad.zoominimageview.ZoomInImageView
+                    android:id="@+id/postpicture"
+                    android:layout_width="200dp"
+                    android:layout_height="150dp"
+                    android:layout_marginRight="3dp"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <com.zolad.zoominimageview.ZoomInImageView
                     android:id="@+id/postpicture1"
                     android:layout_width="0dp"
                     android:layout_height="150dp"
@@ -169,7 +179,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:maxHeight="200dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:visibility="gone" />
 
                 <com.zolad.zoominimageview.ZoomInImageView
@@ -179,7 +189,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:maxHeight="200dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:visibility="gone" />
 
                 <com.zolad.zoominimageview.ZoomInImageView
@@ -190,7 +200,7 @@
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:maxHeight="200dp"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:visibility="gone" />
             </LinearLayout>
 
