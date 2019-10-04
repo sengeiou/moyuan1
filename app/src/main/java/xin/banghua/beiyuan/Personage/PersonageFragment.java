@@ -480,17 +480,26 @@ public class PersonageFragment extends Fragment {
                     }
                     break;
                 case 5:
-                    Log.d(TAG, "handleMessage: 判断是否为好友"+msg.obj.toString());
-                    if (!msg.obj.toString().equals("还未申请好友")){
-                        //make_friend.setEnabled(false);
-                        //make_friend.setText(msg.obj.toString());
-                        make_friend.setVisibility(View.GONE);
-                        Toast.makeText(mContext,msg.obj.toString(),Toast.LENGTH_LONG).show();
-                        deletefriend_btn.setVisibility(View.VISIBLE);
-                        startconversation_btn.setVisibility(View.VISIBLE);
-                        if (msg.obj.toString().equals("已加入黑名单")){
+                    JSONObject jsonObject = null;//原生的
+                    try {
+                        jsonObject = new JSONObject(msg.obj.toString());
+                        String blacklistinfo = jsonObject.getString("blacklistinfo");
+                        String friendinfo = jsonObject.getString("friendinfo");
+                        if (blacklistinfo.equals("已加入黑名单")){
                             balcklist_btn.setText("移除黑名单");
+                            Toast.makeText(mContext,blacklistinfo,Toast.LENGTH_LONG).show();
                         }
+                        if (friendinfo.equals("已经是好友")){
+                            make_friend.setVisibility(View.GONE);
+                            deletefriend_btn.setVisibility(View.VISIBLE);
+                            startconversation_btn.setVisibility(View.VISIBLE);
+                            Toast.makeText(mContext,friendinfo,Toast.LENGTH_LONG).show();
+                        }else if (friendinfo.equals("已申请，等待对方同意")){
+                            make_friend.setEnabled(false);
+                            make_friend.setText(friendinfo);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
                     break;
                 case 6:
