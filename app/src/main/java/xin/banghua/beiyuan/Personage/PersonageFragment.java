@@ -34,11 +34,14 @@ import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.rong.imkit.RongIM;
+import io.rong.imlib.RongIMClient;
+import io.rong.imlib.model.Conversation;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.beiyuan.CircleImageViewExtension;
 import xin.banghua.beiyuan.Main5Branch.SomeonesluntanActivity;
 import xin.banghua.beiyuan.MainActivity;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
@@ -60,7 +63,7 @@ public class PersonageFragment extends Fragment {
 
 
     private TextView mUserNickName_tv;
-    private CircleImageView mUserPortrait_iv;
+    private CircleImageViewExtension mUserPortrait_iv;
     private TextView mUserAge_tv;
     private TextView mUserRegion_tv;
     private TextView mUserGender_tv;
@@ -328,6 +331,18 @@ public class PersonageFragment extends Fragment {
                 confirm_btn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        RongIM.getInstance().removeConversation(Conversation.ConversationType.PRIVATE,mUserID,new io.rong.imlib.RongIMClient.ResultCallback(){
+
+                            @Override
+                            public void onSuccess(Object o) {
+
+                            }
+
+                            @Override
+                            public void onError(RongIMClient.ErrorCode errorCode) {
+
+                            }
+                        });
                         deleteFriend("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=deletefriend&m=socialchat");
                         dialog.dismiss();
                     }
@@ -415,6 +430,7 @@ public class PersonageFragment extends Fragment {
 
 
         mUserNickName_tv.setText(jsonObject.getString("nickname"));
+        if (jsonObject.getString("vip").equals("VIP"))  mUserPortrait_iv.isVIP(true,getResources());
         Glide.with(view)
                 .asBitmap()
                 .load(jsonObject.getString("portrait"))

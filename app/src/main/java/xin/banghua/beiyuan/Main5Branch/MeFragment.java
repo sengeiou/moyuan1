@@ -35,6 +35,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.beiyuan.CircleImageViewExtension;
 import xin.banghua.beiyuan.Main5Activity;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.beiyuan.R;
@@ -49,7 +50,7 @@ import static cn.rongcloud.rtc.core.ContextUtils.getApplicationContext;
 public class MeFragment extends Fragment {
 
     private static final String TAG = "MeFragment";
-    CircleImageView userportrait_iv;
+    CircleImageViewExtension userportrait_iv;
     TextView usernickname_tv;
     Button beiyuanid_btn;
     Button personalinfo_btn;
@@ -60,7 +61,7 @@ public class MeFragment extends Fragment {
     Button tuiguangma_btn;
     Button sawme_btn;
     Button setting_btn;
-
+    String myportrait;
     private Context mContext;
 
     public MeFragment() {
@@ -84,8 +85,40 @@ public class MeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         initData(view);
+        //vip
+        getVipinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=viptimeinsousuo&m=socialchat");
     }
+    //TODO okhttp获取用户信息
+    public void getVipinfo(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
 
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("id", myid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=3;
+                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
     private void initData(View view) {
         userportrait_iv = view.findViewById(R.id.userportrait_iv);
         userportrait_iv.setOnClickListener(new View.OnClickListener() {
@@ -118,12 +151,9 @@ public class MeFragment extends Fragment {
         SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
         final String myid = shuserinfo.readUserInfo().get("userID");
         String mynickname = shuserinfo.readUserInfo().get("userNickName");
-        String myportrait = shuserinfo.readUserInfo().get("userPortrait");
+        myportrait = shuserinfo.readUserInfo().get("userPortrait");
 
-        Glide.with(view.getContext())
-                .asBitmap()
-                .load(myportrait)
-                .into(userportrait_iv);
+
         usernickname_tv.setText(mynickname);
 
 
@@ -233,6 +263,17 @@ public class MeFragment extends Fragment {
                     break;
                 case 2:
                     Toast.makeText(mContext, msg.obj.toString(), Toast.LENGTH_LONG).show();
+                    break;
+                case 3:
+
+                    String resultJson1 = msg.obj.toString();
+                    Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
+                    if (!(msg.obj.toString().equals("会员已到期")))  userportrait_iv.isVIP(true,getResources());
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(myportrait)
+                            .into(userportrait_iv);
+
                     break;
             }
         }

@@ -107,8 +107,8 @@ public class FindPasswordActivity extends AppCompatActivity {
                     smscode = msg.obj.toString();
                     break;
                 case 3:
-                    if (msg.arg1<2){
-                        verificationCode_btn.setText("验证码");
+                    if (msg.arg1==0){
+                        verificationCode_btn.setText("获取验证码");
                         verificationCode_btn.setEnabled(true);
                         countDown = 60;
                     }else {
@@ -163,7 +163,7 @@ public class FindPasswordActivity extends AppCompatActivity {
             @Override
             public void run(){
 
-                while (countDown > 0) {
+                while (countDown != 0) {
                     countDown--;
                     try {
                         Thread.sleep(1000);

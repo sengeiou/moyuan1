@@ -21,6 +21,7 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import io.rong.imkit.RongIM;
+import xin.banghua.beiyuan.CircleImageViewExtension;
 import xin.banghua.beiyuan.Personage.PersonageActivity;
 import xin.banghua.beiyuan.R;
 
@@ -58,6 +59,8 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
         final FriendList currentItem = friendList.get(i);
 
         viewHolder.userID.setText(currentItem.getmUserID());
+
+        if (currentItem.getmVip().equals("VIP")) viewHolder.userPortrait.isVIP(true,mContext.getResources());
         Glide.with(mContext)
                 .asBitmap()
                 .load(currentItem.getmUserPortrait())
@@ -135,7 +138,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView userID;
-        CircleImageView userPortrait;
+        CircleImageViewExtension userPortrait;
         TextView userNickName;
         TextView userLeaveWords;
         Button userinfo_btn;

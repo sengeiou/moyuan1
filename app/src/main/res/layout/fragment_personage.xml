@@ -42,7 +42,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <xin.banghua.beiyuan.CircleImageViewExtension
                     android:id="@+id/user_portrait"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -81,6 +81,7 @@
                             android:id="@+id/user_region"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:padding="15dp"
                             android:text="地区"
                             android:textColor="@color/colorAccent" />
@@ -89,6 +90,7 @@
                             android:id="@+id/user_gender"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
+                            android:layout_marginLeft="5dp"
                             android:foreground="@drawable/male"
                             android:gravity="center|center_horizontal|center_vertical"
                             android:text="性别"
@@ -98,6 +100,7 @@
                             android:id="@+id/user_age"
                             android:layout_width="63dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             android:padding="15dp"
                             android:text="年龄"
                             android:textColor="@color/colorPrimaryDark" />

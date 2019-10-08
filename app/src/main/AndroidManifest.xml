@@ -122,8 +122,8 @@
             android:label="@string/title_activity_main3" />
         <activity
             android:name=".Main2Activity"
-            android:label="@string/title_activity_main2"
-            android:parentActivityName=".Signin.SigninActivity" />
+            android:label="通讯录"
+            android:theme="@style/AppTheme.ActionBar.Show" />
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" /> <!-- 会话列表 -->

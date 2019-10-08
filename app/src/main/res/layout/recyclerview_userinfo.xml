@@ -64,7 +64,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="40dp"
+        android:layout_marginLeft="60dp"
         android:layout_toRightOf="@id/userProperty"
         android:text="4km"
         android:textColor="@color/rc_divider_line"
