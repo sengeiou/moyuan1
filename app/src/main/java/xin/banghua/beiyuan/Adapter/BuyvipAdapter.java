@@ -48,7 +48,7 @@ public class BuyvipAdapter extends RecyclerView.Adapter<BuyvipAdapter.ViewHolder
 
     private static final String TAG = "BuyvipAdapter";
     // APP_ID 替换为你的应用从官方网站申请到的合法appID
-    private static final String APP_ID = "wxc7ff179d403b7a51";
+    private static final String APP_ID = "wxef862b4ad2079599";
 
     // IWXAPI 是第三方app和微信通信的openApi接口
     private IWXAPI api;

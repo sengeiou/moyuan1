@@ -56,8 +56,9 @@ public class App extends Application implements Application.ActivityLifecycleCal
         //融云
         PushConfig config = new PushConfig.Builder()
                 .enableHWPush(true)
-                .enableMiPush("2882303761518124084", "5641812458084")
-                .enableHWPush(true)
+                .enableMiPush("2882303761518213592", "5531821328592")
+                .enableMeiZuPush("124945","399a4bb4701046ffbff85a5505251abb")
+                .enableOppoPush("09cbed5f985842c1b962b9b509ee3ef1","726b8a421d1b4e4e80e4813ed04d85a5")
                 .build();
         RongPushClient.setPushConfig(config);
         RongIM.setOnReceiveMessageListener(new RongIMClient.OnReceiveMessageListener() {

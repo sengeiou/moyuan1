@@ -268,7 +268,7 @@ public class MeFragment extends Fragment {
 
                     String resultJson1 = msg.obj.toString();
                     Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
-                    if (!(msg.obj.toString().equals("会员已到期")))  userportrait_iv.isVIP(true,getResources());
+                    if (!(msg.obj.toString().equals("会员已到期")))  userportrait_iv.isVIP(true,getResources(),false);
                     Glide.with(mContext)
                             .asBitmap()
                             .load(myportrait)

@@ -1,6 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\30999\\Pictures\\banghuajks\\banghua.jks')
+            storePassword 'j12321456'
+            keyAlias = 'banghuaxx'
+            keyPassword 'j12321456'
+            v1SigningEnabled true
+            v2SigningEnabled true
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "xin.banghua.beiyuan"
@@ -14,11 +24,13 @@ android {
         ndk {
             abiFilters "armeabi-v7a", "arm64-v8a"
         }
+        signingConfig signingConfigs.release
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
 
@@ -85,6 +97,8 @@ dependencies {
     //华为推送
     api 'com.huawei.android.hms:base:2.6.1.301'
     api 'com.huawei.android.hms:push:2.6.1.301'
+    //魅族推送
+    implementation 'com.meizu.flyme.internet:push-internal:3.6.+@aar'
     //dialog
     implementation 'com.orhanobut:dialogplus:1.11@aar'
     implementation files('libs/Amap_2DMap_V5.2.0_20170627.jar')

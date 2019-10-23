@@ -10,6 +10,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.MainActivity;
 import xin.banghua.beiyuan.R;
+import xin.banghua.beiyuan.SliderWebViewActivity;
 
 import static io.rong.imkit.fragment.ConversationFragment.TAG;
 
@@ -34,13 +36,15 @@ public class SignupActivity extends Activity {
     EditText userPassword;
     EditText verificationCode;
     //验证码按钮和提交按钮
-    Button verificationCode_btn,submit_btn;
+    Button verificationCode_btn,submit_btn,privacypolity_btn;
 
     String userAcountString,userPasswordString,verificationCodeString;
 
     String smscode;
 
     Integer countDown = 60;
+
+    CheckBox privacypolicy_check;
     //属性
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,19 @@ public class SignupActivity extends Activity {
         userPassword = findViewById(R.id.userPassword);
         verificationCode = findViewById(R.id.verificationCode);
         mContext = this;
+
+        privacypolity_btn = findViewById(R.id.privacypolicy_btn);
+        privacypolity_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SliderWebViewActivity.class);
+                intent.putExtra("slidername","小贝乐园用户协议");
+                intent.putExtra("sliderurl","https://www.banghua.xin/privacypolicy.html");
+                mContext.startActivity(intent);
+            }
+        });
+        privacypolicy_check = findViewById(R.id.privacypolity_check);
+
         verificationCode_btn = findViewById(R.id.verificationCode_btn);
         verificationCode_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +98,11 @@ public class SignupActivity extends Activity {
                 }
                 if (verificationCodeString.equals("")){
                     Toast.makeText(mContext, "请输入验证码", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
+                if (!(privacypolicy_check.isChecked())){
+                    Toast.makeText(mContext, "勾选小贝乐园用户协议", Toast.LENGTH_LONG).show();
                     return;
                 }
 

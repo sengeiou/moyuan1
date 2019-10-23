@@ -60,7 +60,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.ViewHolder
 
         viewHolder.userID.setText(currentItem.getmUserID());
 
-        if (currentItem.getmVip().equals("VIP")) viewHolder.userPortrait.isVIP(true,mContext.getResources());
+        if (currentItem.getmVip().equals("VIP")) viewHolder.userPortrait.isVIP(true,mContext.getResources(),true);
         Glide.with(mContext)
                 .asBitmap()
                 .load(currentItem.getmUserPortrait())

@@ -430,7 +430,7 @@ public class PersonageFragment extends Fragment {
 
 
         mUserNickName_tv.setText(jsonObject.getString("nickname"));
-        if (jsonObject.getString("vip").equals("VIP"))  mUserPortrait_iv.isVIP(true,getResources());
+        if (jsonObject.getString("vip").equals("VIP"))  mUserPortrait_iv.isVIP(true,getResources(),false);
         Glide.with(view)
                 .asBitmap()
                 .load(jsonObject.getString("portrait"))

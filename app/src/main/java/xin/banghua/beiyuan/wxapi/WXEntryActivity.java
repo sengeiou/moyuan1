@@ -43,7 +43,7 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
     private static final String TAG = "WXEntryActivity";
     private Context mContext;
     // APP_ID 替换为你的应用从官方网站申请到的合法appID
-    private static final String APP_ID = "wxc7ff179d403b7a51";
+    private static final String APP_ID = "wxef862b4ad2079599";
 
     // IWXAPI 是第三方app和微信通信的openApi接口
     private IWXAPI api;
@@ -79,8 +79,8 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
             final String code = authResp.code;
             Log.d(TAG, "onResp: "+code);
             getAccessToken(String.format("https://api.weixin.qq.com/sns/oauth2/access_token?" +
-                            "appid=%s&secret=%s&code=%s&grant_type=authorization_code", "wxc7ff179d403b7a51",
-                    "1cac4e740d7d91d2c8a76eaf00acad02", code));
+                            "appid=%s&secret=%s&code=%s&grant_type=authorization_code", "wxef862b4ad2079599",
+                    "efef7c0891675d0b1979d5dee348a88d", code));
         }
         if(baseResp.getType()==ConstantsAPI.COMMAND_PAY_BY_WX){
             Log.d(TAG,"onPayFinish,errCode="+baseResp.errCode);
