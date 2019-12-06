@@ -85,16 +85,22 @@ public class ConversationSettingActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Conversation conversation) {
                 Log.d(TAG, "onSuccess: 获取会话成功");
-                if (conversation.isTop()){
-                    istop.setChecked(true);
+                if (conversation == null){
+                    Log.d(TAG, "onSuccess: 会话空");
                 }else {
-                    istop.setChecked(false);
+                    Log.d(TAG, "onSuccess: 会话不空");
+                    if (conversation.isTop()){
+                        istop.setChecked(true);
+                    }else {
+                        istop.setChecked(false);
+                    }
+                    if (conversation.getNotificationStatus()==DO_NOT_DISTURB){
+                        donotdisturb.setChecked(true);
+                    }else {
+                        donotdisturb.setChecked(false);
+                    }
                 }
-                if (conversation.getNotificationStatus()==DO_NOT_DISTURB){
-                    donotdisturb.setChecked(true);
-                }else {
-                    donotdisturb.setChecked(false);
-                }
+
             }
 
             @Override

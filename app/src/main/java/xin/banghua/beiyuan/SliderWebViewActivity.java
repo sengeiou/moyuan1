@@ -3,6 +3,7 @@ package xin.banghua.beiyuan;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -94,8 +95,11 @@ public class SliderWebViewActivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 // 拦截 url 跳转,在里边添加点击链接跳转或者操作
-                view.loadUrl(url);
-                return true;
+//                if( url.startsWith("http:") || url.startsWith("https:") ) {
+//                    return false;
+//                }
+                //view.loadUrl(url);
+                return false;
             }
 
             @Override

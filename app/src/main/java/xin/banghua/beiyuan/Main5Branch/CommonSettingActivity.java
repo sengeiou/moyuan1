@@ -131,6 +131,17 @@ public class CommonSettingActivity extends AppCompatActivity {
 
                     }
                 });
+                RongIM.getInstance().deleteMessages(Conversation.ConversationType.PRIVATE, jsonObject.getString("id"), new RongIMClient.ResultCallback<Boolean>() {
+                    @Override
+                    public void onSuccess(Boolean aBoolean) {
+
+                    }
+
+                    @Override
+                    public void onError(RongIMClient.ErrorCode errorCode) {
+
+                    }
+                });
             }
             MyContactCard myContactCard = new MyContactCard();
             myContactCard.setUserInfoList(userInfoList);
