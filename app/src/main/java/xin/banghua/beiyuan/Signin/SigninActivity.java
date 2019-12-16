@@ -14,6 +14,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ import xin.banghua.beiyuan.OkHttp.OkHttpHelper;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
+import xin.banghua.beiyuan.SliderWebViewActivity;
 import xin.banghua.beiyuan.Uniquelogin;
 
 import static io.rong.imkit.fragment.ConversationFragment.TAG;
@@ -53,8 +55,8 @@ public class SigninActivity extends Activity {
     EditText userPassword;
 
     //三个按钮
-    private Button signIn,signUp,findPassword,wxLogin_btn;
-
+    private Button signIn,signUp,findPassword,wxLogin_btn,privacypolity_btn;
+    CheckBox privacypolicy_check;
     //okhttp
 
     //微信
@@ -86,6 +88,18 @@ public class SigninActivity extends Activity {
         setContentView(R.layout.activity_signin);
         regToWx();
         mContext = this;
+
+        privacypolity_btn = findViewById(R.id.privacypolicy_btn);
+        privacypolity_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SliderWebViewActivity.class);
+                intent.putExtra("slidername","小贝乐园用户协议");
+                intent.putExtra("sliderurl","https://www.banghua.xin/privacypolicy.html");
+                mContext.startActivity(intent);
+            }
+        });
+        privacypolicy_check = findViewById(R.id.privacypolity_check);
 
         Intent intent = getIntent();
         String uniquelogin = intent.getStringExtra("uniquelogin");
@@ -129,8 +143,13 @@ public class SigninActivity extends Activity {
                 if(userAccount.getText().toString().equals("")||userPassword.getText().toString().equals("")){
                     Toast.makeText(mContext, "请输入账号密码", Toast.LENGTH_LONG).show();
                 }else{
+                    if (!(privacypolicy_check.isChecked())){
+                        Toast.makeText(mContext, "勾选小贝乐园用户协议", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     postSignIn("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=signin&m=socialchat",userAccount.getText().toString(),userPassword.getText().toString());
                 }
+
             }
         });
 
