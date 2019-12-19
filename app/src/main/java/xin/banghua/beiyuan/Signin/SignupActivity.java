@@ -36,7 +36,7 @@ public class SignupActivity extends Activity {
     EditText userPassword;
     EditText verificationCode;
     //验证码按钮和提交按钮
-    Button verificationCode_btn,submit_btn,privacypolity_btn;
+    Button verificationCode_btn,submit_btn,privacypolity_btn,useragreement_btn;
 
     String userAcountString,userPasswordString,verificationCodeString;
 
@@ -55,12 +55,22 @@ public class SignupActivity extends Activity {
         verificationCode = findViewById(R.id.verificationCode);
         mContext = this;
 
+        useragreement_btn = findViewById(R.id.useragreement_btn);
+        useragreement_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SliderWebViewActivity.class);
+                intent.putExtra("slidername","小贝乐园用户协议");
+                intent.putExtra("sliderurl","https://www.banghua.xin/useragreement.html");
+                mContext.startActivity(intent);
+            }
+        });
         privacypolity_btn = findViewById(R.id.privacypolicy_btn);
         privacypolity_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, SliderWebViewActivity.class);
-                intent.putExtra("slidername","小贝乐园用户协议");
+                intent.putExtra("slidername","小贝乐园隐私政策");
                 intent.putExtra("sliderurl","https://www.banghua.xin/privacypolicy.html");
                 mContext.startActivity(intent);
             }

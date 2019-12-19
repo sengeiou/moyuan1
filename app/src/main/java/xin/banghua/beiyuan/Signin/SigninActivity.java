@@ -55,7 +55,7 @@ public class SigninActivity extends Activity {
     EditText userPassword;
 
     //三个按钮
-    private Button signIn,signUp,findPassword,wxLogin_btn,privacypolity_btn;
+    private Button signIn,signUp,findPassword,wxLogin_btn,privacypolity_btn,useragreement_btn;
     CheckBox privacypolicy_check;
     //okhttp
 
@@ -89,12 +89,22 @@ public class SigninActivity extends Activity {
         regToWx();
         mContext = this;
 
+        useragreement_btn = findViewById(R.id.useragreement_btn);
+        useragreement_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SliderWebViewActivity.class);
+                intent.putExtra("slidername","小贝乐园用户协议");
+                intent.putExtra("sliderurl","https://www.banghua.xin/useragreement.html");
+                mContext.startActivity(intent);
+            }
+        });
         privacypolity_btn = findViewById(R.id.privacypolicy_btn);
         privacypolity_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, SliderWebViewActivity.class);
-                intent.putExtra("slidername","小贝乐园用户协议");
+                intent.putExtra("slidername","小贝乐园隐私政策");
                 intent.putExtra("sliderurl","https://www.banghua.xin/privacypolicy.html");
                 mContext.startActivity(intent);
             }
