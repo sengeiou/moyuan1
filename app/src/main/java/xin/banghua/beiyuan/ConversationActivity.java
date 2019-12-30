@@ -97,7 +97,9 @@ public class ConversationActivity extends AppCompatActivity {
         }
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish(); // back button
+                //this.finish(); // back button
+                //启动会话列表    为了刷新未读信息数
+                startActivity(new Intent(ConversationActivity.this, Main3Activity.class));
                 return true;
         }
         return super.onOptionsItemSelected(item);

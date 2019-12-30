@@ -334,7 +334,15 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
                         Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
                         friendApply = findViewById(R.id.new_friend);
                         friendApply.setText("+新朋友 "+msg.obj.toString());
+                    SharedHelper shvalue = new SharedHelper(getApplicationContext());
+                    String newFriendApplyNumber = shvalue.readNewFriendApplyNumber();
+                    if (newFriendApplyNumber.equals(msg.obj.toString())){
+                        friendApply.setText("+新朋友 ");
+                        //BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    }else {
+                        friendApply.setText("+新朋友 "+msg.obj.toString());
                         BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    }
                     break;
                 case 10:
                     if (msg.obj.toString().equals("false")){

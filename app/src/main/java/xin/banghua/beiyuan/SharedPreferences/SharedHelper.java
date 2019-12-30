@@ -104,4 +104,22 @@ public class SharedHelper {
         data.put("Rongtoken", sp.getString("Rongtoken", ""));
         return data;
     }
+
+    //定义一个保存数据的方法  保存选取的好友信息
+    public void saveNewFriendApplyNumber(String value) {
+        SharedPreferences sp = mContext.getSharedPreferences("NewFriendApplyNumber", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putString("newFriendApplyNumber", value);
+        editor.commit();
+        //Toast.makeText(mContext, "信息已写入SharedPreference中", Toast.LENGTH_SHORT).show();
+    }
+
+    //定义一个读取SP文件的方法
+    public String readNewFriendApplyNumber() {
+        Map<String, String> data = new HashMap<String, String>();
+        SharedPreferences sp = mContext.getSharedPreferences("NewFriendApplyNumber", Context.MODE_PRIVATE);
+
+        return sp.getString("newFriendApplyNumber", "");
+    }
 }

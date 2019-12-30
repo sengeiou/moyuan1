@@ -182,7 +182,14 @@ public class Main4Activity extends AppCompatActivity {
                 case 11:
                     String resultJson1 = msg.obj.toString();
                     Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
-                    BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    SharedHelper shvalue = new SharedHelper(getApplicationContext());
+                    String newFriendApplyNumber = shvalue.readNewFriendApplyNumber();
+
+                    if (newFriendApplyNumber.equals(msg.obj.toString())){
+                        //BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    }else {
+                        BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    }
                     break;
                 case 10:
                     if (msg.obj.toString().equals("false")){

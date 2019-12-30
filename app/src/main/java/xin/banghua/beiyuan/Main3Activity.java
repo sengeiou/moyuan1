@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
 import android.support.design.widget.BottomNavigationView;
@@ -134,6 +135,12 @@ public class Main3Activity extends AppCompatActivity {
         initView();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if (resultCode==-1){
+            Log.d(TAG, "返回刷新");
+        }
+    }
 
     public void ifSignin(){
         Map<String,String> userInfo;
@@ -248,7 +255,13 @@ public class Main3Activity extends AppCompatActivity {
                 case 11:
                     String resultJson1 = msg.obj.toString();
                     Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
-                    BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    SharedHelper shvalue = new SharedHelper(getApplicationContext());
+                    String newFriendApplyNumber = shvalue.readNewFriendApplyNumber();
+                    if (newFriendApplyNumber.equals(msg.obj.toString())){
+                        //BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    }else {
+                        BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    }
                     break;
                 case 10:
                     if (msg.obj.toString().equals("false")){

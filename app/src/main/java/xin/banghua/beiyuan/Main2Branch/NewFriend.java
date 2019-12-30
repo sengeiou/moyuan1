@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.wuxiaolong.pullloadmorerecyclerview.PullLoadMoreRecyclerView;
 
@@ -24,6 +25,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import io.rong.imkit.manager.IUnReadMessageObserver;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -31,7 +33,9 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.Adapter.FriendAdapter;
 import xin.banghua.beiyuan.Adapter.NewFriendsAdapter;
+import xin.banghua.beiyuan.BadgeBottomNav;
 import xin.banghua.beiyuan.Main2Activity;
+import xin.banghua.beiyuan.MainActivity;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
@@ -49,6 +53,9 @@ public class NewFriend extends AppCompatActivity {
 
 
     private View mView;
+
+    //在此界面获取好友数量，并保存本地
+    private IUnReadMessageObserver iUnReadMessageObserver;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +67,11 @@ public class NewFriend extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getDataFriends("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapply&m=socialchat");
+
+        //好友申请数
+        BadgeBottomNav badgeBottomNav = new BadgeBottomNav(this,handler);
+        badgeBottomNav.getDataFriendsapply("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapplynumber&m=socialchat");
+
     }
 
     @Override
@@ -76,7 +88,9 @@ public class NewFriend extends AppCompatActivity {
 
         switch (item.getItemId()) {
             case android.R.id.home:
-                this.finish(); // back button
+                //this.finish(); // back button
+                Intent intent2 = new Intent(NewFriend.this, Main2Activity.class);
+                startActivity(intent2);
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -144,6 +158,14 @@ public class NewFriend extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    break;
+                case 11:
+                    String resultJson = msg.obj.toString();
+                    Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
+                    //BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    //保存未同意的好友申请数
+                    SharedHelper shvalue = new SharedHelper(mView.getContext());
+                    shvalue.saveNewFriendApplyNumber(resultJson);
                     break;
             }
         }

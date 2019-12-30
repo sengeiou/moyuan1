@@ -40,6 +40,7 @@ import xin.banghua.beiyuan.Main5Activity;
 import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
+import xin.banghua.beiyuan.SliderWebViewActivity;
 
 import static cn.rongcloud.rtc.core.ContextUtils.getApplicationContext;
 
@@ -62,6 +63,8 @@ public class MeFragment extends Fragment {
     Button sawme_btn;
     Button setting_btn;
     String myportrait;
+
+    private Button privacypolity_btn,useragreement_btn;
     private Context mContext;
 
     public MeFragment() {
@@ -87,6 +90,28 @@ public class MeFragment extends Fragment {
         initData(view);
         //vip
         getVipinfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=viptimeinsousuo&m=socialchat");
+
+
+        useragreement_btn = view.findViewById(R.id.useragreement_btn);
+        useragreement_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SliderWebViewActivity.class);
+                intent.putExtra("slidername","小贝乐园用户协议");
+                intent.putExtra("sliderurl","https://www.banghua.xin/useragreement.html");
+                mContext.startActivity(intent);
+            }
+        });
+        privacypolity_btn = view.findViewById(R.id.privacypolicy_btn);
+        privacypolity_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SliderWebViewActivity.class);
+                intent.putExtra("slidername","小贝乐园隐私政策");
+                intent.putExtra("sliderurl","https://www.banghua.xin/privacypolicy.html");
+                mContext.startActivity(intent);
+            }
+        });
     }
     //TODO okhttp获取用户信息
     public void getVipinfo(final String url){
