@@ -1,7 +1,9 @@
 package xin.banghua.beiyuan.Adapter;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
@@ -11,12 +13,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.orhanobut.dialogplus.DialogPlus;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +31,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.beiyuan.Main2Branch.NewFriend;
 import xin.banghua.beiyuan.Personage.PersonageActivity;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
@@ -105,6 +110,58 @@ public class NewFriendsAdapter extends RecyclerView.Adapter<NewFriendsAdapter.Vi
                 v.getContext().startActivity(intent);
             }
         });
+
+        viewHolder.haoyouapply_layout.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d(TAG, "长按中");
+                final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                        .setAdapter(new BaseAdapter() {
+                            @Override
+                            public int getCount() {
+                                return 0;
+                            }
+
+                            @Override
+                            public Object getItem(int position) {
+                                return null;
+                            }
+
+                            @Override
+                            public long getItemId(int position) {
+                                return 0;
+                            }
+
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                return null;
+                            }
+                        })
+                        .setFooter(R.layout.dialog_foot_confirm)
+                        .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                        .create();
+                dialog.show();
+                View view = dialog.getFooterView();
+                TextView prompt = view.findViewById(R.id.prompt_tv);
+                prompt.setText("确定要删除吗？");
+                Button dismissdialog_btn = view.findViewById(R.id.cancel_btn);
+                dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                Button confirm_btn = view.findViewById(R.id.confirm_btn);
+                confirm_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        deleteFriendNumber(i,mUserID.get(i),"https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=DeleteFriendsapply&m=socialchat");
+                        dialog.dismiss();
+                    }
+                });
+                return true;
+            }
+        });
     }
 
     @Override
@@ -147,6 +204,15 @@ public class NewFriendsAdapter extends RecyclerView.Adapter<NewFriendsAdapter.Vi
                 case 1:
                     viewHolder_btn.agree_btn.setText("已同意");
                     break;
+                case 2:
+                    mUserID.remove((int)msg.obj);//删除数据源,移除集合中当前下标的数据
+                    mUserPortrait.remove((int)msg.obj);
+                    mUserNickName.remove((int)msg.obj);
+                    mUserLeaveWords.remove((int)msg.obj);
+                    mUserAgree.remove((int)msg.obj);
+                    notifyItemRemoved((int)msg.obj);//刷新被删除的地方
+                    notifyItemRangeChanged((int)msg.obj,getItemCount()); //刷新被删除数据，以及其后面的数据
+                    break;
             }
         }
     };
@@ -181,6 +247,40 @@ public class NewFriendsAdapter extends RecyclerView.Adapter<NewFriendsAdapter.Vi
                     message.obj=response.body().string();
                     message.what=1;
                     Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+
+    //TODO okhttp获取好友人数
+    public void deleteFriendNumber(final int position,final String yourid,final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(mContext.getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
+                Log.d(TAG, "删除新好友myid"+myid+"yourid"+yourid);
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("myid", yourid)
+                        .add("yourid", myid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=position;
+                    message.what=2;
+                    Log.d(TAG, "run: 查看返回值"+response.body().string());
                     handler.sendMessageDelayed(message,10);
                 }catch (Exception e) {
                     e.printStackTrace();

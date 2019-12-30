@@ -1,12 +1,15 @@
 package xin.banghua.beiyuan.Main2Branch;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.Toolbar;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,6 +46,9 @@ public class NewFriend extends AppCompatActivity {
     private ArrayList<String> mUserNickName = new ArrayList<>();
     private ArrayList<String> mUserLeaveWords = new ArrayList<>();
     private ArrayList<Integer> mUserAgree = new ArrayList<>();
+
+
+    private View mView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +60,12 @@ public class NewFriend extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getDataFriends("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapply&m=socialchat");
+    }
+
+    @Override
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        mView = parent;
+        return super.onCreateView(parent, name, context, attrs);
     }
 
     @Override  //菜单的点击，其中返回键的id是android.R.id.home
@@ -94,9 +106,10 @@ public class NewFriend extends AppCompatActivity {
         Log.d(TAG, "initRecyclerView: init recyclerview");
 
         final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.newfriend_RecyclerView);
-        NewFriendsAdapter adapter = new NewFriendsAdapter(view.getContext(),mUserID,mUserPortrait,mUserNickName,mUserLeaveWords,mUserAgree);
+        NewFriendsAdapter adapter = new NewFriendsAdapter(mView.getContext(),mUserID,mUserPortrait,mUserNickName,mUserLeaveWords,mUserAgree);
         recyclerView.setAdapter(adapter);
         recyclerView.setLinearLayout();
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
             @Override
             public void onRefresh() {
