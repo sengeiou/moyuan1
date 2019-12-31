@@ -126,9 +126,13 @@ public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
                         Log.d(TAG, "handleMessage: openid："+jsonObject.getString("openid"));
                         //微信已获取到用户信息，现在需要保存到数据库
                         portrait = jsonObject.getString("headimgurl");
-                        StringBuilder strBuilder = new StringBuilder(portrait);
-                        strBuilder.insert(4, 's');
-                        portrait=strBuilder.toString();
+                        //
+                        if (!portrait.startsWith("https")){
+                            StringBuilder strBuilder = new StringBuilder(portrait);
+                            strBuilder.insert(4, 's');
+                            portrait=strBuilder.toString();
+                        }
+
                         nickname = jsonObject.getString("nickname");
                         openid = jsonObject.getString("openid");
 
