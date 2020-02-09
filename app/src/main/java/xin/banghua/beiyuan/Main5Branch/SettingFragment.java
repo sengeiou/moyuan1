@@ -1,15 +1,19 @@
 package xin.banghua.beiyuan.Main5Branch;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +21,18 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.io.IOException;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 import xin.banghua.beiyuan.R;
+import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 import xin.banghua.beiyuan.Signin.SigninActivity;
+
+import static io.rong.imkit.fragment.ConversationListFragment.TAG;
 
 
 /**
@@ -35,6 +49,7 @@ public class SettingFragment extends Fragment {
     Button help_btn;
     Button version_btn;
     Button logout_btn;
+    Button accountdelete_btn;
 
     private Context mContext;
     @Override
@@ -75,6 +90,7 @@ public class SettingFragment extends Fragment {
         help_btn = view.findViewById(R.id.help_btn);
         version_btn = view.findViewById(R.id.version_btn);
         logout_btn = view.findViewById(R.id.logout_btn);
+        accountdelete_btn = view.findViewById(R.id.accountdelete_btn);
 
         phone_reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,11 +166,69 @@ public class SettingFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        accountdelete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                setAccountdelete_btn("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=Accountdelete&m=socialchat");
+            }
+        });
 
 
     }
 
+    //TODO okhttp获取用户信息
+    public void setAccountdelete_btn(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getActivity().getApplicationContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
 
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("id", myid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=1;
+                    Log.d(TAG, "run: 删除结果"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+    @SuppressLint("HandlerLeak")
+    private Handler handler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what){
+                case 1:
+                    if (msg.obj.toString().equals("删除成功")){
+                        Toast.makeText(getActivity().getApplicationContext(), "删除成功", Toast.LENGTH_LONG).show();
+                        SharedPreferences sp = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("userID", "");
+                        editor.commit();
+                        Intent intent = new Intent(mContext, SigninActivity.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(getActivity().getApplicationContext(), "删除失败", Toast.LENGTH_LONG).show();
+                    }
+                    break;
+            }
+        }
+    };
     @Override  //菜单的点击，其中返回键的id是android.R.id.home
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

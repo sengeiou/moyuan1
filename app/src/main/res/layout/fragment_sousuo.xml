@@ -50,386 +50,392 @@
 
     </TableLayout>
 
-    <TableLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:stretchColumns="*"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="50dp"
+        android:fillViewport="true">
 
-        <View
+        <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#E0E1E7"/>
+            android:layout_height="wrap_content"
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
+            android:stretchColumns="*">
 
-            <TextView
-                android:id="@+id/viptime_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="会员"
-                android:textAlignment="center"
-                android:textColor="@color/rc_draft_color" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="50dp">
-
-            <TextView
-                android:id="@+id/textView10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rc_btn_voice_normal"
-                android:text="精准搜索"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="24sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <SearchView
-                android:id="@+id/direct_sv"
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:queryHint="按手机号或昵称搜索"
-                android:iconifiedByDefault="false"/>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone">
-
-            <EditText
-                android:id="@+id/direct_et"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_span="2"
-                android:ems="10"
-                android:hint="按昵称或手机号搜索"
-                android:inputType="textPersonName" />
-
-            <Button
-                android:id="@+id/direct_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="搜索" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="50dp">
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rc_btn_voice_normal"
-                android:text="模糊搜索"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="24sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/rc_btn_voice_normal"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:gravity="center">
 
                 <TextView
-                    android:id="@+id/textView21"
+                    android:id="@+id/viptime_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:text="性别:"
-                    android:textColor="@color/callkit_color_90mask"
-                    android:textSize="18sp" />
+                    android:text="会员"
+                    android:textAlignment="center"
+                    android:textColor="@color/rc_draft_color" />
+            </TableRow>
 
-                <RadioGroup
-                    android:id="@+id/userGender"
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/textView10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:background="@drawable/rc_btn_voice_normal"
+                    android:text="精准搜索"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <SearchView
+                    android:id="@+id/direct_sv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:iconifiedByDefault="false"
+                    android:queryHint="按手机号或昵称搜索" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
+
+                <Button
+                    android:id="@+id/direct_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="搜索" />
+
+                <EditText
+                    android:id="@+id/direct_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_span="2"
+                    android:ems="10"
+                    android:hint="按昵称或手机号搜索"
+                    android:inputType="textPersonName" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="50dp"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rc_btn_voice_normal"
+                    android:text="模糊搜索"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rc_btn_voice_normal"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/male"
+                    <TextView
+                        android:id="@+id/textView21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="性别:"
+                        android:textColor="@color/callkit_color_90mask"
+                        android:textSize="18sp" />
+
+                    <RadioGroup
+                        android:id="@+id/userGender"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="男"
-                        android:textAlignment="textStart" />
+                        android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/female"
-                        style="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="女" />
+                        <RadioButton
+                            android:id="@+id/male"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="男"
+                            android:textAlignment="textStart" />
 
-                    <RadioButton
-                        android:id="@+id/neuter"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="true"
-                        android:text="不限" />
-                </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/female"
+                            style="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="女" />
 
-            </LinearLayout>
+                        <RadioButton
+                            android:id="@+id/neuter"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="不限" />
+                    </RadioGroup>
 
-        </TableRow>
+                </LinearLayout>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            tools:visibility="gone">
+            </TableRow>
 
-            <EditText
-                android:id="@+id/userAge"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="年龄"
-                android:inputType="textPersonName"
-                android:visibility="gone" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rc_btn_voice_normal"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:gravity="center"
+                tools:visibility="gone">
+
+                <EditText
+                    android:id="@+id/userAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="年龄"
+                    android:inputType="textPersonName"
+                    android:visibility="gone" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rc_btn_voice_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="年龄:"
+                        android:textColor="@color/callkit_color_90mask"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:foreground="@drawable/ic_age"
+                        android:foregroundGravity="center_vertical"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:gravity="center">
 
                 <TextView
-                    android:id="@+id/textView22"
+                    android:id="@+id/textView3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:text="年龄:"
-                    android:textColor="@color/callkit_color_90mask"
-                    android:textSize="18sp" />
-
-                <Spinner
-                    android:id="@+id/spinner_age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:foreground="@drawable/ic_age"
-                    android:foregroundGravity="center_vertical"
+                    android:text="高级选项（会员专享）"
                     android:textAlignment="center" />
+            </TableRow>
 
-            </LinearLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
-            android:gravity="center">
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="高级选项（会员专享）"
-                android:textAlignment="center" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rc_btn_voice_normal"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:gravity="center">
 
-                <TextView
-                    android:id="@+id/textView23"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:text="属性:"
-                    android:textColor="@color/callkit_color_90mask"
-                    android:textSize="18sp" />
-
-                <RadioGroup
-                    android:id="@+id/userProperty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rc_btn_voice_normal"
+                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/zProperty"
+                    <TextView
+                        android:id="@+id/textView23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="属性:"
+                        android:textColor="@color/callkit_color_90mask"
+                        android:textSize="18sp" />
+
+                    <RadioGroup
+                        android:id="@+id/userProperty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Z" />
+                        android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/bProperty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="B" />
+                        <RadioButton
+                            android:id="@+id/zProperty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Z" />
 
-                    <RadioButton
-                        android:id="@+id/dProperty"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="双" />
+                        <RadioButton
+                            android:id="@+id/bProperty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="B" />
 
-                    <RadioButton
-                        android:id="@+id/unlimited"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:checked="true"
-                        android:text="不限" />
-                </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/dProperty"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="双" />
 
-            </LinearLayout>
+                        <RadioButton
+                            android:id="@+id/unlimited"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:checked="true"
+                            android:text="不限" />
+                    </RadioGroup>
 
-        </TableRow>
+                </LinearLayout>
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
-            tools:visibility="gone">
+            </TableRow>
 
-            <EditText
-                android:id="@+id/userRegion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="地区"
-                android:inputType="textPersonName"
-                android:textAlignment="textStart"
-                android:visibility="gone" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
-
-            <LinearLayout
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rc_btn_voice_normal"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:gravity="center"
+                tools:visibility="gone">
 
-                <TextView
-                    android:id="@+id/textView24"
+                <EditText
+                    android:id="@+id/userRegion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:text="省份:"
-                    android:textColor="@color/callkit_color_90mask"
-                    android:textSize="18sp" />
+                    android:ems="10"
+                    android:hint="地区"
+                    android:inputType="textPersonName"
+                    android:textAlignment="textStart"
+                    android:visibility="gone" />
+            </TableRow>
 
-                <Spinner
-                    android:id="@+id/spinner_province"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:foreground="@drawable/ic_region"
-                    android:foregroundGravity="center_vertical" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rc_btn_voice_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-        </TableRow>
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="省份:"
+                        android:textColor="@color/callkit_color_90mask"
+                        android:textSize="18sp" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+                    <Spinner
+                        android:id="@+id/spinner_province"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:foreground="@drawable/ic_region"
+                        android:foregroundGravity="center_vertical" />
 
-            <LinearLayout
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/rc_btn_voice_normal"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView25"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="20dp"
+                        android:text="城市:"
+                        android:textColor="@color/callkit_color_90mask"
+                        android:textSize="18sp" />
+
+                    <Spinner
+                        android:id="@+id/spinner_city"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:foreground="@drawable/ic_city"
+                        android:foregroundGravity="center_vertical" />
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/rc_btn_voice_normal"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:gravity="center">
 
-                <TextView
-                    android:id="@+id/textView25"
+                <Button
+                    android:id="@+id/submit_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
-                    android:text="城市:"
-                    android:textColor="@color/callkit_color_90mask"
+                    android:background="@drawable/rc_cs_button_bg"
+                    android:text="提交"
+                    android:textColor="@color/rc_ad_file_list_select_file_text_state"
                     android:textSize="18sp" />
+            </TableRow>
 
-                <Spinner
-                    android:id="@+id/spinner_city"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:foreground="@drawable/ic_city"
-                    android:foregroundGravity="center_vertical" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#E0E1E7" />
 
-            </LinearLayout>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/submit_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rc_cs_button_bg"
-                android:text="提交"
-                android:textColor="@color/rc_ad_file_list_select_file_text_state"
-                android:textSize="18sp" />
-        </TableRow>
-
-    </TableLayout>
-
+        </TableLayout>
+    </android.support.v4.widget.NestedScrollView>
 
 
 </FrameLayout>
