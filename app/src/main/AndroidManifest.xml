@@ -78,6 +78,9 @@
             android:name=".Main5Branch.SomeonesluntanActivity"
             android:theme="@style/AppTheme.ActionBar.Show" />
         <activity
+            android:name=".Personage.Someonesluntan1Activity"
+            android:theme="@style/AppTheme.ActionBar.Show" />
+        <activity
             android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:label="@string/app_name"

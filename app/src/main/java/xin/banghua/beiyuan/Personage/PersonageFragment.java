@@ -123,7 +123,7 @@ public class PersonageFragment extends Fragment {
         user_tiezi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), SomeonesluntanActivity.class);
+                Intent intent = new Intent(getActivity(), Someonesluntan1Activity.class);
                 intent.putExtra("authid",mUserID);
                 startActivity(intent);
             }

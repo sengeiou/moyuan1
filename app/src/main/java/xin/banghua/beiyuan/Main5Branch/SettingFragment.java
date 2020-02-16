@@ -18,8 +18,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.orhanobut.dialogplus.DialogPlus;
 
 import java.io.IOException;
 
@@ -169,7 +173,51 @@ public class SettingFragment extends Fragment {
         accountdelete_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setAccountdelete_btn("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=Accountdelete&m=socialchat");
+                final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                        .setAdapter(new BaseAdapter() {
+                            @Override
+                            public int getCount() {
+                                return 0;
+                            }
+
+                            @Override
+                            public Object getItem(int position) {
+                                return null;
+                            }
+
+                            @Override
+                            public long getItemId(int position) {
+                                return 0;
+                            }
+
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                return null;
+                            }
+                        })
+                        .setFooter(R.layout.dialog_foot_confirm)
+                        .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                        .create();
+                dialog.show();
+                View view = dialog.getFooterView();
+                TextView prompt = view.findViewById(R.id.prompt_tv);
+                prompt.setText("确定要删除此账号吗？");
+                Button dismissdialog_btn = view.findViewById(R.id.cancel_btn);
+                dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                Button confirm_btn = view.findViewById(R.id.confirm_btn);
+                confirm_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setAccountdelete_btn("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=Accountdelete&m=socialchat");
+                        dialog.dismiss();
+                    }
+                });
+
             }
         });
 
