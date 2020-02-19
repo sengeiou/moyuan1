@@ -41,7 +41,7 @@
 25-->C:\Users\30999\Pictures\androidapp\IMLib\AndroidManifest.xml:18:9-20:45
 26            android:name="RONG_CLOUD_APP_KEY"
 26-->C:\Users\30999\Pictures\androidapp\IMLib\AndroidManifest.xml:19:13-46
-27            android:value="vnroth0kvbh7o" />
+27            android:value="m7ua80gbmo0km" />
 27-->C:\Users\30999\Pictures\androidapp\IMLib\AndroidManifest.xml:20:13-42
 28
 29        <service

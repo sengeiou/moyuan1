@@ -3,24 +3,24 @@
 3    package="io.rong.contactcard.test" >
 4
 5    <uses-sdk
-5-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:5:5-74
+5-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:5:5-74
 6        android:minSdkVersion="23"
-6-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:5:15-41
+6-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:5:15-41
 7        android:targetSdkVersion="26" />
-7-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:5:42-71
+7-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:5:42-71
 8
 9    <instrumentation
-9-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:11:5-15:74
+9-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:11:5-15:74
 10        android:name="android.test.InstrumentationTestRunner"
-10-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:11:22-75
+10-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:11:22-75
 11        android:functionalTest="false"
-11-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:14:22-52
+11-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:14:22-52
 12        android:handleProfiling="false"
-12-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:13:22-53
+12-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:13:22-53
 13        android:label="Tests for io.rong.contactcard.test"
-13-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:15:22-72
+13-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:15:22-72
 14        android:targetPackage="io.rong.contactcard.test" />
-14-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:12:22-70
+14-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:12:22-70
 15
 16    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 16-->[:CallKit] C:\Users\30999\Pictures\androidapp\CallKit\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:5-80
@@ -96,16 +96,16 @@
 39-->[:CallLib] C:\Users\30999\Pictures\androidapp\CallLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:19:22-76
 40
 41    <application
-41-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:7:5-9:19
+41-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:7:5-9:19
 42        android:appComponentFactory="android.support.v4.app.CoreComponentFactory"
 42-->[com.android.support:support-compat:28.0.0] C:\Users\30999\.gradle\caches\transforms-2\files-2.1\dd1cf78f22bdd94f550130b281f27c97\support-compat-28.0.0\AndroidManifest.xml:22:18-91
 43        android:debuggable="true"
-43-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:7:18-43
+43-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:7:18-43
 44        android:supportsRtl="true" >
 44-->[__tested_artifact__::contactcard] C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\library_manifest\debug\AndroidManifest.xml:11:18-44
 45        <uses-library android:name="android.test.runner" />
-45-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:8:9-60
-45-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger2158074680268278541.xml:8:23-57
+45-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:8:9-60
+45-->C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\tmp\manifest\androidTest\debug\manifestMerger8345088413403920173.xml:8:23-57
 46
 47        <activity
 47-->[__tested_artifact__::contactcard] C:\Users\30999\Pictures\androidapp\contactcard\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-15:59
@@ -378,7 +378,7 @@
 181-->[:IMLib] C:\Users\30999\Pictures\androidapp\IMLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:9-27:45
 182            android:name="RONG_CLOUD_APP_KEY"
 182-->[:IMLib] C:\Users\30999\Pictures\androidapp\IMLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:26:13-46
-183            android:value="vnroth0kvbh7o" />
+183            android:value="m7ua80gbmo0km" />
 183-->[:IMLib] C:\Users\30999\Pictures\androidapp\IMLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:27:13-42
 184
 185        <service

@@ -11,9 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.orhanobut.dialogplus.DialogPlus;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,10 +46,12 @@ import xin.banghua.beiyuan.RongYunContactCard.MyContactCard;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 import xin.banghua.beiyuan.Signin.SigninActivity;
 
+import static io.rong.imkit.fragment.ConversationListFragment.TAG;
+
 public class CommonSettingActivity extends AppCompatActivity {
     private static final String TAG = "CommonSettingActivity";
     Button clearCache,clearChat;
-
+    Button accountdelete_btn;
     Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +65,60 @@ public class CommonSettingActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        accountdelete_btn = findViewById(R.id.accountdelete_btn);
+
+        accountdelete_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final DialogPlus dialog = DialogPlus.newDialog(mContext)
+                        .setAdapter(new BaseAdapter() {
+                            @Override
+                            public int getCount() {
+                                return 0;
+                            }
+
+                            @Override
+                            public Object getItem(int position) {
+                                return null;
+                            }
+
+                            @Override
+                            public long getItemId(int position) {
+                                return 0;
+                            }
+
+                            @Override
+                            public View getView(int position, View convertView, ViewGroup parent) {
+                                return null;
+                            }
+                        })
+                        .setFooter(R.layout.dialog_foot_confirm)
+                        .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                        .create();
+                dialog.show();
+                View view = dialog.getFooterView();
+                TextView prompt = view.findViewById(R.id.prompt_tv);
+                prompt.setText("确定要删除此账号吗？");
+                Button dismissdialog_btn = view.findViewById(R.id.cancel_btn);
+                dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                Button confirm_btn = view.findViewById(R.id.confirm_btn);
+                confirm_btn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setAccountdelete_btn("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=Accountdelete&m=socialchat");
+                        dialog.dismiss();
+                    }
+                });
+
+            }
+        });
+
 
 
         initButton();
@@ -81,6 +142,37 @@ public class CommonSettingActivity extends AppCompatActivity {
         });
     }
 
+    //TODO okhttp获取用户信息
+    public void setAccountdelete_btn(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(mContext);
+                String myid = shuserinfo.readUserInfo().get("userID");
+
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("id", myid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=2;
+                    Log.d(TAG, "run: 删除结果"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
 
     //TODO okhttp获取好友信息
     public void getDataFriends(final String url){
@@ -164,6 +256,19 @@ public class CommonSettingActivity extends AppCompatActivity {
                         initFriends(getWindow().getDecorView(),jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
+                    }
+                    break;
+                case 2:
+                    if (msg.obj.toString().equals("删除成功")){
+                        Toast.makeText(mContext, "删除成功", Toast.LENGTH_LONG).show();
+                        SharedPreferences sp = mContext.getSharedPreferences("userInfo", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.putString("userID", "");
+                        editor.commit();
+                        Intent intent = new Intent(mContext, SigninActivity.class);
+                        startActivity(intent);
+                    }else {
+                        Toast.makeText(mContext, "删除失败", Toast.LENGTH_LONG).show();
                     }
                     break;
             }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Main5Branch.CommonSettingActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,7 +62,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:paddingBottom="30dp">
 
             <Button
                 android:id="@+id/clearChat"
@@ -69,6 +71,20 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_cleanrecord"
                 android:text="清除聊天记录" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|center_vertical">
+
+            <Button
+                android:id="@+id/accountdelete_btn"
+                style="@android:style/Widget.DeviceDefault.Light.Button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="注销账户"
+                android:textColor="@color/colorPrimaryDark" />
         </TableRow>
 
     </TableLayout>
