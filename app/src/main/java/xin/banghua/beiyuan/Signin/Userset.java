@@ -57,6 +57,8 @@ public class Userset extends AppCompatActivity {
     //
     CircleImageView userPortrait_iv;
 
+    Integer if_submited;
+
     //地区选择
     Spinner spProvince, spCity;
     private AddrBean addrBean;
@@ -68,6 +70,8 @@ public class Userset extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_userset);
+
+        if_submited = 0;
 
         userPortrait = "";
 
@@ -177,7 +181,10 @@ public class Userset extends AppCompatActivity {
                 userProperty = ((RadioButton) findViewById(userProperty_rg.getCheckedRadioButtonId())).getText().toString();
                 referral = referral_et.getText().toString();
 
-
+                if (if_submited == 1){
+                    return;
+                }
+                if_submited = 1;
                 if (logtype.equals("1")){
                     postSignUp("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=signup&m=socialchat");
                 }else if (logtype.equals("2")){
