@@ -21,7 +21,11 @@
         android:id="@+id/settingFragment"
         android:name="xin.banghua.beiyuan.Main5Branch.SettingFragment"
         android:label="fragment_setting"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+    <action
+        android:id="@+id/setting_reset_action"
+        app:destination="@id/resetPersonalInfoFragment" />
+    </fragment>
     <fragment
         android:id="@+id/resetPersonalInfoFragment"
         android:name="xin.banghua.beiyuan.Main5Branch.ResetPersonalInfoFragment"

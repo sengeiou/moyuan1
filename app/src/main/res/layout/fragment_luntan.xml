@@ -97,8 +97,8 @@
                 android:layout_height="wrap_content"
                 android:text="ToggleButton"
                 android:textColor="@color/colorPrimaryDark"
-                android:textOff="大圈"
-                android:textOn="大圈" />
+                android:textOff="精华"
+                android:textOn="精华" />
 
         </TableRow>
 

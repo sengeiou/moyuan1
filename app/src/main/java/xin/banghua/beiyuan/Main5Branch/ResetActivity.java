@@ -27,6 +27,9 @@ import com.google.gson.GsonBuilder;
 
 import net.alhazmy13.mediapicker.Image.ImagePicker;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,6 +49,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.beiyuan.Main5Activity;
+import xin.banghua.beiyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.beiyuan.R;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 import xin.banghua.beiyuan.Signin.CityAdapter;
@@ -78,6 +82,113 @@ public class ResetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset);
 
+
+
+        ImageView back_btn = findViewById(R.id.iv_back_left);
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+        getDataPersonage("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=personage&m=socialchat");
+    }
+
+
+    private void initView() {
+        spCity = findViewById(R.id.spinner_city);
+        spProvince = findViewById(R.id.spinner_province);
+
+        adpProvince = new ProvinceAdapter(this);
+        adpCity = new CityAdapter(this);
+    }
+    private void loadData() {
+        try {
+            InputStream inputStream = getApplicationContext().getAssets().open("addr_china.json");
+
+            addrBean = new GsonBuilder().create().fromJson(new InputStreamReader(inputStream), AddrBean.class);
+
+            spProvince.setAdapter(adpProvince);
+            adpProvince.setProvinceBeanList(addrBean.getProvinceList());
+
+            spCity.setAdapter(adpCity);
+            adpCity.setCityBeanList(addrBean.getProvinceList().get(0).getCitylist());
+
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+    private void register() {
+        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                spCity.setVisibility(View.VISIBLE);
+                cityBeanList = addrBean.getProvinceList().get(position).getCitylist();
+                provinceBean = addrBean.getProvinceList().get(position);
+                adpCity.setCityBeanList(addrBean.getProvinceList().get(position).getCitylist());
+                //选择省份后，城市默认第一个
+                String selected_province = provinceBean.getProvince();
+                String selected_city = cityBeanList.get(0).getCityName();
+                value_et.setText(selected_province+"-"+selected_city);
+                spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    @Override
+                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        //选择城市后
+                        String selected_province = provinceBean.getProvince();
+                        String selected_city = cityBeanList.get(position).getCityName();
+                        value_et.setText(selected_province+"-"+selected_city);
+                    }
+
+                    @Override
+                    public void onNothingSelected(AdapterView<?> parent) {
+
+                    }
+                });
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+    }
+
+    //TODO okhttp获取用户信息
+    public void getDataPersonage(final String url){
+        new Thread(new Runnable() {
+            @Override
+            public void run(){
+                SharedHelper shuserinfo = new SharedHelper(getBaseContext());
+                String myid = shuserinfo.readUserInfo().get("userID");
+                OkHttpClient client = new OkHttpClient();
+                RequestBody formBody = new FormBody.Builder()
+                        .add("userid", myid)
+                        .build();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .post(formBody)
+                        .build();
+
+                try (Response response = client.newCall(request).execute()) {
+                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+
+                    Message message=handler.obtainMessage();
+                    message.obj=response.body().string();
+                    message.what=3;
+                    Log.d(TAG, "run: getDataPersonage"+message.obj.toString());
+                    handler.sendMessageDelayed(message,10);
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    public void initPersonage(JSONObject jsonObject) throws JSONException {
+
         title = getIntent().getStringExtra("title");
 
 
@@ -91,7 +202,6 @@ public class ResetActivity extends AppCompatActivity {
         userProperty = findViewById(R.id.userProperty);
 
 
-
         if (title.equals("头像设置")){
             SharedHelper shuserinfo = new SharedHelper(getApplicationContext());
             String myportrait = shuserinfo.readUserInfo().get("userPortrait");
@@ -102,17 +212,13 @@ public class ResetActivity extends AppCompatActivity {
                     .load(myportrait)
                     .into(portrait);
         }
-        if (title.equals("性别设置")){
-            value_et.setVisibility(View.GONE);
-            userGender.setVisibility(View.VISIBLE);
-        }
-        if (title.equals("属性设置")){
-            value_et.setVisibility(View.GONE);
-            userProperty.setVisibility(View.VISIBLE);
+        if (title.equals("昵称设置")){
+            value_et.setVisibility(View.VISIBLE);
+            value_et.setText(jsonObject.getString("nickname"));
         }
         if (title.equals("年龄设置")){
             value_et.setVisibility(View.GONE);
-            value_et.setText("15");
+            value_et.setText(jsonObject.getString("age"));
             //年龄选择器
             Spinner spinner_age = findViewById(R.id.spinner_age);
             spinner_age.setVisibility(View.VISIBLE);
@@ -132,6 +238,27 @@ public class ResetActivity extends AppCompatActivity {
                 }
             });
         }
+        if (title.equals("性别设置")){
+            value_et.setVisibility(View.GONE);
+            userGender.setVisibility(View.VISIBLE);
+            if (jsonObject.getString("gender").equals("男")){
+                userGender.check(R.id.male);
+            }else {
+                userGender.check(R.id.female);
+            }
+        }
+        if (title.equals("属性设置")){
+            value_et.setVisibility(View.GONE);
+            userProperty.setVisibility(View.VISIBLE);
+            if (jsonObject.getString("property").equals("双")){
+                userProperty.check(R.id.dProperty);
+            }else if(jsonObject.getString("property").equals("Z")){
+                userProperty.check(R.id.zProperty);
+            }else if(jsonObject.getString("property").equals("B")){
+                userProperty.check(R.id.bProperty);
+            }
+        }
+
         if (title.equals("地区设置")){
             value_et.setVisibility(View.GONE);
             value_et.setText("北京-北京");
@@ -143,7 +270,10 @@ public class ResetActivity extends AppCompatActivity {
             loadData();
             register();
         }
-
+        if (title.equals("签名设置")){
+            value_et.setVisibility(View.VISIBLE);
+            value_et.setText(jsonObject.getString("signature"));
+        }
         portrait.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -185,72 +315,6 @@ public class ResetActivity extends AppCompatActivity {
 
             }
         });
-
-        ImageView back_btn = findViewById(R.id.iv_back_left);
-        back_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-    }
-    private void initView() {
-        spCity = findViewById(R.id.spinner_city);
-        spProvince = findViewById(R.id.spinner_province);
-
-        adpProvince = new ProvinceAdapter(this);
-        adpCity = new CityAdapter(this);
-    }
-    private void loadData() {
-        try {
-            InputStream inputStream = getApplicationContext().getAssets().open("addr_china.json");
-
-            addrBean = new GsonBuilder().create().fromJson(new InputStreamReader(inputStream), AddrBean.class);
-
-            spProvince.setAdapter(adpProvince);
-            adpProvince.setProvinceBeanList(addrBean.getProvinceList());
-
-            spCity.setAdapter(adpCity);
-            adpCity.setCityBeanList(addrBean.getProvinceList().get(0).getCitylist());
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-    }
-    private void register() {
-        spProvince.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                spCity.setVisibility(View.VISIBLE);
-                cityBeanList = addrBean.getProvinceList().get(position).getCitylist();
-                provinceBean = addrBean.getProvinceList().get(position);
-                adpCity.setCityBeanList(addrBean.getProvinceList().get(position).getCitylist());
-                //选择省份后，城市默认第一个
-                String selected_province = provinceBean.getProvince();
-                String selected_city = cityBeanList.get(0).getCityName();
-                value_et.setText(selected_province+"-"+selected_city);
-                spCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    @Override
-                    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                        //选择城市后
-                        String selected_province = provinceBean.getProvince();
-                        String selected_city = cityBeanList.get(position).getCityName();
-                        value_et.setText(selected_province+"-"+selected_city);
-                    }
-
-                    @Override
-                    public void onNothingSelected(AdapterView<?> parent) {
-
-                    }
-                });
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
     }
     //网络数据部分
 //处理返回的数据
@@ -259,6 +323,7 @@ public class ResetActivity extends AppCompatActivity {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+            Intent intent = new Intent(ResetActivity.this, Main5Activity.class);
             switch (msg.what){
                 case 1:
                     if (title.equals("昵称设置")){
@@ -273,6 +338,8 @@ public class ResetActivity extends AppCompatActivity {
                         String myportrait = shuserinfo.readUserInfo().get("userPortrait");
                         RongIM.getInstance().refreshUserInfoCache(new UserInfo(myid, mynickname, Uri.parse(myportrait)));
                     }
+
+                    startActivity(intent);
                     break;
                 case 2:
                     SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
@@ -286,10 +353,21 @@ public class ResetActivity extends AppCompatActivity {
                     String mynickname = shuserinfo.readUserInfo().get("userNickName");
                     String myportrait = shuserinfo.readUserInfo().get("userPortrait");
                     RongIM.getInstance().refreshUserInfoCache(new UserInfo(myid, mynickname, Uri.parse(myportrait)));
+
+                    startActivity(intent);
+                    break;
+                case 3:
+                    try {
+                        String resultJson1 = msg.obj.toString();
+                        Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
+
+                        JSONObject jsonObject = new ParseJSONObject(msg.obj.toString()).getParseJSON();
+                        initPersonage(jsonObject);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                     break;
             }
-            Intent intent = new Intent(ResetActivity.this, Main5Activity.class);
-            startActivity(intent);
         }
     };
     //TODO okhttp设置手机，密码，邮箱,昵称,年龄，地区。

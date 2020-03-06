@@ -374,7 +374,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                     if (msg.obj.toString().equals("会员已到期")){
                         Toast.makeText(getActivity(), "此版块需要开通会员", Toast.LENGTH_LONG).show();
                     }else {
-                        getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","大圈");
+                        getDataSlider("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=luntan&m=socialchat","精华");
                     }
                     break;
             }

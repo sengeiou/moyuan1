@@ -122,4 +122,22 @@ public class SharedHelper {
 
         return sp.getString("newFriendApplyNumber", "");
     }
+
+
+    //定义一个保存数据的方法  保存响铃设置
+    public void saveSoundSet(String value) {
+        SharedPreferences sp = mContext.getSharedPreferences("SoundSet", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putString("SoundSet", value);
+        editor.commit();
+        //Toast.makeText(mContext, "信息已写入SharedPreference中", Toast.LENGTH_SHORT).show();
+    }
+
+    //定义一个读取SP文件的方法
+    public String readSoundSet() {
+        SharedPreferences sp = mContext.getSharedPreferences("SoundSet", Context.MODE_PRIVATE);
+
+        return sp.getString("SoundSet", "");
+    }
 }

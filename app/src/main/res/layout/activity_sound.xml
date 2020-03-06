@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Main5Branch.SoundActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_back_left"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="16dp"
+            android:contentDescription="TODO"
+            android:src="@mipmap/item_left_back_btn"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="60dp"
+            android:text="声音设置"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:stretchColumns="*">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <RadioGroup
+                    android:id="@+id/sound_on_off"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checkedButton="@+id/sound_on">
+
+                    <RadioButton
+                        android:id="@+id/sound_on"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="响铃提醒"
+                        android:textSize="18sp" />
+
+                    <RadioButton
+                        android:id="@+id/sound_off"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="消息免打扰"
+                        android:textSize="18sp" />
+                </RadioGroup>
+            </TableRow>
+
+        </TableLayout>
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

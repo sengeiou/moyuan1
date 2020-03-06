@@ -23,6 +23,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.navigation.Navigation;
+
 import com.orhanobut.dialogplus.DialogPlus;
 
 import java.io.IOException;
@@ -45,6 +47,8 @@ import static io.rong.imkit.fragment.ConversationListFragment.TAG;
 public class SettingFragment extends Fragment {
 
     Button phone_reset;
+    Button personalinfo_btn;
+    Button sound_set;
     Button email_reset;
     Button password_reset;
     Button private_set;
@@ -86,6 +90,8 @@ public class SettingFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
         phone_reset = view.findViewById(R.id.phone_reset);
+        personalinfo_btn = view.findViewById(R.id.personalinfo_btn);
+        sound_set = view.findViewById(R.id.sound_set);
         email_reset = view.findViewById(R.id.email_reset);
         password_reset = view.findViewById(R.id.password_reset);
         private_set = view.findViewById(R.id.private_set);
@@ -101,6 +107,15 @@ public class SettingFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(mContext,ResetActivity.class);
                 intent.putExtra("title","手机绑定");
+                startActivity(intent);
+            }
+        });
+        personalinfo_btn.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.setting_reset_action));
+        sound_set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext,SoundActivity.class);
+                intent.putExtra("title","关于声音");
                 startActivity(intent);
             }
         });
@@ -155,7 +170,7 @@ public class SettingFragment extends Fragment {
         version_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "当前版本：6.0", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "当前版本：7.0", Toast.LENGTH_LONG).show();
             }
         });
 

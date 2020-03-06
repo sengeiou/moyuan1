@@ -58,7 +58,7 @@ import xin.banghua.beiyuan.RongYunContactCard.MyContactCard;
 import xin.banghua.beiyuan.SharedPreferences.SharedHelper;
 import xin.banghua.beiyuan.Signin.SigninActivity;
 
-public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoProvider{
+public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoProvider {
     private static final String TAG = "Main2Activity";
 
     Uniquelogin uniquelogin;
@@ -133,7 +133,7 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
         String myid = shuserinfo.readUserInfo().get("userID");
         String mynickname = shuserinfo.readUserInfo().get("userNickName");
         String myportrait = shuserinfo.readUserInfo().get("userPortrait");
-        UserInfo myinfo = new UserInfo(myid,mynickname, Uri.parse(myportrait));
+        UserInfo myinfo = new UserInfo(myid, mynickname, Uri.parse(myportrait));
         RongIM.getInstance().setCurrentUserInfo(myinfo);
 
         //底部导航初始化和配置监听，默认选项
@@ -145,7 +145,7 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
         iUnReadMessageObserver = new IUnReadMessageObserver() {
             @Override
             public void onCountChanged(int i) {
-                BadgeBottomNav.unreadMessageBadge(bottomNavigationView,i,getApplicationContext());
+                BadgeBottomNav.unreadMessageBadge(bottomNavigationView, i, getApplicationContext());
                 //initUnreadBadge(bottomNavigationView,i);
             }
         };
@@ -153,7 +153,7 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
 
         getDataFriends("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friends&m=socialchat");
         //好友申请数
-        BadgeBottomNav badgeBottomNav = new BadgeBottomNav(this,handler);
+        BadgeBottomNav badgeBottomNav = new BadgeBottomNav(this, handler);
         badgeBottomNav.getDataFriendsapply("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapplynumber&m=socialchat");
         //getDataFriendsapply("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=friendsapplynumber&m=socialchat");
 
@@ -189,33 +189,34 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
         });
 
 
-        RongIM.setUserInfoProvider(this,true);
+        RongIM.setUserInfoProvider(this, true);
 
 
     }
 
-    public void ifSignin(){
-        Map<String,String> userInfo;
+    public void ifSignin() {
+        Map<String, String> userInfo;
         SharedHelper sh;
         sh = new SharedHelper(getApplicationContext());
         userInfo = sh.readUserInfo();
         //Toast.makeText(mContext, userInfo.toString(), Toast.LENGTH_SHORT).show();
-        if(userInfo.get("userID")==""){
+        if (userInfo.get("userID") == "") {
             Intent intentSignin = new Intent(Main2Activity.this, SigninActivity.class);
             startActivity(intentSignin);
-        }else{
+        } else {
             //唯一登录验证
-            uniquelogin = new Uniquelogin(this,handler);
+            uniquelogin = new Uniquelogin(this, handler);
             uniquelogin.compareUniqueLoginToken("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=uniquelogin&m=socialchat");
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         RongIM.getInstance().removeUnReadMessageCountChangedObserver(iUnReadMessageObserver);
     }
 
-    public void initUnreadBadge(BottomNavigationView navigation, Integer integer){
+    public void initUnreadBadge(BottomNavigationView navigation, Integer integer) {
         //底部导航栏角标
         //获取整个的NavigationView
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) navigation.getChildAt(0);
@@ -230,20 +231,21 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
         unreadNumber.setText("");
         unreadNumber.setText(String.valueOf(integer));
         //无消息时可以将它隐藏即可
-        if (integer>0){
+        if (integer > 0) {
             unreadNumber.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             unreadNumber.setVisibility(View.GONE);
         }
     }
+
     //TODO 初始化用户列表
     private void initFriends(View view, JSONArray jsonArray) throws JSONException {
         Log.d(TAG, "initFriends: ");
         List<UserInfo> userInfoList = new ArrayList<>();
-        if (jsonArray.length()>0){
-            for (int i=0;i<jsonArray.length();i++){
+        if (jsonArray.length() > 0) {
+            for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                FriendList friends = new FriendList(jsonObject.getString("id"),jsonObject.getString("portrait"),jsonObject.getString("nickname"),jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("vip"));
+                FriendList friends = new FriendList(jsonObject.getString("id"), jsonObject.getString("portrait"), jsonObject.getString("nickname"), jsonObject.getString("age"), jsonObject.getString("gender"), jsonObject.getString("region"), jsonObject.getString("property"), jsonObject.getString("vip"));
                 friendList.add(filledData(friends));
 
                 UserInfo userInfo = new UserInfo(jsonObject.getString("id"), jsonObject.getString("nickname"), Uri.parse(jsonObject.getString("portrait")));
@@ -258,6 +260,7 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
 
         initRecyclerView(view);
     }
+
     /**
      * 将数据中的用户名拼音首字母加入数据数组
      *
@@ -265,20 +268,26 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
      * @return
      */
     private FriendList filledData(FriendList data) {
-            //汉字转换成拼音
-            String pinyin = PinyinUtils.getPingYin(data.getmUserNickName());
-            String sortString = pinyin.substring(0, 1).toUpperCase();
+        //汉字转换成拼音   表情会报StringIndexOutOfBoundsException
+        String pinyin = PinyinUtils.getPingYin(data.getmUserNickName());
+        String sortString = "#";
+        try {
+            sortString = pinyin.substring(0, 1).toUpperCase();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-            // 正则表达式，判断首字母是否是英文字母
-            if (sortString.matches("[A-Z]")) {
-                data.setLetters(sortString.toUpperCase());
-            } else {
-                data.setLetters("#");
-            }
+        // 正则表达式，判断首字母是否是英文字母
+        if (sortString.matches("[A-Z]")) {
+            data.setLetters(sortString.toUpperCase());
+        } else {
+            data.setLetters("#");
+        }
         return data;
     }
+
     //TODO 初始化好友recyclerview
-    private void initRecyclerView(View view){
+    private void initRecyclerView(View view) {
         Log.d(TAG, "initRecyclerView: init recyclerview");
         mComparator = new PinyinComparator();
 
@@ -299,7 +308,7 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
         Collections.sort(friendList, mComparator);
 
         mRecyclerView = view.findViewById(R.id.haoyou_RecyclerView);
-        adapter = new FriendAdapter(Main2Activity.this,friendList);
+        adapter = new FriendAdapter(Main2Activity.this, friendList);
         mRecyclerView.setAdapter(adapter);
         //RecyclerView设置manager
         manager = new LinearLayoutManager(this);
@@ -310,60 +319,62 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
         mRecyclerView.addItemDecoration(mDecoration);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(Main2Activity.this, DividerItemDecoration.VERTICAL));
     }
+
     //处理返回的数据
     @SuppressLint("HandlerLeak")
-    private Handler handler=new Handler(){
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             //1是用户数据，2是幻灯片
-            switch (msg.what){
+            switch (msg.what) {
                 case 1:
                     try {
                         String resultJson1 = msg.obj.toString();
-                        Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
+                        Log.d(TAG, "handleMessage: 用户数据接收的值" + msg.obj.toString());
 
                         JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
-                        initFriends(getWindow().getDecorView(),jsonArray);
+                        initFriends(getWindow().getDecorView(), jsonArray);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                     break;
                 case 11:
-                        String resultJson1 = msg.obj.toString();
-                        Log.d(TAG, "handleMessage: 用户数据接收的值"+msg.obj.toString());
-                        friendApply = findViewById(R.id.new_friend);
-                        friendApply.setText("+新朋友 "+msg.obj.toString());
+                    String resultJson1 = msg.obj.toString();
+                    Log.d(TAG, "handleMessage: 用户数据接收的值" + msg.obj.toString());
+                    friendApply = findViewById(R.id.new_friend);
+                    friendApply.setText("+新朋友 " + msg.obj.toString());
                     SharedHelper shvalue = new SharedHelper(getApplicationContext());
                     String newFriendApplyNumber = shvalue.readNewFriendApplyNumber();
-                    if (newFriendApplyNumber.equals(msg.obj.toString())){
+                    if (newFriendApplyNumber.equals(msg.obj.toString())) {
                         friendApply.setText("+新朋友 ");
                         //BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
-                    }else {
-                        friendApply.setText("+新朋友 "+msg.obj.toString());
-                        BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView,msg.obj.toString(),getApplicationContext());
+                    } else {
+                        friendApply.setText("+新朋友 " + msg.obj.toString());
+                        BadgeBottomNav.newFriendApplicationBadge(bottomNavigationView, msg.obj.toString(), getApplicationContext());
                     }
                     break;
                 case 10:
-                    if (msg.obj.toString().equals("false")){
+                    if (msg.obj.toString().equals("false")) {
                         uniquelogin.uniqueNotification();
                         SharedPreferences sp = getSharedPreferences("userInfo", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sp.edit();
                         editor.putString("userID", "");
                         editor.commit();
                         Intent intent = new Intent(Main2Activity.this, SigninActivity.class);
-                        intent.putExtra("uniquelogin","强制退出");
+                        intent.putExtra("uniquelogin", "强制退出");
                         startActivity(intent);
                     }
                     break;
             }
         }
     };
+
     //TODO okhttp获取好友信息
-    public void getDataFriends(final String url){
+    public void getDataFriends(final String url) {
         new Thread(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 SharedHelper shvalue = new SharedHelper(getApplicationContext());
                 String userID = shvalue.readUserInfo().get("userID");
                 OkHttpClient client = new OkHttpClient();
@@ -376,20 +387,20 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
                         .build();
 
                 try (Response response = client.newCall(request).execute()) {
-                    if (!response.isSuccessful()) throw new IOException("Unexpected code " + response);
+                    if (!response.isSuccessful())
+                        throw new IOException("Unexpected code " + response);
 
-                    Message message=handler.obtainMessage();
-                    message.obj=response.body().string();
-                    message.what=1;
-                    Log.d(TAG, "run: Userinfo发送的值"+message.obj.toString());
-                    handler.sendMessageDelayed(message,10);
-                }catch (Exception e) {
+                    Message message = handler.obtainMessage();
+                    message.obj = response.body().string();
+                    message.what = 1;
+                    Log.d(TAG, "run: Userinfo发送的值" + message.obj.toString());
+                    handler.sendMessageDelayed(message, 10);
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }).start();
     }
-
 
 
     @Override
@@ -402,13 +413,13 @@ public class Main2Activity extends AppCompatActivity implements RongIM.UserInfoP
 //        FriendList me = new FriendList(myid,myportrait,mynickname);
 //        friendList.add(me);
         //获取用户信息
-        for (FriendList i:friendList){
-            if (i.getmUserID().equals(s)){
-                Log.d(TAG, "getUserInfo: 进入"+s);
-                return new UserInfo(i.getmUserID(),i.getmUserNickName(), Uri.parse(i.getmUserPortrait()));
+        for (FriendList i : friendList) {
+            if (i.getmUserID().equals(s)) {
+                Log.d(TAG, "getUserInfo: 进入" + s);
+                return new UserInfo(i.getmUserID(), i.getmUserNickName(), Uri.parse(i.getmUserPortrait()));
             }
         }
-        Log.d(TAG, "getUserInfo: 没进入"+s);
+        Log.d(TAG, "getUserInfo: 没进入" + s);
         return null;
     }
 

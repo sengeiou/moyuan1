@@ -203,7 +203,11 @@ public class MeFragment extends Fragment {
         tuiguangma_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "您的推广码是："+myid, Toast.LENGTH_LONG).show();
+                //Toast.makeText(mContext, "您的推广码是："+myid, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(mContext, SliderWebViewActivity.class);
+                intent.putExtra("slidername","分享推广码");
+                intent.putExtra("sliderurl","https://applet.banghua.xin/app/index.php?i=99999&c=entry&do=referralgetscore_page&m=socialchat&userid="+myid);
+                mContext.startActivity(intent);
             }
         });
         jifen_btn.setOnClickListener(new View.OnClickListener() {
