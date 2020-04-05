@@ -24,7 +24,7 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <xin.banghua.beiyuan.CircleImageViewExtension
+                <xin.banghua.moyuan.CircleImageViewExtension
                     android:id="@+id/userportrait_iv"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
@@ -54,12 +54,12 @@
                         android:orientation="horizontal">
 
                         <Button
-                            android:id="@+id/beiyuanid_btn"
+                            android:id="@+id/moyuanid_btn"
                             style="@android:style/Widget.DeviceDefault.Button.Borderless"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:drawableTop="@drawable/ic_beiyuanhao"
-                            android:text="乐园号"
+                            android:text="陌缘号"
                             android:textColor="@color/colorPrimaryDark" />
 
                         <Button
@@ -163,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_promotion_code"
                 android:drawableRight="@drawable/ic_right"
-                android:text="我的推广码"
+                android:text="分享得积分会员"
                 android:textAlignment="textStart" />
         </TableRow>
 
@@ -219,7 +219,7 @@
                     style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="小贝乐园用户协议"
+                    android:text="陌缘用户协议"
                     android:textColor="@color/callkit_color_primary" />
 
                 <Button
@@ -227,7 +227,7 @@
                     style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="小贝乐园隐私政策"
+                    android:text="陌缘隐私政策"
                     android:textColor="@color/callkit_color_primary" />
 
             </LinearLayout>

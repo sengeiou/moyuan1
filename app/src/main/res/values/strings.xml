@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
-    <string name="app_name">小贝乐园</string>
+    <string name="app_name">陌缘</string>
     <string name="title_shenbian">身边</string>
     <string name="title_haoyou">好友</string>
     <string name="title_xiaoxi">消息</string>
@@ -99,5 +99,16 @@
         <item>48</item>
         <item>49</item>
         <item>50</item>
+    </string-array>
+    <string-array name="sousuo_age">
+        <item>不限</item>
+        <!--        <item>15</item>-->
+        <!--        <item>16</item>-->
+        <!--        <item>17</item>-->
+        <item>18-20</item>
+        <item>21-25</item>
+        <item>26-30</item>
+        <item>31-40</item>
+        <item>41-60</item>
     </string-array>
 </resources>

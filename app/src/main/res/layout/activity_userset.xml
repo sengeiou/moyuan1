@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDF0F5"
+    android:background="@drawable/signupbackground"
     tools:context=".Signin.Userset">
 
     <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#FFFFFF"
             android:gravity="center">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -47,7 +47,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#FFFFFF"
             android:gravity="center">
 
             <EditText
@@ -65,7 +64,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#FFFFFF"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -106,15 +104,14 @@
                 android:ems="10"
                 android:hint="年龄"
                 android:inputType="number"
-                android:textAlignment="textStart"
-                android:visibility="gone" />
+                android:textAlignment="center"
+                android:visibility="visible" />
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#FFFFFF"
             android:gravity="center">
 
             <Spinner
@@ -124,7 +121,8 @@
                 android:dropDownWidth="match_parent"
                 android:foreground="@drawable/ic_age"
                 android:foregroundGravity="center_vertical"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                android:visibility="gone" />
 
         </TableRow>
 
@@ -149,7 +147,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#FFFFFF"
             android:gravity="center">
 
             <Spinner
@@ -165,7 +162,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#FFFFFF"
             android:gravity="center">
 
             <Spinner
@@ -182,7 +178,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#FFFFFF"
             android:gravity="center">
 
             <RadioGroup
@@ -219,7 +214,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#FFFFFF"
             android:gravity="center">
 
             <EditText
@@ -236,7 +230,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#FFFFFF"
             android:gravity="center">
 
             <EditText
@@ -253,17 +246,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="#FFFFFF"
             android:gravity="center">
 
             <Button
                 android:id="@+id/submit_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rc_btn_voice_hover"
+                android:background="@drawable/round"
                 android:text="提交"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/rc_conversation_item_data_size" />
         </TableRow>
     </TableLayout>
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

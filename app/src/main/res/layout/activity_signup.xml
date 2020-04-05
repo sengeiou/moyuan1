@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/signupbackground"
     tools:context=".Signin.SignupActivity">
 
     <TableLayout
@@ -60,6 +61,7 @@
                     android:ems="10"
                     android:hint="手机号"
                     android:inputType="phone" />
+
             </LinearLayout>
 
         </TableRow>
@@ -91,6 +93,7 @@
                     android:ems="10"
                     android:hint="密码"
                     android:inputType="textPassword" />
+
             </LinearLayout>
 
         </TableRow>
@@ -149,7 +152,7 @@
                     style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="小贝乐园用户协议"
+                    android:text="陌缘用户协议"
                     android:textColor="@color/callkit_color_primary" />
 
                 <Button
@@ -157,7 +160,7 @@
                     style="@style/Base.Widget.AppCompat.Button.Borderless"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="小贝乐园隐私政策"
+                    android:text="陌缘隐私政策"
                     android:textColor="@color/callkit_color_primary" />
 
             </LinearLayout>
@@ -182,4 +185,4 @@
 
     </TableLayout>
 
-</android.support.constraint.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

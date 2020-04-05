@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/tuijianFragment"
-        android:name="xin.banghua.beiyuan.MainBranch.TuijianFragment"
+        android:name="xin.banghua.moyuan.MainBranch.TuijianFragment"
         android:label="fragment_tuijian"
         tools:layout="@layout/fragment_tuijian" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/fujinFragment"
-        android:name="xin.banghua.beiyuan.MainBranch.FujinFragment"
+        android:name="xin.banghua.moyuan.MainBranch.FujinFragment"
         android:label="fragment_fujin"
         tools:layout="@layout/fragment_fujin" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/sousuoFragment"
-        android:name="xin.banghua.beiyuan.MainBranch.SousuoFragment"
+        android:name="xin.banghua.moyuan.MainBranch.SousuoFragment"
         android:label="fragment_sousuo"
         tools:layout="@layout/fragment_sousuo" >
         <action
@@ -46,7 +46,7 @@
     </fragment>
     <fragment
         android:id="@+id/sousuoresultFragment"
-        android:name="xin.banghua.beiyuan.MainBranch.SousuoresultFragment"
+        android:name="xin.banghua.moyuan.MainBranch.SousuoresultFragment"
         android:label="fragment_sousuoresult"
         tools:layout="@layout/fragment_sousuoresult" >
         <action

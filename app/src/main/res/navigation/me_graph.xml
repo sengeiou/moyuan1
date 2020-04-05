@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/meFragment"
-        android:name="xin.banghua.beiyuan.Main5Branch.MeFragment"
+        android:name="xin.banghua.moyuan.Main5Branch.MeFragment"
         android:label="fragment_me"
         tools:layout="@layout/fragment_me" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/settingFragment"
-        android:name="xin.banghua.beiyuan.Main5Branch.SettingFragment"
+        android:name="xin.banghua.moyuan.Main5Branch.SettingFragment"
         android:label="fragment_setting"
         tools:layout="@layout/fragment_setting" >
     <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/resetPersonalInfoFragment"
-        android:name="xin.banghua.beiyuan.Main5Branch.ResetPersonalInfoFragment"
+        android:name="xin.banghua.moyuan.Main5Branch.ResetPersonalInfoFragment"
         android:label="fragment_reset_personal_info"
         tools:layout="@layout/fragment_reset_personal_info" >
         <action

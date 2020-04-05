@@ -106,13 +106,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 
-            <xin.banghua.beiyuan.MarqueeTextView
+            <xin.banghua.moyuan.MarqueeTextView
                 android:id="@+id/marquee"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_span="5">
 
-            </xin.banghua.beiyuan.MarqueeTextView>
+            </xin.banghua.moyuan.MarqueeTextView>
         </TableRow>
 
         <TableRow
@@ -143,7 +143,7 @@
             android:layout_marginBottom="0dp"
             android:gravity="center">
 
-            <android.support.design.widget.FloatingActionButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/luntanRelease"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

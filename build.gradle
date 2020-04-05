@@ -7,11 +7,15 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:3.6.1'
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+        //选择器
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }
+
+    apply from: 'thirdparty-lib/config.gradle'
 }
 
 allprojects {
@@ -19,6 +23,17 @@ allprojects {
         google()
         jcenter()
         maven {url 'http://developer.huawei.com/repo/'}
+        //阿里云视频
+        maven { url "http://maven.aliyun.com/nexus/content/repositories/releases" }
+        //选择器
+        mavenCentral() //sonatype的maven库
+//        mavenLocal() //本地的maven库
+        maven {
+            url "https://www.jitpack.io" //jitpack的maven库
+        }
+        flatDir {
+            dirs 'libs' //本地aar文件
+        }
     }
 }
 

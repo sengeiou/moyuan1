@@ -42,7 +42,7 @@
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
 
-                <xin.banghua.beiyuan.CircleImageViewExtension
+                <xin.banghua.moyuan.CircleImageViewExtension
                     android:id="@+id/user_portrait"
                     android:layout_width="100dp"
                     android:layout_height="100dp"

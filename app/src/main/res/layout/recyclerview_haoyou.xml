@@ -19,7 +19,7 @@
             android:text="userID"
             android:visibility="gone" />
 
-        <xin.banghua.beiyuan.CircleImageViewExtension
+        <xin.banghua.moyuan.CircleImageViewExtension
             android:id="@+id/authportrait"
             android:layout_width="60dp"
             android:layout_height="60dp"

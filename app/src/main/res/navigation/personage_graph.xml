@@ -7,22 +7,22 @@
 
     <fragment
         android:id="@+id/personalGuanzhuFragment"
-        android:name="xin.banghua.beiyuan.Personage.PersonalGuanzhuFragment"
+        android:name="xin.banghua.moyuan.Personage.PersonalGuanzhuFragment"
         android:label="fragment_personal_guanzhu"
         tools:layout="@layout/fragment_personal_guanzhu" />
     <fragment
         android:id="@+id/personalFensiFragment"
-        android:name="xin.banghua.beiyuan.Personage.PersonalFensiFragment"
+        android:name="xin.banghua.moyuan.Personage.PersonalFensiFragment"
         android:label="fragment_personal_fensi"
         tools:layout="@layout/fragment_personal_fensi" />
     <fragment
         android:id="@+id/personalQunzuFragment"
-        android:name="xin.banghua.beiyuan.Personage.PersonalQunzuFragment"
+        android:name="xin.banghua.moyuan.Personage.PersonalQunzuFragment"
         android:label="fragment_personal_qunzu"
         tools:layout="@layout/fragment_personal_qunzu" />
     <fragment
         android:id="@+id/personageFragment"
-        android:name="xin.banghua.beiyuan.Personage.PersonageFragment"
+        android:name="xin.banghua.moyuan.Personage.PersonageFragment"
         android:label="fragment_personage"
         tools:layout="@layout/fragment_personage" />
 </navigation>
