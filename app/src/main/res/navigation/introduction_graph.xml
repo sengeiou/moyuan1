@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/introduction_graph"
+    app:startDestination="@id/introductionMainFragment">
+
+    <fragment
+        android:id="@+id/introductionMainFragment"
+        android:name="xin.banghua.moyuan.introduction.IntroductionMainFragment"
+        android:label="fragment_introduction_main"
+        tools:layout="@layout/fragment_introduction_main" >
+        <action
+            android:id="@+id/action_introductionMainFragment_to_introductionAlbumFragment"
+            app:destination="@id/introductionAlbumFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom" />
+        <action
+            android:id="@+id/action_introductionMainFragment_to_introductionVoiceFragment"
+            app:destination="@id/introductionVoiceFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom" />
+        <action
+            android:id="@+id/action_introductionMainFragment_to_introductionVideoFragment"
+            app:destination="@id/introductionVideoFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom" />
+        <action
+            android:id="@+id/action_introductionMainFragment_to_introductionTextFragment"
+            app:destination="@id/introductionTextFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom" />
+    </fragment>
+    <fragment
+        android:id="@+id/introductionAlbumFragment"
+        android:name="xin.banghua.moyuan.introduction.IntroductionAlbumFragment"
+        android:label="fragment_introduction_album"
+        tools:layout="@layout/fragment_introduction_album" >
+        <action
+            android:id="@+id/action_introductionAlbumFragment_to_introductionMainFragment"
+            app:destination="@id/introductionMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/introductionVoiceFragment"
+        android:name="xin.banghua.moyuan.introduction.IntroductionVoiceFragment"
+        android:label="fragment_introduction_voice"
+        tools:layout="@layout/fragment_introduction_voice" />
+    <fragment
+        android:id="@+id/introductionVideoFragment"
+        android:name="xin.banghua.moyuan.introduction.IntroductionVideoFragment"
+        android:label="fragment_introduction_video"
+        tools:layout="@layout/fragment_introduction_video" />
+    <fragment
+        android:id="@+id/introductionTextFragment"
+        android:name="xin.banghua.moyuan.introduction.IntroductionTextFragment"
+        android:label="fragment_introduction_text"
+        tools:layout="@layout/fragment_introduction_text" />
+</navigation>

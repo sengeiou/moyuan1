@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#EDF0F5"
+    tools:context=".introduction.IntroductionMainFragment">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stretchColumns="*">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary" />
+
+            </com.google.android.material.appbar.AppBarLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="#FFFFFF">
+
+            <Button
+                android:id="@+id/introduction_album"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_album"
+                android:drawableRight="@drawable/ic_right"
+                android:text="   我的相册介绍"
+                android:textAlignment="textStart" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="#FFFFFF">
+
+            <Button
+                android:id="@+id/introduction_voice"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:drawableLeft="@drawable/ic_voice"
+                android:drawableRight="@drawable/ic_right"
+                android:text="    我的语音介绍"
+                android:textAlignment="textStart" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="#FFFFFF">
+
+            <Button
+                android:id="@+id/introduction_video"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_video"
+                android:drawableRight="@drawable/ic_right"
+                android:text="   我的视频介绍"
+                android:textAlignment="textStart" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="3dp"
+            android:layout_marginBottom="3dp"
+            android:background="#FFFFFF">
+
+            <Button
+                android:id="@+id/introduction_text"
+                style="@style/Base.Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_text"
+                android:drawableRight="@drawable/ic_right"
+                android:text="   我的文字介绍"
+                android:textAlignment="textStart" />
+        </TableRow>
+    </TableLayout>
+</FrameLayout>

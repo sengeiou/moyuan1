@@ -56,6 +56,20 @@
 
             <TableRow
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <Button
+                    android:id="@+id/age_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onYearMonthDayPicker"
+                    android:text="18"
+                    android:visibility="gone" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 
                 <Spinner
@@ -71,6 +85,19 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
+
+                <Button
+                    android:id="@+id/current_address_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:onClick="onAddressPicker"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/current_address"

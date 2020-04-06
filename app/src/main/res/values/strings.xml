@@ -1,5 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
     <string name="app_name">陌缘</string>
+    <string name="submit_toolbar">提交</string>
     <string name="title_shenbian">身边</string>
     <string name="title_haoyou">好友</string>
     <string name="title_xiaoxi">消息</string>

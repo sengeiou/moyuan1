@@ -1,100 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="xin.banghua.moyuan">
-    <!-- To auto-complete the email text field in the login form with the user's emails -->
+
     <application
-        android:name="xin.banghua.moyuan.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name="xin.banghua.moyuan.Main5Branch.SoundActivity"></activity>
+        <activity android:name=".introduction.IntroductionActivity"></activity>
+        <activity android:name=".Main5Branch.SoundActivity" />
         <activity
-            android:name="xin.banghua.moyuan.Main3Branch.ConversationSettingActivity"
+            android:name=".Main3Branch.ConversationSettingActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
-            android:name="xin.banghua.moyuan.SliderWebViewActivity"
+            android:name=".SliderWebViewActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
-            android:name="xin.banghua.moyuan.Main2Branch.BlackListActivity"
+            android:name=".Main2Branch.BlackListActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="xin.banghua.moyuan.Main4Branch.InformReasonActivity" />
+        <activity android:name=".Main4Branch.InformReasonActivity" />
         <activity
-            android:name="xin.banghua.moyuan.Main5Branch.HelpCenter"
+            android:name=".Main5Branch.HelpCenter"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="xin.banghua.moyuan.Main5Branch.SomeonesluntanActivity"
+            android:name=".Main5Branch.SomeonesluntanActivity"
             android:theme="@style/AppTheme.ActionBar.Show" />
         <activity
-            android:name="xin.banghua.moyuan.Personage.Someonesluntan1Activity"
+            android:name=".Personage.Someonesluntan1Activity"
             android:theme="@style/AppTheme.ActionBar.Show" />
         <activity
-            android:name="xin.banghua.moyuan.wxapi.WXEntryActivity"
+            android:name=".wxapi.WXEntryActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:taskAffinity="xin.banghua.moyuan"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
         <activity
-            android:name="xin.banghua.moyuan.Main5Branch.BuyvipActivity"
-            android:parentActivityName="xin.banghua.moyuan.Main5Activity"
+            android:name=".Main5Branch.BuyvipActivity"
+            android:parentActivityName=".Main5Activity"
             android:theme="@style/AppTheme.ActionBar.Show" />
-        <activity android:name="xin.banghua.moyuan.Signin.FindPasswordActivity" />
-        <activity android:name="xin.banghua.moyuan.Main5Branch.CommonSettingActivity" />
-        <activity android:name="xin.banghua.moyuan.Main5Branch.PrivateSettingActivity" />
-        <activity android:name="xin.banghua.moyuan.Main4Branch.FabugentieActivity" />
-        <activity android:name="xin.banghua.moyuan.Main4Branch.PostListActivity" />
-        <activity android:name="xin.banghua.moyuan.Main5Branch.ResetActivity" />
+        <activity android:name=".Signin.FindPasswordActivity" />
+        <activity android:name=".Main5Branch.CommonSettingActivity" />
+        <activity android:name=".Main5Branch.PrivateSettingActivity" />
+        <activity android:name=".Main4Branch.FabugentieActivity" />
+        <activity android:name=".Main4Branch.PostListActivity" />
+        <activity android:name=".Main5Branch.ResetActivity" />
         <activity
-            android:name="xin.banghua.moyuan.Main5Branch.SawMeActivity"
-            android:parentActivityName="xin.banghua.moyuan.Main5Activity"
-            android:theme="@style/AppTheme.ActionBar.Show" />
-        <activity
-            android:name="xin.banghua.moyuan.Main5Branch.CircleActivity"
-            android:parentActivityName="xin.banghua.moyuan.Main5Activity"
+            android:name=".Main5Branch.SawMeActivity"
+            android:parentActivityName=".Main5Activity"
             android:theme="@style/AppTheme.ActionBar.Show" />
         <activity
-            android:name="xin.banghua.moyuan.Main2Branch.NewFriend"
+            android:name=".Main5Branch.CircleActivity"
+            android:parentActivityName=".Main5Activity"
+            android:theme="@style/AppTheme.ActionBar.Show" />
+        <activity
+            android:name=".Main2Branch.NewFriend"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name="xin.banghua.moyuan.Personage.PersonageActivity"
+            android:name=".Personage.PersonageActivity"
             android:theme="@style/AppTheme.ActionBar.Show" />
-        <activity android:name="xin.banghua.moyuan.LaunchActivity">
+        <activity android:name=".LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="xin.banghua.moyuan.Signin.Userset" />
-        <activity android:name="xin.banghua.moyuan.Signin.SignupActivity" />
-        <activity android:name="xin.banghua.moyuan.Signin.SigninActivity" />
+        <activity android:name=".Signin.Userset" />
+        <activity android:name=".Signin.SignupActivity" />
+        <activity android:name=".Signin.SigninActivity" />
         <activity
-            android:name="xin.banghua.moyuan.Main5Activity"
+            android:name=".Main5Activity"
             android:label="@string/title_activity_main5" />
         <activity
-            android:name="xin.banghua.moyuan.Main4Activity"
+            android:name=".Main4Activity"
             android:label="@string/title_activity_main4" />
         <activity
-            android:name="xin.banghua.moyuan.Main3Activity"
+            android:name=".Main3Activity"
             android:label="@string/title_activity_main3" />
         <activity
-            android:name="xin.banghua.moyuan.Main2Activity"
+            android:name=".Main2Activity"
             android:label="通讯录"
             android:theme="@style/AppTheme.ActionBar.Show" />
         <activity
-            android:name="xin.banghua.moyuan.MainActivity"
+            android:name=".MainActivity"
             android:label="@string/app_name" />
         <activity
-            android:name="xin.banghua.moyuan.ConversationListActivity"
+            android:name=".ConversationListActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
@@ -109,7 +108,7 @@
             </intent-filter>
         </activity> <!-- 会话列表 -->
         <activity
-            android:name="xin.banghua.moyuan.ConversationActivity"
+            android:name=".ConversationActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateHidden|adjustResize">
@@ -166,7 +165,6 @@
             </intent-filter>
         </activity>
         <activity android:name="io.rong.callkit.CallSelectMemberActivity" />
-
         <activity
             android:name="com.huawei.hms.activity.BridgeActivity"
             android:configChanges="orientation|locale|screenSize|layoutDirection|fontScale"
@@ -188,8 +186,9 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <provider
-            android:name="xin.banghua.moyuan.MyFileProvider"
+            android:name=".MyFileProvider"
             android:authorities="xin.banghua.moyuan.FileProvider"
             android:exported="false"
             android:grantUriPermissions="true">
@@ -305,10 +304,12 @@
     <permission
         android:name="xin.banghua.moyuan.permission.MIPUSH_RECEIVE"
         android:protectionLevel="signature" />
+
     <permission
         android:name="xin.banghua.moyuan.push.permission.MESSAGE"
         android:protectionLevel="signature" />
     <uses-feature android:name="android.hardware.camera" />
+
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -320,25 +321,20 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.FLASHLIGHT" />
-
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 小米 配置开始 < -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 小米 配置结束 < -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> <!-- 小米 配置开始 < -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" /> <!-- 小米 配置结束 < -->
     <!-- 如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 -->
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- MeiZu 配置开始 < -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- MeiZu 配置开始 < -->
     <!-- 兼容 flyme5.0 以下版本，魅族内部集成 pushSDK 必填，不然无法收到 消息 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="xin.banghua.moyuan.permission.MIPUSH_RECEIVE" />
-
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
-    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" /> <!-- 兼容 flyme3.0 配置权限 -->
-    <uses-permission android:name="xin.banghua.moyuan.push.permission.MESSAGE" /> <!-- MeiZu 配置结束 < -->
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" /> <!-- 兼容 flyme3.0 配置权限 -->
+    <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" /> <!-- MeiZu 配置结束 < -->
     <!-- oppo 配置 -->
+    <uses-permission android:name="xin.banghua.moyuan.push.permission.MESSAGE" />
     <uses-permission android:name="com.meizu.c2dm.permission.RECEIVE" />
 
     <uses-permission android:name="com.coloros.mcs.permission.RECIEVE_MCS_MESSAGE" />

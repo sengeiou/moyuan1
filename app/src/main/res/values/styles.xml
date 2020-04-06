@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">#F44336</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#F2D124</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -29,8 +29,8 @@
     <!-- 定义将应用于整个应用程序或至少应用于许多Activity的"主题" -->
     <style name="AppTheme.ActionBar.Show" parent="@style/Theme.AppCompat.Light.DarkActionBar">
         <!-- 提供装饰主题颜色 -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">#F44336</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
     </style>
 </resources>

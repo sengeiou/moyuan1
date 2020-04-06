@@ -62,7 +62,7 @@
                 android:layout_height="match_parent"
                 android:drawableLeft="@drawable/ic_portrait"
                 android:drawableRight="@drawable/ic_right"
-                android:text="头像"
+                android:text="   头像"
                 android:textAlignment="textStart" />
         </TableRow>
 
@@ -79,7 +79,7 @@
                 android:layout_height="match_parent"
                 android:drawableLeft="@drawable/ic_nickname"
                 android:drawableRight="@drawable/ic_right"
-                android:text="昵称"
+                android:text="   昵称"
                 android:textAlignment="textStart" />
         </TableRow>
 
@@ -96,7 +96,7 @@
                 android:layout_height="match_parent"
                 android:drawableLeft="@drawable/ic_age"
                 android:drawableRight="@drawable/ic_right"
-                android:text="年龄"
+                android:text="   年龄"
                 android:textAlignment="textStart" />
         </TableRow>
 
@@ -113,7 +113,7 @@
                 android:layout_height="match_parent"
                 android:drawableLeft="@drawable/ic_gender"
                 android:drawableRight="@drawable/ic_right"
-                android:text="性别"
+                android:text="   性别"
                 android:textAlignment="textStart" />
         </TableRow>
 
@@ -130,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_property"
                 android:drawableRight="@drawable/ic_right"
-                android:text="属性"
+                android:text="   属性"
                 android:textAlignment="textStart" />
         </TableRow>
 
@@ -147,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_region"
                 android:drawableRight="@drawable/ic_right"
-                android:text="地区"
+                android:text="   地区"
                 android:textAlignment="textStart" />
         </TableRow>
 
@@ -164,7 +164,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_signature"
                 android:drawableRight="@drawable/ic_right"
-                android:text="签名"
+                android:text="   签名"
                 android:textAlignment="textStart" />
         </TableRow>
     </TableLayout>
