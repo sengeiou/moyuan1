@@ -52,7 +52,11 @@
         android:id="@+id/introductionVoiceFragment"
         android:name="xin.banghua.moyuan.introduction.IntroductionVoiceFragment"
         android:label="fragment_introduction_voice"
-        tools:layout="@layout/fragment_introduction_voice" />
+        tools:layout="@layout/fragment_introduction_voice" >
+        <action
+            android:id="@+id/action_introductionVoiceFragment_to_introductionMainFragment"
+            app:destination="@id/introductionMainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/introductionVideoFragment"
         android:name="xin.banghua.moyuan.introduction.IntroductionVideoFragment"
