@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,6 +31,8 @@ public class IntroductionMainFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    private static final String TAG = "IntroductionMain";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -83,9 +86,14 @@ public class IntroductionMainFragment extends Fragment {
     }
 
 
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //判断是不是录像后的跳转,是就跳转到视频fragment
+        intentVideo(view);
+
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("个人介绍设置");
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
@@ -120,5 +128,22 @@ public class IntroductionMainFragment extends Fragment {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void intentVideo(View view){
+
+        Log.d(TAG,"已经入");
+        Intent intent = getActivity().getIntent();
+        String videoFilePath = intent.getStringExtra("filePath");
+
+        if (videoFilePath == null || videoFilePath == ""){
+            Log.d(TAG,"没有文件");
+            return;
+        }else{
+            Log.d(TAG,"有文件，执行跳转");
+            //跳转video的fragment
+
+            Navigation.findNavController(view).navigate(R.id.action_introductionMainFragment_to_introductionVideoFragment);
+        }
     }
 }

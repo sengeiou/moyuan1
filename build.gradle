@@ -13,6 +13,8 @@ buildscript {
         // in the individual module build.gradle files
         //选择器
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        //图片选取器
+        classpath 'com.novoda:bintray-release:0.3.4'
     }
 
     apply from: 'thirdparty-lib/config.gradle'

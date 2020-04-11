@@ -27,11 +27,11 @@
             <option value="$PROJECT_DIR$/IMKit" />
             <option value="$PROJECT_DIR$/IMLib" />
             <option value="$PROJECT_DIR$/Sight" />
+            <option value="$PROJECT_DIR$/VoicePlayer" />
             <option value="$PROJECT_DIR$/android-pickers" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/audio-recorder" />
             <option value="$PROJECT_DIR$/contactcard" />
-            <option value="$PROJECT_DIR$/library" />
             <option value="$PROJECT_DIR$/wavesidebar" />
           </set>
         </option>

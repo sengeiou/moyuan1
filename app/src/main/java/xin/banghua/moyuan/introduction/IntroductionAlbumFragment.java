@@ -341,7 +341,7 @@ public class IntroductionAlbumFragment extends Fragment {
                     JSONObject jsonObject = new ParseJSONObject(msg.obj.toString()).getParseJSON();//自定义的
                     String resultJson = jsonObject.getString("album");
                     Log.d(TAG, resultJson);
-                    if (resultJson == "null")return;
+                    if (resultJson == "null" || resultJson == "")return;
                     String[] postPicture = resultJson.split(",");
                     Log.d(TAG, "长度"+postPicture.length);
                     //Log.d(TAG, "postPicture"+postPicture[0]+postPicture[1]+postPicture[2]+postPicture[3]+postPicture[4]+postPicture[5]);

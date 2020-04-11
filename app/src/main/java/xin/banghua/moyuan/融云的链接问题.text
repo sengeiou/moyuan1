@@ -1,0 +1,8 @@
+1.融云启动后只链接一次
+直接在app的onCreat()中连接，如果没有token，连接失败
+
+手机登录，在SigninActivity中注册并连接融云
+微信登录，在WXEntryActivity中，注册并连接融云(分存在账户或不存在)
+
+不能为了应用进入后台后接受消息通知，而在onActivityPaused中断开融云链接
+因为发送图片也会触发onActivityPaused而断开融云链接，导致发送图片失败
