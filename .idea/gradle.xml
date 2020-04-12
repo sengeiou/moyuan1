@@ -31,7 +31,9 @@
             <option value="$PROJECT_DIR$/android-pickers" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/audio-recorder" />
+            <option value="$PROJECT_DIR$/bottomsheetpicker" />
             <option value="$PROJECT_DIR$/contactcard" />
+            <option value="$PROJECT_DIR$/videothumbselect" />
             <option value="$PROJECT_DIR$/wavesidebar" />
           </set>
         </option>

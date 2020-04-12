@@ -32,7 +32,7 @@ public class IntroductionActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        Log.d(TAG, "onActivityResult: 调用了这个");
 
         /**
          * 1.使用getSupportFragmentManager().getFragments()获取到当前Activity中添加的Fragment集合

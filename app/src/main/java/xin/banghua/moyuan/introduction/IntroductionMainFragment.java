@@ -91,8 +91,8 @@ public class IntroductionMainFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        //判断是不是录像后的跳转,是就跳转到视频fragment
-        intentVideo(view);
+        //判断是不是录像后的跳转,是就跳转到视频fragment。video已改为activity,所以不需要了
+        //intentVideo(view);
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("个人介绍设置");
@@ -105,9 +105,21 @@ public class IntroductionMainFragment extends Fragment {
         introduction_voice = view.findViewById(R.id.introduction_voice);
         introduction_video = view.findViewById(R.id.introduction_video);
         introduction_text = view.findViewById(R.id.introduction_text);
-        introduction_album.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_introductionMainFragment_to_introductionAlbumFragment));
+        introduction_album.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), IntroductionAlbumActivity.class);
+                startActivity(intent);
+            }
+        });
         introduction_voice.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_introductionMainFragment_to_introductionVoiceFragment));
-        introduction_video.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_introductionMainFragment_to_introductionVideoFragment));
+        introduction_video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), IntroductionVideoActivity.class);
+                startActivity(intent);
+            }
+        });
         introduction_text.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_introductionMainFragment_to_introductionTextFragment));
     }
 
@@ -135,6 +147,7 @@ public class IntroductionMainFragment extends Fragment {
         Log.d(TAG,"已经入");
         Intent intent = getActivity().getIntent();
         String videoFilePath = intent.getStringExtra("filePath");
+
 
         if (videoFilePath == null || videoFilePath == ""){
             Log.d(TAG,"没有文件");

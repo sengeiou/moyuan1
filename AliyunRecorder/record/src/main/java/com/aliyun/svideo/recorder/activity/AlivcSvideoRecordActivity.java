@@ -411,7 +411,7 @@ public class AlivcSvideoRecordActivity extends AppCompatActivity {
 
                 //跳转回导航
                 Intent intent = new Intent();
-                intent.setClassName(AlivcSvideoRecordActivity.this, "xin.banghua.moyuan.introduction.IntroductionActivity");
+                intent.setClassName(AlivcSvideoRecordActivity.this, "xin.banghua.moyuan.introduction.IntroductionVideoActivity");
                 intent.putExtra("filePath", path);
                 AlivcSvideoRecordActivity.this.startActivity(intent);
 

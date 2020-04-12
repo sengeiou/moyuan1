@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -43,6 +44,8 @@ import com.aliyun.player.source.UrlSource;
 import com.aliyun.svideo.recorder.activity.AlivcSvideoRecordActivity;
 import com.aliyun.svideo.recorder.bean.AlivcRecordInputParam;
 import com.bumptech.glide.Glide;
+import com.quanturium.android.library.bottomsheetpicker.BottomSheetPickerFragment;
+import com.quanturium.android.library.bottomsheetpicker.MyFileVariable;
 
 import net.alhazmy13.mediapicker.Image.ImagePicker;
 
@@ -51,21 +54,29 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Map;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import opensource.theboloapp.com.videothumbselect.ChooseThumbnailActivity;
+import opensource.theboloapp.com.videothumbselect.VideoThumbnailSelectHelper;
 import xin.banghua.moyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.moyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.moyuan.R;
+import xin.banghua.moyuan.RealPathFromUriUtils;
 import xin.banghua.moyuan.SharedPreferences.SharedHelper;
 
 import static android.app.Activity.RESULT_OK;
 import static cn.rongcloud.rtc.core.ContextUtils.getApplicationContext;
+import static com.quanturium.android.library.bottomsheetpicker.MyFileVariable.TAKE_FROM_CAMERA;
+import static com.quanturium.android.library.bottomsheetpicker.MyFileVariable.TAKE_FROM_FOLDER;
+import static com.quanturium.android.library.bottomsheetpicker.MyFileVariable.TAKE_FROM_SHEET;
 
 
 /**
@@ -73,7 +84,7 @@ import static cn.rongcloud.rtc.core.ContextUtils.getApplicationContext;
  * Use the {@link IntroductionVideoFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class IntroductionVideoFragment extends Fragment {
+public class IntroductionVideoFragment extends Fragment implements BottomSheetPickerFragment.BottomSheetPickerListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -85,6 +96,11 @@ public class IntroductionVideoFragment extends Fragment {
 
 
     private static final String TAG = "IntroductionVideo";
+
+    //文件选择器
+    private BottomSheetPickerFragment bottomSheetPickerFragment;
+
+    private final int REQUEST_CODE_SELECT_THUMBNAIL = 1010;
 
     ImageView video_cover;
     String postVideoCover = "";
@@ -146,6 +162,27 @@ public class IntroductionVideoFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        if (savedInstanceState != null) {
+            final BottomSheetPickerFragment fragment = (BottomSheetPickerFragment) getActivity().getSupportFragmentManager().findFragmentByTag("picker");
+            if (fragment != null) {
+                fragment.setListener(this);
+            }
+        }
+        showBottomSheetPicker();
+    }
+    private void showBottomSheetPicker() {
+        bottomSheetPickerFragment = new BottomSheetPickerFragment.Builder()
+                .setBrowseMoreButtonEnabled(true)
+                .setFileBrowserButtonEnabled(true)
+                .setMaxItems(99)
+                .setCameraButtonEnabled(true)
+                .setMultiSelectEnabled(false)
+                .setSelectionMode(BottomSheetPickerFragment.SelectionMode.IMAGES_AND_VIDEOS)
+                .build();
+
+        bottomSheetPickerFragment.setListener(this);
+        bottomSheetPickerFragment.show(getActivity().getSupportFragmentManager(), "picker");
     }
 
     @Override
@@ -367,27 +404,7 @@ public class IntroductionVideoFragment extends Fragment {
         });
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.d(TAG, "onActivityResult: 动态图片地址");
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == ImagePicker.IMAGE_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
-            List<String> mPaths = data.getStringArrayListExtra(ImagePicker.EXTRA_IMAGE_PATH);
-            //Your Code
-            ListIterator<String> listIterator = mPaths.listIterator();
-            while (listIterator.hasNext()){
-                String mPath = listIterator.next();
-
-                Log.d("path", mPath);
-
-                video_cover.setImageURI(Uri.parse(mPath));
-                postVideoCover = mPath;
-                Log.d(TAG, "onActivityResult: 动态图片地址"+postVideoCover);
-
-            }
-        }
-    }
 
 
 
@@ -716,4 +733,71 @@ public class IntroductionVideoFragment extends Fragment {
         }).start();
     }
 
+    @Override
+    public void onFileLoad(ImageView imageView, Uri uri) {
+        Glide.with(this)
+                .load(uri)
+                .placeholder(R.drawable.thumbnail_loading)
+                .centerCrop()
+                .into(imageView);
+    }
+
+    @Override
+    public void onFilesSelected(List<Uri> uriList) {
+        Log.d(TAG,"调用了地址信息");
+        if (bottomSheetPickerFragment != null) {
+            bottomSheetPickerFragment.dismiss();
+            Toast.makeText(getActivity(), "# selected files: " + uriList.size(), Toast.LENGTH_LONG).show();
+            int takeFrom = MyFileVariable.getInstance().getTakeFrom();
+            Map map = new HashMap();
+            if (takeFrom == TAKE_FROM_SHEET){//来自选单
+                for (int i = 0; i < uriList.size(); i = i+1) {
+                    map.put("fileName" + i, uriList.get(i).toString().substring(7));
+                    Log.d(TAG, "来自选单的地址信息"+map.get("fileName" + i));
+                }
+            }else if (takeFrom == TAKE_FROM_FOLDER){//来自文件夹
+                for (int i = 0; i < uriList.size(); i = i+1) {
+                    map.put("fileName" + i, RealPathFromUriUtils.getRealPathFromUri(mContext, uriList.get(i), "video"));
+                    Log.d(TAG, "来自文件夹的地址信息"+map.get("fileName" + i));
+                }
+            }else if (takeFrom == TAKE_FROM_CAMERA){//来自相机
+                for (int i = 0; i < uriList.size(); i = i+1) {
+                    map.put("fileName" + i, MyFileVariable.getInstance().getTakeFilePath());
+                    Log.d(TAG, "来自相机的地址信息"+map.get("fileName" + i));
+                }
+            }
+            MyFileVariable.getInstance().setFileMap(map);
+            for (int i = 0; i <  MyFileVariable.getInstance().getFileMap().size(); i = i+1) {
+                Log.d(TAG, "循环取出地址信息"+MyFileVariable.getInstance().getFileMap().get("fileName" + i));
+            }
+            startThumbSelectActivity(MyFileVariable.getInstance().getTakeFilePath());
+        }
+    }
+    public void startThumbSelectActivity(String videoSource) {
+        VideoThumbnailSelectHelper videoThumbnailSelectHelper = new VideoThumbnailSelectHelper();
+        videoThumbnailSelectHelper
+                .setActivity(getActivity())
+                .setRequestCode(REQUEST_CODE_SELECT_THUMBNAIL)
+                .setVideoSource(videoSource)
+                .setLayoutRESId(R.layout.custom_choose_thumbnail_activity)
+                .setNumThumbnails(15)
+                .setTimelineSeekViewHandleColor(Color.GREEN)
+                .start();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.d(TAG, "onActivityResult: 动态图片地址");
+        super.onActivityResult(requestCode, resultCode, data);
+        Log.d(TAG,"Main的回调");
+        if (requestCode == REQUEST_CODE_SELECT_THUMBNAIL) {
+            if (resultCode == RESULT_OK) {
+                Uri selectedThumbUri = data.getParcelableExtra(ChooseThumbnailActivity.INTENT_RESULT_EXTRA_THUMB_BITMAP_FILE_URI);
+                Log.d(TAG, "封面地址"+selectedThumbUri.toString());
+                if (selectedThumbUri != null) {
+                    video_cover.setImageURI(selectedThumbUri);
+                }
+            }
+        }
+    }
 }

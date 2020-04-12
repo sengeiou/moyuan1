@@ -1,0 +1,9 @@
+<resources>
+    <string name="bottomsheetpicker_photo" translatable="false">拍照片</string>
+    <string name="bottomsheetpicker_video" translatable="false">录视频</string>
+    <string name="bottomsheetpicker_open_file_browser" translatable="false">打开文件夹</string>
+    <string name="bottomsheetpicker_select" translatable="false">确认</string>
+    <string name="bottomsheetpicker_selected_count" translatable="false">%d 个文件已被选择</string>
+    <string name="file_provider_authority" translatable="false">com.quanturium.android.bottomsheetpicker.fileprovider</string>
+    <string name="file_picker_item" translatable="false">文件选择器</string>
+</resources>
