@@ -25,6 +25,16 @@ public class MyFileVariable {
 
     public Map fileMap;
 
+    private int edit_num;
+
+    public int getEdit_num() {
+        return edit_num;
+    }
+
+    public void setEdit_num(int edit_num) {
+        this.edit_num = edit_num;
+    }
+
     //多选时文件放入map中
     public Map getFileMap() {
         return fileMap;

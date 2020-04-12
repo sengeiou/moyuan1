@@ -15,12 +15,15 @@ import android.os.Message;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.quanturium.android.library.bottomsheetpicker.BottomSheetPickerFragment;
 import com.quanturium.android.library.bottomsheetpicker.MyFileVariable;
+import com.xinlan.imageeditlibrary.FileUtils;
+import com.xinlan.imageeditlibrary.editimage.EditImageActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,7 +53,7 @@ import static com.quanturium.android.library.bottomsheetpicker.MyFileVariable.TA
 
 public class IntroductionAlbumActivity extends AppCompatActivity implements BottomSheetPickerFragment.BottomSheetPickerListener{
     private final static int PERMISSION_REQUEST_EXTERNAL_STORAGE = 1;
-
+    public static final int ACTION_REQUEST_EDITIMAGE = 9;
     private BottomSheetPickerFragment bottomSheetPickerFragment;
 
     ImageView picture1,picture2,picture3,picture4,picture5,picture6;
@@ -62,6 +65,12 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
     String postpicture4 = "";
     String postpicture5 = "";
     String postpicture6 = "";
+
+    String edit_path;
+    int edit_num;
+
+    Button picture1_edit_btn,picture2_edit_btn,picture3_edit_btn,picture4_edit_btn,picture5_edit_btn,picture6_edit_btn;
+    Button picture1_close_btn,picture2_close_btn,picture3_close_btn,picture4_close_btn,picture5_close_btn,picture6_close_btn;
 
     private static final String TAG = "AlbumActivity";
     @Override
@@ -110,6 +119,132 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
         });
     }
     public void initImage(){
+        picture1_edit_btn = findViewById(R.id.picture1_edit_btn);
+        picture2_edit_btn = findViewById(R.id.picture2_edit_btn);
+        picture3_edit_btn = findViewById(R.id.picture3_edit_btn);
+        picture4_edit_btn = findViewById(R.id.picture4_edit_btn);
+        picture5_edit_btn = findViewById(R.id.picture5_edit_btn);
+        picture6_edit_btn = findViewById(R.id.picture6_edit_btn);
+
+        picture1_edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyFileVariable.getInstance().setEdit_num(1);
+                File outputFile = FileUtils.genEditFile();
+                EditImageActivity.start(IntroductionAlbumActivity.this,postpicture1,outputFile.getAbsolutePath(),ACTION_REQUEST_EDITIMAGE);
+            }
+        });
+        picture2_edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyFileVariable.getInstance().setEdit_num(2);
+                File outputFile = FileUtils.genEditFile();
+                EditImageActivity.start(IntroductionAlbumActivity.this,postpicture2,outputFile.getAbsolutePath(),ACTION_REQUEST_EDITIMAGE);
+            }
+        });
+        picture3_edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyFileVariable.getInstance().setEdit_num(3);
+                File outputFile = FileUtils.genEditFile();
+                EditImageActivity.start(IntroductionAlbumActivity.this,postpicture3,outputFile.getAbsolutePath(),ACTION_REQUEST_EDITIMAGE);
+            }
+        });
+        picture4_edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyFileVariable.getInstance().setEdit_num(4);
+                File outputFile = FileUtils.genEditFile();
+                EditImageActivity.start(IntroductionAlbumActivity.this,postpicture4,outputFile.getAbsolutePath(),ACTION_REQUEST_EDITIMAGE);
+            }
+        });
+        picture5_edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyFileVariable.getInstance().setEdit_num(5);
+                File outputFile = FileUtils.genEditFile();
+                EditImageActivity.start(IntroductionAlbumActivity.this,postpicture5,outputFile.getAbsolutePath(),ACTION_REQUEST_EDITIMAGE);
+            }
+        });
+        picture6_edit_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MyFileVariable.getInstance().setEdit_num(6);
+                File outputFile = FileUtils.genEditFile();
+                EditImageActivity.start(IntroductionAlbumActivity.this,postpicture6,outputFile.getAbsolutePath(),ACTION_REQUEST_EDITIMAGE);
+            }
+        });
+
+
+        picture1_close_btn = findViewById(R.id.picture1_close_btn);
+        picture2_close_btn = findViewById(R.id.picture2_close_btn);
+        picture3_close_btn = findViewById(R.id.picture3_close_btn);
+        picture4_close_btn = findViewById(R.id.picture4_close_btn);
+        picture5_close_btn = findViewById(R.id.picture5_close_btn);
+        picture6_close_btn = findViewById(R.id.picture6_close_btn);
+
+        picture1_close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picture1.setImageResource(R.drawable.plus);
+                picture_state = 1;
+                postpicture1 = "";
+                picture1_close_btn.setVisibility(View.GONE);
+                picture1_edit_btn.setVisibility(View.GONE);
+            }
+        });
+        picture2_close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picture2.setImageResource(R.drawable.plus);
+                picture_state = 2;
+                postpicture2 = "";
+                picture2_close_btn.setVisibility(View.GONE);
+                picture2_edit_btn.setVisibility(View.GONE);
+            }
+        });
+        picture3_close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picture3.setImageResource(R.drawable.plus);
+                picture_state = 3;
+                postpicture3 = "";
+                picture3_close_btn.setVisibility(View.GONE);
+                picture3_edit_btn.setVisibility(View.GONE);
+            }
+        });
+        picture4_close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picture4.setImageResource(R.drawable.plus);
+                picture_state = 4;
+                postpicture4 = "";
+                picture4_close_btn.setVisibility(View.GONE);
+                picture4_edit_btn.setVisibility(View.GONE);
+            }
+        });
+        picture5_close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picture5.setImageResource(R.drawable.plus);
+                picture_state = 5;
+                postpicture5 = "";
+                picture5_close_btn.setVisibility(View.GONE);
+                picture5_edit_btn.setVisibility(View.GONE);
+            }
+        });
+        picture6_close_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                picture6.setImageResource(R.drawable.plus);
+                picture_state = 6;
+                postpicture6 = "";
+                picture6_close_btn.setVisibility(View.GONE);
+                picture6_edit_btn.setVisibility(View.GONE);
+            }
+        });
+
+
         picture1 = findViewById(R.id.picture1);
         picture2 = findViewById(R.id.picture2);
         picture3 = findViewById(R.id.picture3);
@@ -225,6 +360,7 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                                     .load(postPicture[5])
                                     .into(picture6);
                             postpicture6 = postPicture[5];
+                            picture6_close_btn.setVisibility(View.VISIBLE);
                         case 5:
                             Glide.with(getBaseContext())
                                     .asBitmap()
@@ -232,6 +368,7 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                                     .into(picture5);
                             picture6.setVisibility(View.VISIBLE);
                             postpicture5 = postPicture[4];
+                            picture5_close_btn.setVisibility(View.VISIBLE);
                         case 4:
                             Glide.with(getBaseContext())
                                     .asBitmap()
@@ -239,6 +376,7 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                                     .into(picture4);
                             picture5.setVisibility(View.VISIBLE);
                             postpicture4 = postPicture[3];
+                            picture4_close_btn.setVisibility(View.VISIBLE);
                         case 3:
                             Glide.with(getBaseContext())
                                     .asBitmap()
@@ -246,6 +384,7 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                                     .into(picture3);
                             picture4.setVisibility(View.VISIBLE);
                             postpicture3 = postPicture[2];
+                            picture3_close_btn.setVisibility(View.VISIBLE);
                         case 2:
                             Glide.with(getBaseContext())
                                     .asBitmap()
@@ -253,6 +392,7 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                                     .into(picture2);
                             picture3.setVisibility(View.VISIBLE);
                             postpicture2 = postPicture[1];
+                            picture2_close_btn.setVisibility(View.VISIBLE);
                         case 1:
                             Glide.with(getBaseContext())
                                     .asBitmap()
@@ -260,6 +400,7 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                                     .into(picture1);
                             picture2.setVisibility(View.VISIBLE);
                             postpicture1 = postPicture[0];
+                            picture1_close_btn.setVisibility(View.VISIBLE);
                             break;
                     }
                 } catch (JSONException e) {
@@ -440,35 +581,123 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                         picture1.setImageURI(Uri.fromFile(new File(MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString())));
                         postpicture1 = MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString();
                         Log.d(TAG, "onActivityResult: 动态图片地址1"+picture_state+":"+postpicture1);
+                        picture1_close_btn.setVisibility(View.VISIBLE);
+                        picture1_edit_btn.setVisibility(View.VISIBLE);
                         break;
                     case 2:
                         picture2.setImageURI(Uri.fromFile(new File(MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString())));
                         postpicture2 = MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString();
                         Log.d(TAG, "onActivityResult: 动态图片地址2"+picture_state+":"+postpicture2);
+                        picture2_close_btn.setVisibility(View.VISIBLE);
+                        picture2_edit_btn.setVisibility(View.VISIBLE);
                         break;
                     case 3:
                         picture3.setImageURI(Uri.fromFile(new File(MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString())));
                         postpicture3 = MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString();
                         Log.d(TAG, "onActivityResult: 动态图片地址3"+picture_state+":"+postpicture3);
+                        picture3_close_btn.setVisibility(View.VISIBLE);
+                        picture3_edit_btn.setVisibility(View.VISIBLE);
                         break;
                     case 4:
                         picture4.setImageURI(Uri.fromFile(new File(MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString())));
                         postpicture4 = MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString();
                         Log.d(TAG, "onActivityResult: 动态图片地址4"+picture_state+":"+postpicture4);
+                        picture4_close_btn.setVisibility(View.VISIBLE);
+                        picture4_edit_btn.setVisibility(View.VISIBLE);
                         break;
                     case 5:
                         picture5.setImageURI(Uri.fromFile(new File(MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString())));
                         postpicture5 = MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString();
                         Log.d(TAG, "onActivityResult: 动态图片地址5"+picture_state+":"+postpicture5);
+                        picture5_close_btn.setVisibility(View.VISIBLE);
+                        picture5_edit_btn.setVisibility(View.VISIBLE);
                         break;
                     case 6:
                         picture6.setImageURI(Uri.fromFile(new File(MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString())));
                         postpicture6 = MyFileVariable.getInstance().getFileMap().get("fileName" + i).toString();
                         Log.d(TAG, "onActivityResult: 动态图片地址6"+picture_state+":"+postpicture6);
+                        picture6_close_btn.setVisibility(View.VISIBLE);
+                        picture6_edit_btn.setVisibility(View.VISIBLE);
                         break;
                 }
             }
 
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            // System.out.println("RESULT_OK");
+            switch (requestCode) {
+                case ACTION_REQUEST_EDITIMAGE://
+                    handleEditorImage(data);
+                    break;
+            }// end switch
+        }
+    }
+    //图片编辑完成后，重新填充各个图片，编辑的图片另行处理
+    private void handleEditorImage(Intent data) {
+        String newFilePath = data.getStringExtra(EditImageActivity.EXTRA_OUTPUT);
+        boolean isImageEdit = data.getBooleanExtra(EditImageActivity.IMAGE_IS_EDIT, false);
+
+        if (isImageEdit){
+            //Toast.makeText(this, getString(R.string.save_path, newFilePath), Toast.LENGTH_LONG).show();
+        }else{//未编辑  还是用原来的图片
+            newFilePath = data.getStringExtra(EditImageActivity.FILE_PATH);;
+        }
+        //System.out.println("newFilePath---->" + newFilePath);
+        //File file = new File(newFilePath);
+        //System.out.println("newFilePath size ---->" + (file.length() / 1024)+"KB");
+        Log.d("image is edit", isImageEdit + "");
+
+            switch (MyFileVariable.getInstance().getEdit_num()){
+                case 1:
+                        picture1.setImageURI(Uri.fromFile(new File(newFilePath)));
+                        postpicture1 = newFilePath;
+
+                    picture1_close_btn.setVisibility(View.VISIBLE);
+                    picture1_edit_btn.setVisibility(View.VISIBLE);
+                    break;
+                case 2:
+                        picture2.setImageURI(Uri.fromFile(new File(newFilePath)));
+                        postpicture2 = newFilePath;
+
+                    picture2_close_btn.setVisibility(View.VISIBLE);
+                    picture2_edit_btn.setVisibility(View.VISIBLE);
+                    break;
+                case 3:
+                        picture3.setImageURI(Uri.fromFile(new File(newFilePath)));
+                        postpicture3 = newFilePath;
+
+                    picture3_close_btn.setVisibility(View.VISIBLE);
+                    picture3_edit_btn.setVisibility(View.VISIBLE);
+                    break;
+                case 4:
+                        picture4.setImageURI(Uri.fromFile(new File(newFilePath)));
+                        postpicture4 = newFilePath;
+
+                    picture4_close_btn.setVisibility(View.VISIBLE);
+                    picture4_edit_btn.setVisibility(View.VISIBLE);
+                    break;
+                case 5:
+                        picture5.setImageURI(Uri.fromFile(new File(newFilePath)));
+                        postpicture5 = newFilePath;
+
+                    picture5_close_btn.setVisibility(View.VISIBLE);
+                    picture5_edit_btn.setVisibility(View.VISIBLE);
+                    break;
+                case 6:
+                        picture6.setImageURI(Uri.fromFile(new File(newFilePath)));
+                        postpicture6 = newFilePath;
+
+                    picture6_close_btn.setVisibility(View.VISIBLE);
+                    picture6_edit_btn.setVisibility(View.VISIBLE);
+                    break;
+            }
+
+        //LoadImageTask loadTask = new LoadImageTask();
+        //loadTask.execute(newFilePath);
     }
 }

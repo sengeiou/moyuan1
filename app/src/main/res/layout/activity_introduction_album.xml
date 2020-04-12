@@ -38,69 +38,210 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/picture1"
+                <FrameLayout
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:visibility="visible"
-                    tools:src="@drawable/plus" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-                <ImageView
-                    android:id="@+id/picture2"
+                    <Button
+                        android:id="@+id/picture1_edit_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="编辑"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/picture1_close_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="X"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/picture1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:visibility="visible"
+                        tools:src="@drawable/plus" />
+                </FrameLayout>
+
+                <FrameLayout
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:visibility="visible"
-                    tools:src="@drawable/plus" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/picture2_edit_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="编辑"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/picture2_close_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="X"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/picture2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:visibility="visible"
+                        tools:src="@drawable/plus" />
+                </FrameLayout>
+
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/picture3"
+                <FrameLayout
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:visibility="visible"
-                    tools:src="@drawable/plus" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-                <ImageView
-                    android:id="@+id/picture4"
+                    <Button
+                        android:id="@+id/picture3_edit_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="编辑"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/picture3_close_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="X"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/picture3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:visibility="visible"
+                        tools:src="@drawable/plus" />
+                </FrameLayout>
+
+                <FrameLayout
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:visibility="visible"
-                    tools:src="@drawable/plus" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/picture4_edit_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="编辑"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/picture4_close_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="X"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/picture4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:visibility="visible"
+                        tools:src="@drawable/plus" />
+                </FrameLayout>
+
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/picture5"
+                <FrameLayout
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:visibility="visible"
-                    tools:src="@drawable/plus" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
 
-                <ImageView
-                    android:id="@+id/picture6"
+                    <Button
+                        android:id="@+id/picture5_edit_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="编辑"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/picture5_close_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="X"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/picture5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:visibility="visible"
+                        tools:src="@drawable/plus" />
+                </FrameLayout>
+
+                <FrameLayout
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_margin="5dp"
-                    android:layout_weight="1"
-                    android:visibility="visible"
-                    tools:src="@drawable/plus" />
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <Button
+                        android:id="@+id/picture6_edit_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="编辑"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/picture6_close_btn"
+                        style="@style/Widget.AppCompat.Button.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:text="X"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/picture6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="150dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:visibility="visible"
+                        tools:src="@drawable/plus" />
+                </FrameLayout>
+
             </TableRow>
 
             <TableRow

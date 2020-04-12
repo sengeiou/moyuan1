@@ -28,7 +28,7 @@ Navigation.findNavController(v).navigate(R.id.guangchang_fabudongtai_action);
 Intent intent = getIntent();
 String data = intent.getStringExtra("extra_data");
 
- Toast.makeText(this, "请输入账号密码", Toast.LENGTH_LONG).show();
+Toast.makeText(this, "请输入账号密码", Toast.LENGTH_LONG).show();
 
 返回按钮
 <LinearLayout
