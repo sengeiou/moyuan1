@@ -154,21 +154,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Z" />
+                        android:text="随缘" />
 
                     <RadioButton
                         android:id="@+id/bProperty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="B" />
+                        android:text="可约" />
 
                     <RadioButton
                         android:id="@+id/dProperty"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="双" />
+                        android:text="勿扰" />
                 </RadioGroup>
             </TableRow>
 

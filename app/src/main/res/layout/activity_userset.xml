@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/signupbackground"
+    android:background="#EDF0F5"
     tools:context=".Signin.Userset">
 
     <TableLayout
@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
+            android:background="@drawable/radiumground"
             android:gravity="center">
 
             <EditText
@@ -64,6 +65,41 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
+            android:background="@drawable/radiumground"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/select_birthday"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_age"
+                android:onClick="onYearMonthDayPicker"
+                android:text="选择生日" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:background="@drawable/radiumground"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/select_region"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_region"
+                android:onClick="onAddressPicker"
+                android:text="选择地区" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:backgroundTint="@drawable/radiumground"
             android:gravity="center"
             android:orientation="horizontal">
 
@@ -94,7 +130,8 @@
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/userAge"
@@ -106,6 +143,42 @@
                 android:inputType="number"
                 android:textAlignment="center"
                 android:visibility="visible" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:gravity="center">
+
+            <RadioGroup
+                android:id="@+id/userProperty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/zProperty"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/zProperty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="随缘" />
+
+                <RadioButton
+                    android:id="@+id/bProperty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="可约" />
+
+                <RadioButton
+                    android:id="@+id/dProperty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="勿扰" />
+            </RadioGroup>
         </TableRow>
 
         <TableRow
@@ -130,7 +203,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/userRegion"
@@ -147,7 +221,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <Spinner
                 android:id="@+id/spinner_province"
@@ -162,7 +237,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <Spinner
                 android:id="@+id/spinner_city"
@@ -178,43 +254,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:gravity="center">
-
-            <RadioGroup
-                android:id="@+id/userProperty"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checkedButton="@+id/zProperty"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/zProperty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Z" />
-
-                <RadioButton
-                    android:id="@+id/bProperty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="B" />
-
-                <RadioButton
-                    android:id="@+id/dProperty"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="双" />
-            </RadioGroup>
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="3dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="gone">
 
             <EditText
                 android:id="@+id/userSignature"
@@ -230,7 +271,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:visibility="visible">
 
             <EditText
                 android:id="@+id/referral_et"

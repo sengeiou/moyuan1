@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
@@ -33,18 +34,25 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.ListIterator;
 
+import cn.addapp.pickers.entity.City;
+import cn.addapp.pickers.entity.County;
+import cn.addapp.pickers.entity.Province;
 import de.hdodenhof.circleimageview.CircleImageView;
+import io.rong.common.fwlog.LogThreadPool;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.moyuan.AddressPickTask;
 import xin.banghua.moyuan.MainActivity;
 import xin.banghua.moyuan.R;
 import xin.banghua.moyuan.bean.AddrBean;
 
 public class Userset extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+    private static final String TAG = "Userset";
+
     private Context mContext;
     //昵称，年龄，地区
     EditText userNickname_et,userAge_et,userRegion_et,userSignature_et,referral_et;
@@ -52,9 +60,10 @@ public class Userset extends AppCompatActivity implements DatePickerDialog.OnDat
     RadioGroup userGender_rg,userProperty_rg;
     RadioButton male_rb,female_rb,zProperty_rb,bProperty_rb,dProperty_rb;
 
+
     //
     String logtype,userAccount,userPassword,userNickname,userAge,userRegion,userGender,userProperty,userPortrait,userSignature,referral,openid;
-    Button submit_btn;
+    Button submit_btn,select_birthday,select_region;
     //
     CircleImageView userPortrait_iv;
 
@@ -78,6 +87,8 @@ public class Userset extends AppCompatActivity implements DatePickerDialog.OnDat
 
         mContext = getApplicationContext();
 
+        select_birthday = findViewById(R.id.select_birthday);
+        select_region = findViewById(R.id.select_region);
 
         userNickname_et = findViewById(R.id.userNickName);
         userAge_et = findViewById(R.id.userAge);
@@ -172,19 +183,19 @@ public class Userset extends AppCompatActivity implements DatePickerDialog.OnDat
                 }
                 userAge = userAge_et.getText().toString();
                 if (userAge.equals("")){
-                    Toast.makeText(mContext, "请输入年龄", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "请选择年龄", Toast.LENGTH_LONG).show();
                     return;
                 }
                 userRegion = userRegion_et.getText().toString();
                 if (userRegion.equals("")){
-                    Toast.makeText(mContext, "请输入地区", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "请选择地区", Toast.LENGTH_LONG).show();
                     return;
                 }
                 userSignature = userSignature_et.getText().toString();
-                if (userSignature.equals("")){
-                    Toast.makeText(mContext, "请输入个人签名", Toast.LENGTH_LONG).show();
-                    return;
-                }
+//                if (userSignature.equals("")){
+//                    Toast.makeText(mContext, "请输入个人签名", Toast.LENGTH_LONG).show();
+//                    return;
+//                }
                 userGender = ((RadioButton) findViewById(userGender_rg.getCheckedRadioButtonId())).getText().toString();
                 userProperty = ((RadioButton) findViewById(userProperty_rg.getCheckedRadioButtonId())).getText().toString();
                 referral = referral_et.getText().toString();
@@ -410,5 +421,67 @@ public class Userset extends AppCompatActivity implements DatePickerDialog.OnDat
                 userPortrait = mPath;
             }
         }
+    }
+
+    /*
+     * 年月日选择
+     * */
+    public void onYearMonthDayPicker(View view) {
+        final cn.addapp.pickers.picker.DatePicker picker = new cn.addapp.pickers.picker.DatePicker(this);
+        picker.setTopPadding(15);
+        picker.setRangeStart(1950, 1, 1);
+        picker.setRangeEnd(2005, 1, 1);
+        picker.setSelectedItem(1990, 1, 1);
+        picker.setWeightEnable(true);
+        picker.setLineColor(Color.BLACK);
+        picker.setOnDatePickListener(new cn.addapp.pickers.picker.DatePicker.OnYearMonthDayPickListener() {
+            @Override
+            public void onDatePicked(String year, String month, String day) {
+
+                //ToastUtils.showShort(year + "-" + month + "-" + day);
+                userAge_et.setText(year + month + day);
+                select_birthday.setText("生日："+year + "-" + month + "-" + day);
+            }
+        });
+        picker.setOnWheelListener(new cn.addapp.pickers.picker.DatePicker.OnWheelListener() {
+            @Override
+            public void onYearWheeled(int index, String year) {
+                picker.setTitleText(year + "-" + picker.getSelectedMonth() + "-" + picker.getSelectedDay());
+            }
+
+            @Override
+            public void onMonthWheeled(int index, String month) {
+                picker.setTitleText(picker.getSelectedYear() + "-" + month + "-" + picker.getSelectedDay());
+            }
+
+            @Override
+            public void onDayWheeled(int index, String day) {
+                picker.setTitleText(picker.getSelectedYear() + "-" + picker.getSelectedMonth() + "-" + day);
+            }
+        });
+        picker.show();
+    }
+    //新城市选择器
+    public void onAddressPicker(View view) {
+        final AddressPickTask task = new AddressPickTask(this);
+        task.setHideCounty(true);
+        task.setCallback(new AddressPickTask.Callback() {
+            @Override
+            public void onAddressInitFailed() {
+                //ToastUtils.showShort("数据初始化失败");
+                Log.d(TAG,"数据初始化失败");
+            }
+
+            @Override
+            public void onAddressPicked(Province province, City city, County county) {
+                //ToastUtils.showShort(province.getAreaName() + " " + city.getAreaName());
+                Log.d(TAG,province.getAreaName() + " " + city.getAreaName());
+                //current_address.setText("选择地址："+province.getAreaName()+"-"+city.getAreaName());
+                userRegion_et.setText(province.getAreaName()+"-"+city.getAreaName());
+                select_region.setText(province.getAreaName()+"-"+city.getAreaName());
+
+            }
+        });
+        task.execute("北京", "北京");
     }
 }

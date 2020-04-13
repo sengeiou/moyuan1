@@ -48,14 +48,14 @@
 
     <TextView
         android:id="@+id/userProperty"
-        android:layout_width="16dp"
+        android:layout_width="33dp"
         android:layout_height="16dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/userGender"
-        android:background="@drawable/rc_unread_count_bg"
+        android:background="@drawable/alivc_little_btn_publish_bg"
         android:gravity="center"
-        android:text="双"
+        android:text="随缘"
         android:textColor="@color/rc_voice_cancel"
         android:textSize="12sp" />
 

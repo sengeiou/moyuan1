@@ -70,9 +70,9 @@
 
                         <TextView
                             android:id="@+id/user_property"
-                            android:layout_width="20dp"
+                            android:layout_width="35dp"
                             android:layout_height="20dp"
-                            android:background="@drawable/rc_unread_remind_without_count"
+                            android:background="@drawable/alivc_little_btn_publish_bg"
                             android:gravity="center"
                             android:text="属性"
                             android:textColor="@color/rc_divider_color" />
