@@ -11,7 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity android:name=".introduction.IntroductionAlbumActivity"></activity>
-        <activity android:name=".introduction.IntroductionVideoActivity" />
+        <activity android:name=".introduction.IntroductionVideoActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait" />
         <activity android:name=".introduction.IntroductionActivity" />
         <activity android:name=".Main5Branch.SoundActivity" />
         <activity

@@ -19,7 +19,8 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:stretchColumns="*">
+            android:stretchColumns="*"
+            android:visibility="visible">
 
 
             <TableRow
@@ -42,117 +43,156 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/video_cover_row"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="50dp"
-                android:gravity="center"
-                android:visibility="visible">
+                android:layout_height="match_parent">
 
-                <LinearLayout
+                <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_span="2"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_span="2">
 
-                    <FrameLayout
-                        android:layout_width="270dp"
-                        android:layout_height="480dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                        <ImageView
-                            android:id="@+id/video_cover"
-                            android:layout_width="270dp"
-                            android:layout_height="480dp"
-                            android:visibility="visible"
-                            app:srcCompat="@drawable/video_cover" />
+                        <xin.banghua.moyuan.introduction.MyJzvdStd
+                            android:id="@+id/jz_video"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/playbutton_img"
-                            android:layout_width="270dp"
-                            android:layout_height="480dp"
-                            android:visibility="gone"
-                            app:srcCompat="@drawable/playbutton" />
-                    </FrameLayout>
-                </LinearLayout>
+                    <Button
+                        android:id="@+id/bottomsheet_btn"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_gravity="right|center_horizontal"
+                        android:layout_weight="1"
+                        android:foreground="@drawable/camera" />
 
+                </FrameLayout>
             </TableRow>
 
             <TableRow
-                android:id="@+id/surface_row"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="50dp"
-                android:layout_marginBottom="50dp"
                 android:visibility="gone">
 
-                <LinearLayout
+                <TableRow
+                    android:id="@+id/video_cover_row"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_span="2"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="50dp"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:visibility="gone">
 
-                    <SurfaceView
-                        android:id="@+id/surfaceView"
-                        android:layout_width="270dp"
-                        android:layout_height="480dp"
-                        android:visibility="visible" />
-                </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_span="2"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
-            </TableRow>
+                        <FrameLayout
+                            android:layout_width="270dp"
+                            android:layout_height="480dp">
 
-            <TableRow
-                android:id="@+id/text_row"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="50dp"
-                android:visibility="gone">
+                            <ImageView
+                                android:id="@+id/video_cover"
+                                android:layout_width="270dp"
+                                android:layout_height="480dp"
+                                android:visibility="visible"
+                                app:srcCompat="@drawable/video_cover" />
 
-                <TextView
-                    android:id="@+id/video_describe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_span="2"
-                    android:hint="文字描述"
-                    android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
-            </TableRow>
+                            <ImageView
+                                android:id="@+id/playbutton_img"
+                                android:layout_width="270dp"
+                                android:layout_height="480dp"
+                                android:visibility="gone"
+                                app:srcCompat="@drawable/playbutton" />
+                        </FrameLayout>
+                    </LinearLayout>
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
+                </TableRow>
 
-                <Button
-                    android:id="@+id/setcover_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/round"
-                    android:enabled="true"
-                    android:text="设置封面"
-                    android:textColor="#FFFFFF"
-                    android:textSize="24sp"
-                    android:visibility="gone" />
+                <TableRow
+                    android:id="@+id/text_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="50dp"
+                    android:visibility="gone">
 
-                <Button
-                    android:id="@+id/video_record"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:background="@drawable/round"
-                    android:text="录制"
-                    android:textColor="#FEFCFC"
-                    android:textSize="24sp"
-                    android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/video_describe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_span="2"
+                        android:hint="文字描述"
+                        android:textColor="#FFFFFF"
+                        android:textSize="18sp" />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/surface_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginBottom="50dp"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_span="2"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <SurfaceView
+                            android:id="@+id/surfaceView"
+                            android:layout_width="270dp"
+                            android:layout_height="480dp"
+                            android:visibility="visible" />
+                    </LinearLayout>
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="gone">
+
+                    <Button
+                        android:id="@+id/setcover_btn"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/round"
+                        android:enabled="true"
+                        android:text="设置封面"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/video_record"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/round"
+                        android:text="录制"
+                        android:textColor="#FEFCFC"
+                        android:textSize="24sp"
+                        android:visibility="gone" />
+                </TableRow>
             </TableRow>
 
         </TableLayout>
     </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

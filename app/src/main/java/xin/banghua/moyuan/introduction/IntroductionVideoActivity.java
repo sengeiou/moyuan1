@@ -57,6 +57,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import cn.jzvd.Jzvd;
 import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -112,10 +113,18 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
     int video_state;
 
 
+    //新视频
+    MyJzvdStd myJzvdStd;
+    Button bottomsheet_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction_video);
+
+        myJzvdStd = findViewById(R.id.jz_video);
+        myJzvdStd.widthRatio = 9;
+        myJzvdStd.heightRatio = 16;
 
         video_cover = findViewById(R.id.video_cover);
 
@@ -128,7 +137,14 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
             }
         }
 
-        showBottomSheetPicker();
+        bottomsheet_btn = findViewById(R.id.bottomsheet_btn);
+        bottomsheet_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showBottomSheetPicker();
+            }
+        });
+
 
         video_cover.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -153,6 +169,19 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
         getVideoInfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=Getintroductionvideo&m=moyuan");
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Jzvd.releaseAllVideos();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (Jzvd.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
     private void showBottomSheetPicker() {
         bottomSheetPickerFragment = new BottomSheetPickerFragment.Builder()
                 .setBrowseMoreButtonEnabled(true)
@@ -351,6 +380,7 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
     }
     //初始化播放器。
     public void initVideoPlay(){
+
         Log.d(TAG,"初始化播放器。");
         //准备播放器
         initAliyunVodPlayer();
@@ -768,6 +798,9 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
         });
     }
     public void initDataSource(){
+        //新播放器
+        myJzvdStd.setUp(videoUrl, "");
+        Glide.with(this).load(postVideoCover).into(myJzvdStd.posterImageView);
 
         Log.d(TAG, "初始化视频数据源。");
 

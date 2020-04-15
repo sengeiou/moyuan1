@@ -136,6 +136,8 @@ dependencies {
     implementation project(':videothumbselect')
     //图片编辑
     implementation project(':imageeditlibrary')
+    //视频播放器
+    implementation 'cn.jzvd:jiaozivideoplayer:7.2.4'
 
 
 }
