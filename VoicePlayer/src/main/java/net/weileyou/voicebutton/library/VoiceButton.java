@@ -179,4 +179,13 @@ public class VoiceButton extends LinearLayout implements  MediaPlayer.OnPrepared
         animationDrawable = (AnimationDrawable) voiceImage.getDrawable();
         animationDrawable.start();
     }
+
+
+    public void toStop(){
+        if (mPlayer.isPlaying()){
+        mPlayer.stop();
+        mPlayer.release();
+        mPlayer = null;
+        }
+    }
 }

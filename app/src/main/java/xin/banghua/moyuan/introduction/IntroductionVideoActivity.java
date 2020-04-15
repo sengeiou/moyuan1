@@ -182,7 +182,7 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
         if (bottomSheetPickerFragment != null) {
             Log.d(TAG,"bottomSheetPickerFragment不为空");
             bottomSheetPickerFragment.dismiss();
-            Toast.makeText(getApplicationContext(), "# 选择了: " + uriList.size() + "个文件", Toast.LENGTH_LONG).show();
+            //Toast.makeText(getApplicationContext(), "# selected files: " + uriList.size(), Toast.LENGTH_LONG).show();
             int takeFrom = MyFileVariable.getInstance().getTakeFrom();
             Map map = new HashMap();
             Log.d(TAG,"takeFrom="+takeFrom+"uriList.size()"+uriList.size());

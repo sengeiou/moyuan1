@@ -128,6 +128,7 @@ public class IntroductionVoiceFragment extends Fragment {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                voicebutton.toStop();
                 getActivity().onBackPressed(); // back button
             }
         });
@@ -159,8 +160,8 @@ public class IntroductionVoiceFragment extends Fragment {
                 Log.d("测试",":"+recordingItem.getFilePath());
                 postvoice = recordingItem.getFilePath();
                 voicebutton.setPlayPath(recordingItem.getFilePath());
-                audioRecording.play(recordingItem);
 
+                //audioRecording.play(recordingItem);
             }
 
             @Override

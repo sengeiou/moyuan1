@@ -99,6 +99,14 @@ public class IntroductionMainFragment extends Fragment {
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeButtonEnabled(true); //设置返回键可用
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //onBackPressed(); // back button
+                Intent intent = new Intent(getActivity(), Main5Activity.class);
+                startActivity(intent);
+            }
+        });
         setHasOptionsMenu(true);
 
         introduction_album = view.findViewById(R.id.introduction_album);

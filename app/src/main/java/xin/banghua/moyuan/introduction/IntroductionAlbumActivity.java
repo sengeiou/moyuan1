@@ -355,13 +355,19 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
 
                     switch (postPicture.length){
                         case 6:
+                            if (postPicture[5]!=""){
                             Glide.with(getBaseContext())
                                     .asBitmap()
                                     .load(postPicture[5])
                                     .into(picture6);
                             postpicture6 = postPicture[5];
                             picture6_close_btn.setVisibility(View.VISIBLE);
+                            }else {
+                                picture6.setImageResource(R.drawable.plus);
+                                postpicture6 = "";
+                            }
                         case 5:
+                            if (postPicture[4]!=""){
                             Glide.with(getBaseContext())
                                     .asBitmap()
                                     .load(postPicture[4])
@@ -369,7 +375,12 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                             picture6.setVisibility(View.VISIBLE);
                             postpicture5 = postPicture[4];
                             picture5_close_btn.setVisibility(View.VISIBLE);
+                            }else {
+                                picture5.setImageResource(R.drawable.plus);
+                                postpicture5 = "";
+                            }
                         case 4:
+                            if (postPicture[3]!=""){
                             Glide.with(getBaseContext())
                                     .asBitmap()
                                     .load(postPicture[3])
@@ -377,7 +388,12 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                             picture5.setVisibility(View.VISIBLE);
                             postpicture4 = postPicture[3];
                             picture4_close_btn.setVisibility(View.VISIBLE);
+                            }else {
+                                picture4.setImageResource(R.drawable.plus);
+                                postpicture4 = "";
+                            }
                         case 3:
+                            if (postPicture[2]!=""){
                             Glide.with(getBaseContext())
                                     .asBitmap()
                                     .load(postPicture[2])
@@ -385,7 +401,12 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                             picture4.setVisibility(View.VISIBLE);
                             postpicture3 = postPicture[2];
                             picture3_close_btn.setVisibility(View.VISIBLE);
+                            }else {
+                                picture3.setImageResource(R.drawable.plus);
+                                postpicture3 = "";
+                            }
                         case 2:
+                            if (postPicture[1]!=""){
                             Glide.with(getBaseContext())
                                     .asBitmap()
                                     .load(postPicture[1])
@@ -393,7 +414,12 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                             picture3.setVisibility(View.VISIBLE);
                             postpicture2 = postPicture[1];
                             picture2_close_btn.setVisibility(View.VISIBLE);
+                            }else {
+                                picture2.setImageResource(R.drawable.plus);
+                                postpicture2 = "";
+                            }
                         case 1:
+                            if (postPicture[1]!=""){
                             Glide.with(getBaseContext())
                                     .asBitmap()
                                     .load(postPicture[0])
@@ -401,6 +427,10 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                             picture2.setVisibility(View.VISIBLE);
                             postpicture1 = postPicture[0];
                             picture1_close_btn.setVisibility(View.VISIBLE);
+                            }else {
+                                picture1.setImageResource(R.drawable.plus);
+                                postpicture1 = "";
+                            }
                             break;
                     }
                 } catch (JSONException e) {

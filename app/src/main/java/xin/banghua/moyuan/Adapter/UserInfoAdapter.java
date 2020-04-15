@@ -86,11 +86,11 @@ public class UserInfoAdapter extends RecyclerView.Adapter<UserInfoAdapter.ViewHo
         viewHolder.userGender.setText(mUserGender.get(i));
         if (mUserGender.get(i).equals("男")){
             Resources resources = mContext.getResources();
-            Drawable drawable = resources.getDrawable(R.drawable.male,null);
+            Drawable drawable = resources.getDrawable(R.drawable.ic_male,null);
             viewHolder.userGender.setForeground(drawable);
         }else {
             Resources resources = mContext.getResources();
-            Drawable drawable = resources.getDrawable(R.drawable.female,null);
+            Drawable drawable = resources.getDrawable(R.drawable.ic_female,null);
             viewHolder.userGender.setForeground(drawable);
         }
         viewHolder.userProperty.setText(mUserProperty.get(i));

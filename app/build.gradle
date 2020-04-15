@@ -135,7 +135,7 @@ dependencies {
     //视频封面选择器
     implementation project(':videothumbselect')
     //图片编辑
-    api project(':imageeditlibrary')
+    implementation project(':imageeditlibrary')
 
 
 }

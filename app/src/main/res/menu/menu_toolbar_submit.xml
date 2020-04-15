@@ -4,7 +4,7 @@
     <item
         android:id="@+id/submit_toolbar"
         android:orderInCategory="100"
-        android:icon="@drawable/ic_tick"
+        android:icon="@drawable/ic_submit_white"
         android:title="→提交"
         app:showAsAction="always" />
 </menu>

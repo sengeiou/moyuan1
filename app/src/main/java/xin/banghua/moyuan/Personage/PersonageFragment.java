@@ -23,7 +23,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 import com.orhanobut.dialogplus.DialogPlus;
+
+import net.weileyou.voicebutton.library.VoiceButton;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -56,6 +62,10 @@ public class PersonageFragment extends Fragment {
     private String mUserNickName;
     private String mUserPortrait;
 
+    private String mUserAlbum;
+
+
+    VoiceButton voicebutton;
 
     private TextView mUserNickName_tv;
     private CircleImageViewExtension mUserPortrait_iv;
@@ -74,6 +84,8 @@ public class PersonageFragment extends Fragment {
     private Button startconversation_btn;
 
     private Context mContext;
+    //album
+    SliderLayout sliderShow;
 
 
     public PersonageFragment() {
@@ -105,6 +117,9 @@ public class PersonageFragment extends Fragment {
 
         String result = getActivity().getIntent().getStringExtra("userID");
         mUserID = result;
+        sliderShow = view.findViewById(R.id.personal_album_slider);
+
+        voicebutton = view.findViewById(R.id.voicebutton);
 
         mUserNickName_tv=view.findViewById(R.id.user_nickname);
         mUserPortrait_iv=view.findViewById(R.id.user_portrait);
@@ -353,6 +368,12 @@ public class PersonageFragment extends Fragment {
 
         ifFriend("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=iffriend&m=moyuan");
     }
+    @Override
+    public void onStop() {
+        voicebutton.toStop();
+        sliderShow.stopAutoCycle();
+        super.onStop();
+    }
     //TODO okhttp删除黑名单
     public void deleteBlackList(final String url){
         new Thread(new Runnable() {
@@ -431,16 +452,16 @@ public class PersonageFragment extends Fragment {
                 .load(jsonObject.getString("portrait"))
                 .into(mUserPortrait_iv);
         mUserAge_tv.setText(jsonObject.getString("age"));
-        mUserRegion_tv.setText(jsonObject.getString("region"));
+        mUserRegion_tv.setText((jsonObject.getString("region")).split("-")[1]);
         mUserProperty_tv.setText(jsonObject.getString("property"));
         mUserGender_tv.setText(jsonObject.getString("gender"));
         if (jsonObject.getString("gender").equals("男")){
             Resources resources = mContext.getResources();
-            Drawable drawable = resources.getDrawable(R.drawable.male,null);
+            Drawable drawable = resources.getDrawable(R.drawable.ic_male,null);
             mUserGender_tv.setForeground(drawable);
         }else {
             Resources resources = mContext.getResources();
-            Drawable drawable = resources.getDrawable(R.drawable.female,null);
+            Drawable drawable = resources.getDrawable(R.drawable.ic_female,null);
             mUserGender_tv.setForeground(drawable);
         }
         mUserSignature_tv.setText(jsonObject.getString("signature"));
@@ -448,6 +469,32 @@ public class PersonageFragment extends Fragment {
             make_friend.setEnabled(false);
             make_friend.setText("拒绝添加好友");
         }
+
+
+        mUserAlbum = jsonObject.getString("album");
+        String[] mUserAlbum_list = mUserAlbum.split(",");
+        if (mUserAlbum_list[0]==""&&mUserAlbum_list[1]==""&&mUserAlbum_list[2]==""&&mUserAlbum_list[3]==""&&mUserAlbum_list[4]==""&&mUserAlbum_list[5]==""){
+            sliderShow.setVisibility(View.GONE);
+        }else {
+            for (int i = 0;i<6;i=i+1){
+                if (mUserAlbum_list[i]!="") {
+                    TextSliderView textSliderView = new TextSliderView(getActivity());
+                    textSliderView
+                            .description("")
+                            .setScaleType(BaseSliderView.ScaleType.CenterCrop)
+                            .image(mUserAlbum_list[i]);
+                    sliderShow.addSlider(textSliderView);
+                }
+            }
+
+            sliderShow.setPresetTransformer(SliderLayout.Transformer.Accordion);
+            sliderShow.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+            sliderShow.setCustomAnimation(new DescriptionAnimation());
+            sliderShow.stopAutoCycle();
+        }
+
+        if (jsonObject.getString("voice")!="")
+        voicebutton.setPlayPath(jsonObject.getString("voice"));
 
     }
     //网络数据部分

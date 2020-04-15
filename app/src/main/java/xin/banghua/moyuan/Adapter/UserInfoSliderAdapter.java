@@ -177,11 +177,11 @@ public class UserInfoSliderAdapter extends RecyclerView.Adapter implements  View
             ((UserinfoHolder) viewHolder).userGender.setText(mUserGender.get(i-1));
             if (mUserGender.get(i-1).equals("男")){
                 Resources resources = mContext.getResources();
-                Drawable drawable = resources.getDrawable(R.drawable.male,null);
+                Drawable drawable = resources.getDrawable(R.drawable.ic_male,null);
                 ((UserinfoHolder) viewHolder).userGender.setForeground(drawable);
             }else {
                 Resources resources = mContext.getResources();
-                Drawable drawable = resources.getDrawable(R.drawable.female,null);
+                Drawable drawable = resources.getDrawable(R.drawable.ic_female,null);
                 ((UserinfoHolder) viewHolder).userGender.setForeground(drawable);
             }
             ((UserinfoHolder) viewHolder).userProperty.setText(mUserProperty.get(i-1));

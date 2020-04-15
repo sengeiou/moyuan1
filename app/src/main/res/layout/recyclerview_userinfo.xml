@@ -19,43 +19,46 @@
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/authportrait"
         android:text="userNickName"
-        android:textColor="@color/rc_ext_root_menu_item_text_color"
-        android:textSize="18sp"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/userAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/userGender"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/authportrait"
-        android:text="18"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="15sp" />
-
-    <TextView
-        android:id="@+id/userGender"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="30dp"
-        android:layout_toRightOf="@id/userAge"
-        android:foreground="@drawable/male"
+        android:foreground="@drawable/ic_female"
         android:text="男"
         android:textColor="@color/rc_extension_normal"
         android:textSize="15sp" />
 
     <TextView
-        android:id="@+id/userProperty"
-        android:layout_width="33dp"
-        android:layout_height="16dp"
+        android:id="@+id/userAge"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/userGender"
-        android:background="@drawable/alivc_little_btn_publish_bg"
+        android:background="@drawable/orange_round"
+        android:gravity="center"
+        android:text="18"
+        android:textColor="@color/materialcolorpicker__white"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/userProperty"
+        android:layout_width="33dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="30dp"
+        android:layout_toRightOf="@id/userAge"
+        android:background="@drawable/pink_round"
         android:gravity="center"
         android:text="随缘"
+        android:textAlignment="center"
         android:textColor="@color/rc_voice_cancel"
         android:textSize="12sp" />
 
@@ -68,7 +71,7 @@
         android:layout_toRightOf="@id/userProperty"
         android:text="4km"
         android:textColor="@color/rc_divider_line"
-        android:textSize="13sp" />
+        android:textSize="12sp" />
 
     <TextView
         android:id="@+id/userVIP"
@@ -91,7 +94,7 @@
         android:layout_marginLeft="30dp"
         android:layout_toRightOf="@id/userVIP"
         android:text="北京"
-        android:textColor="@color/rc_rich_content"
+        android:textColor="@color/colorBrown1"
         android:textSize="14sp"
         android:textStyle="bold" />
 
