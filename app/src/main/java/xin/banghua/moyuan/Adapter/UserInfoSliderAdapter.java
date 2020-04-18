@@ -157,15 +157,15 @@ public class UserInfoSliderAdapter extends RecyclerView.Adapter implements  View
                     }
 
                 }
+                mDemoSlider.setMinimumHeight(100);
+                mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+                mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+                mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+                mDemoSlider.setDuration(4000);
+                mDemoSlider.addOnPageChangeListener(this);
+            }else {
+                mDemoSlider.setVisibility(View.GONE);
             }
-
-
-            mDemoSlider.setMinimumHeight(100);
-            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-            mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-            mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-            mDemoSlider.setDuration(4000);
-            mDemoSlider.addOnPageChangeListener(this);
         }else if (viewHolder instanceof UserinfoHolder){
             ((UserinfoHolder) viewHolder).userID.setText(mUserID.get(i-1));
             Glide.with(mContext)

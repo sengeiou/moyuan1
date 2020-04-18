@@ -11,6 +11,7 @@ import android.os.Message;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,15 +140,18 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements  ViewP
                     }
 
                 }
+                mDemoSlider.setMinimumHeight(100);
+                mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
+                mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+                mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+                mDemoSlider.setDuration(4000);
+                mDemoSlider.addOnPageChangeListener(this);
+            }else {
+                mDemoSlider.setVisibility(View.GONE);
             }
 
 
-            mDemoSlider.setMinimumHeight(100);
-            mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);
-            mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
-            mDemoSlider.setCustomAnimation(new DescriptionAnimation());
-            mDemoSlider.setDuration(4000);
-            mDemoSlider.addOnPageChangeListener(this);
+
         }else if (viewHolder instanceof LuntanSliderAdapter.ViewHolder){
             final LuntanList currentItem = luntanLists.get(i-1);
 
@@ -235,7 +239,8 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements  ViewP
                                     }
                                 })
                                 .setFooter(R.layout.dialog_original_image)
-                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .setExpanded(false)  // This will enable the expand feature, (similar to android L share dialog)
+                                .setGravity(Gravity.CENTER)
                                 .create();
                         dialog.show();
                         View view = dialog.getFooterView();
@@ -288,7 +293,8 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements  ViewP
                                     }
                                 })
                                 .setFooter(R.layout.dialog_original_image)
-                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .setExpanded(false)  // This will enable the expand feature, (similar to android L share dialog)
+                                .setGravity(Gravity.CENTER)
                                 .create();
                         dialog.show();
                         View view = dialog.getFooterView();
@@ -341,7 +347,8 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements  ViewP
                                     }
                                 })
                                 .setFooter(R.layout.dialog_original_image)
-                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .setExpanded(false)  // This will enable the expand feature, (similar to android L share dialog)
+                                .setGravity(Gravity.CENTER)
                                 .create();
                         dialog.show();
                         View view = dialog.getFooterView();
@@ -394,7 +401,8 @@ public class LuntanSliderAdapter extends RecyclerView.Adapter  implements  ViewP
                                     }
                                 })
                                 .setFooter(R.layout.dialog_original_image)
-                                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                                .setExpanded(false)  // This will enable the expand feature, (similar to android L share dialog)
+                                .setGravity(Gravity.CENTER)
                                 .create();
                         dialog.show();
                         View view = dialog.getFooterView();

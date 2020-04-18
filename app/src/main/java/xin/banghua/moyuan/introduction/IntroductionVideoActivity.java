@@ -2,7 +2,10 @@ package xin.banghua.moyuan.introduction;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.PermissionChecker;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -67,6 +70,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import opensource.theboloapp.com.videothumbselect.ChooseThumbnailActivity;
 import opensource.theboloapp.com.videothumbselect.VideoThumbnailSelectHelper;
+import xin.banghua.moyuan.CheckPermission;
 import xin.banghua.moyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.moyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.moyuan.R;
@@ -121,6 +125,9 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction_video);
+
+        //权限检测
+        CheckPermission.verifyStoragePermission(this);
 
         myJzvdStd = findViewById(R.id.jz_video);
         myJzvdStd.widthRatio = 9;

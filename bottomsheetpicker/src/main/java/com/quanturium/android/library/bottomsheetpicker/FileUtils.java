@@ -54,10 +54,10 @@ public class FileUtils {
 
 		File file = null;
 		if (type == MEDIA_TYPE_IMAGE) {
-			String imageFileName = "JPEG_" + timeStamp + "_";
+			String imageFileName = "PNG_" + timeStamp + "_";
 			file = File.createTempFile(
 					imageFileName,
-					".jpg",
+					".png",
 					storageDir
 			);
 		} else if (type == MEDIA_TYPE_VIDEO) {

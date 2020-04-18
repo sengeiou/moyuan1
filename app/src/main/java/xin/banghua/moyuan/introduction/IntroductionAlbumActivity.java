@@ -42,6 +42,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.moyuan.CheckPermission;
 import xin.banghua.moyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.moyuan.R;
 import xin.banghua.moyuan.RealPathFromUriUtils;
@@ -66,8 +67,6 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
     String postpicture5 = "";
     String postpicture6 = "";
 
-    String edit_path;
-    int edit_num;
 
     Button picture1_edit_btn,picture2_edit_btn,picture3_edit_btn,picture4_edit_btn,picture5_edit_btn,picture6_edit_btn;
     Button picture1_close_btn,picture2_close_btn,picture3_close_btn,picture4_close_btn,picture5_close_btn,picture6_close_btn;
@@ -77,6 +76,9 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_introduction_album);
+
+        //权限检测
+        CheckPermission.verifyStoragePermission(this);
 
         if (savedInstanceState != null) {
             final BottomSheetPickerFragment fragment = (BottomSheetPickerFragment) getSupportFragmentManager().findFragmentByTag("picker");
@@ -582,7 +584,7 @@ public class IntroductionAlbumActivity extends AppCompatActivity implements Bott
                 }
             }else if (takeFrom == TAKE_FROM_FOLDER){//来自文件夹
                 for (int i = 0; i < uriList.size(); i = i+1) {
-                    map.put("fileName" + i, RealPathFromUriUtils.getRealPathFromUri(this, uriList.get(i), "video"));
+                    map.put("fileName" + i, RealPathFromUriUtils.getRealPathFromUri(this, uriList.get(i), "image"));
                     Log.d(TAG, "来自文件夹的地址信息"+map.get("fileName" + i));
                 }
                 MyFileVariable.getInstance().setFileMap(map);

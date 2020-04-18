@@ -1,3 +1,13 @@
+//返回和结束的继承:activity结束是finish()
+@Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+@Override
+    public void onStop() {
+        super.onStop();
+    }
+
 //activity获得view
 getWindow().getDecorView()
 

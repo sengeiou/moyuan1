@@ -10,8 +10,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".introduction.IntroductionAlbumActivity"></activity>
-        <activity android:name=".introduction.IntroductionVideoActivity"
+        <activity android:name=".Main4Branch.FabutieziActivity"></activity>
+        <activity android:name=".introduction.IntroductionAlbumActivity" />
+        <activity
+            android:name=".introduction.IntroductionVideoActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait" />
         <activity android:name=".introduction.IntroductionActivity" />
@@ -179,10 +181,11 @@
                 android:name="hwc-theme"
                 android:value="androidhwext:style/Theme.Emui.Translucent" />
         </activity>
-
+        <!-- 高德地图 < -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="f0c1f7d9d1447712dab45332883b5fc1" /> <!-- 小米 配置开始 < -->
+            android:value="b8907083bc6234baa56cadded2105143" />
+        <!-- 小米 配置开始 < -->
         <meta-data
             android:name="com.huawei.hms.client.appid"
             android:value="101234849" />
@@ -319,18 +322,18 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.CAMERA" /> <!-- 小米 配置开始 < -->
-    <uses-permission android:name="android.permission.FLASHLIGHT" />
-    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> <!-- 小米 配置结束 < -->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" /> <!-- 小米 配置开始 < -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" /> <!-- 小米 配置结束 < -->
     <!-- 如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- MeiZu 配置开始 < -->
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS" /> <!-- MeiZu 配置开始 < -->
     <!-- 兼容 flyme5.0 以下版本，魅族内部集成 pushSDK 必填，不然无法收到 消息 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- 兼容 flyme3.0 配置权限 -->
-    <uses-permission android:name="xin.banghua.moyuan.permission.MIPUSH_RECEIVE" /> <!-- MeiZu 配置结束 < -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- 兼容 flyme3.0 配置权限 -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- MeiZu 配置结束 < -->
     <!-- oppo 配置 -->
+    <uses-permission android:name="xin.banghua.moyuan.permission.MIPUSH_RECEIVE" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="com.meizu.flyme.push.permission.RECEIVE" />
     <uses-permission android:name="xin.banghua.moyuan.push.permission.MESSAGE" />

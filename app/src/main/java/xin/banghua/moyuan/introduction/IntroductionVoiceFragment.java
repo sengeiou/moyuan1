@@ -39,6 +39,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.moyuan.CheckPermission;
 import xin.banghua.moyuan.ParseJSON.ParseJSONObject;
 import xin.banghua.moyuan.R;
 import xin.banghua.moyuan.SharedPreferences.SharedHelper;
@@ -120,6 +121,9 @@ public class IntroductionVoiceFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //权限检测
+        CheckPermission.verifyStoragePermission(getActivity());
 
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         toolbar.setTitle("我的语音介绍");

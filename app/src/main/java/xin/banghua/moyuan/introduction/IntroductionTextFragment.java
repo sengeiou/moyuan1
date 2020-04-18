@@ -2,11 +2,19 @@ package xin.banghua.moyuan.introduction;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
+import android.widget.BaseAdapter;
+
+import com.orhanobut.dialogplus.DialogPlus;
+import com.orhanobut.dialogplus.OnItemClickListener;
 
 import xin.banghua.moyuan.R;
 
@@ -62,5 +70,41 @@ public class IntroductionTextFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_introduction_text, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        DialogPlus dialog = DialogPlus.newDialog(getActivity())
+                .setAdapter(new BaseAdapter() {
+                    @Override
+                    public int getCount() {
+                        return 0;
+                    }
+
+                    @Override
+                    public Object getItem(int position) {
+                        return null;
+                    }
+
+                    @Override
+                    public long getItemId(int position) {
+                        return 0;
+                    }
+
+                    @Override
+                    public View getView(int position, View convertView, ViewGroup parent) {
+                        return null;
+                    }
+                })
+                .setOnItemClickListener(new OnItemClickListener() {
+                    @Override
+                    public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
+                    }
+                })
+                .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
+                .setGravity(Gravity.CENTER)
+                .create();
+        //dialog.show();
     }
 }

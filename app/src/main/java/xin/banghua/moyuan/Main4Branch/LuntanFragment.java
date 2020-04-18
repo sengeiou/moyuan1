@@ -2,6 +2,7 @@ package xin.banghua.moyuan.Main4Branch;
 
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -188,7 +189,10 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(v).navigate(R.id.luntan_fabutiezi_action);
+                //Navigation.findNavController(v).navigate(R.id.luntan_fabutiezi_action);
+                Intent intent = new Intent(getActivity() ,FabutieziActivity.class);
+                intent.putExtra("logtype","1");
+                startActivity(intent);
             }
         });
     }
@@ -199,14 +203,17 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 strs[i]=jsonObject.getString("noticeinfo");
             }
+            marqueeTv =  view.findViewById(R.id.marquee);
+            marqueeTv.setTextArraysAndClickListener(strs, new MarqueeTextViewClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //startActivity(new Intent(MainActivity.this,AnotherActivity.class));
+                }
+            });
+        }else {
+            marqueeTv.setVisibility(View.GONE);
         }
-        marqueeTv =  view.findViewById(R.id.marquee);
-        marqueeTv.setTextArraysAndClickListener(strs, new MarqueeTextViewClickListener() {
-            @Override
-            public void onClick(View view) {
-                //startActivity(new Intent(MainActivity.this,AnotherActivity.class));
-            }
-        });
+
     }
     //TODO 幻灯片相关
     private void initSlider(View view,JSONArray jsonArray) throws JSONException {

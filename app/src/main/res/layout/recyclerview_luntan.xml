@@ -117,7 +117,8 @@
                 android:layout_weight="1"
                 android:text="TextView"
                 android:textColor="@color/colorPrimary"
-                android:textSize="20dp" />
+                android:textSize="20dp"
+                android:visibility="gone" />
 
         </TableRow>
 
@@ -239,6 +240,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:drawableRight="@drawable/ic_like"
+                    android:gravity="center"
                     android:text="赞232"
                     android:textAlignment="textEnd"
                     android:textColor="@color/rc_draft_color"
