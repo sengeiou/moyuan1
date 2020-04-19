@@ -1,0 +1,25 @@
+-- Merging decision tree log ---
+manifest
+ADDED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml:1:1-2:41
+INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml:1:1-2:41
+INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml:1:1-2:41
+	package
+		ADDED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml:2:5-38
+		INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+		INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml:1:11-69
+uses-sdk
+INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+		ADDED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+		INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+		ADDED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml
+		INJECTED from I:\Android\moyuan2\AliyunSvideoMusic\src\main\AndroidManifest.xml

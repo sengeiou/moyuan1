@@ -56,8 +56,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import cn.jzvd.Jzvd;
@@ -106,6 +109,9 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
     String uploadAddress = "";
     String videoID = "";
     String videoUrl = "";
+    String videoWidth = "";
+    String videoHeight = "";
+    String videoOldID = "";//获取已有的视频，提交新视频时需要删除
 
     SharedHelper shuserinfo;
     String myid;
@@ -130,8 +136,7 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
         CheckPermission.verifyStoragePermission(this);
 
         myJzvdStd = findViewById(R.id.jz_video);
-        myJzvdStd.widthRatio = 9;
-        myJzvdStd.heightRatio = 16;
+
 
         video_cover = findViewById(R.id.video_cover);
 
@@ -175,7 +180,33 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
         //获取已有的视频信息
         getVideoInfo("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=Getintroductionvideo&m=moyuan");
     }
-
+    //初始化工具栏
+    public void initToolbar(){
+        //工具栏
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("我的视频介绍");
+        toolbar.inflateMenu(R.menu.menu_toolbar_submit);
+        toolbar.setNavigationIcon(R.drawable.rc_back_icon);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //onBackPressed(); // back button
+                Intent intent = new Intent(IntroductionVideoActivity.this, IntroductionActivity.class);
+                startActivity(intent);
+            }
+        });
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                if (item.getItemId() == R.id.submit_toolbar){
+                    Log.d(TAG, "提交了");
+                    //判断是否录制了视频和视频封面后，获取上传凭证，再获上传并获取播放地址，然后将封面和视频播放地址提交数据库
+                    startUpload();
+                }
+                return true;
+            }
+        });
+    }
     @Override
     protected void onPause() {
         super.onPause();
@@ -255,6 +286,7 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
                 MyFileVariable.getInstance().setFileMap(map);
             }
 
+
             videoUrl = MyFileVariable.getInstance().getFileMap().get("fileName0").toString();
             videoFilePath = videoUrl;
             startThumbSelectActivity(MyFileVariable.getInstance().getFileMap().get("fileName0").toString());
@@ -285,12 +317,16 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
                     try {
                         InputStream inputStream = getContentResolver().openInputStream(selectedThumbUri);
                         Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                        MyFileVariable.saveJPG_After(bitmap,getFilesDir().getAbsolutePath()+"/video_cover.jpg");
-                        Log.d(TAG, "保存的封面地址"+getFilesDir().getAbsolutePath()+"/video_cover.jpg");
-                        postVideoCover = getFilesDir().getAbsolutePath()+"/video_cover.jpg";
+                        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+                        postVideoCover = getFilesDir().getAbsolutePath()+"/video_cover"+timeStamp+".png";
+                        MyFileVariable.savePNG_After(bitmap,postVideoCover);
+                        Log.d(TAG, "保存的封面地址"+postVideoCover);
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
+                    videoHeight = MyFileVariable.getImageHeight(postVideoCover)+"";
+                    videoWidth = MyFileVariable.getImageWidth(postVideoCover)+"";
+                    Log.d(TAG, "视频宽高"+videoHeight+"|"+videoWidth);
                     video_cover.setImageURI(selectedThumbUri);
                     initVideoPlay();
                 }
@@ -326,33 +362,7 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
                 break;
         }
     }
-    //初始化工具栏
-    public void initToolbar(){
-        //工具栏
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("我的视频介绍");
-        toolbar.inflateMenu(R.menu.menu_toolbar_submit);
-        toolbar.setNavigationIcon(R.drawable.rc_back_icon);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //onBackPressed(); // back button
-                Intent intent = new Intent(IntroductionVideoActivity.this, IntroductionActivity.class);
-                startActivity(intent);
-            }
-        });
-        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                if (item.getItemId() == R.id.submit_toolbar){
-                    Log.d(TAG, "提交了");
-                    //判断是否录制了视频和视频封面后，获取上传凭证，再获上传并获取播放地址，然后将封面和视频播放地址提交数据库
-                    startUpload();
-                }
-                return true;
-            }
-        });
-    }
+
     //初始化组件
     public void initConponent(){
         video_cover = findViewById(R.id.video_cover);
@@ -532,9 +542,11 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
 
                         if (jsonObject.getString("videoid").length() > 5){
                             Log.d(TAG, "准备播放已存在的视频。");
-                            videoID = jsonObject.getString("videoid");
+                            videoOldID = jsonObject.getString("videoid");
                             videoUrl = jsonObject.getString("videourl");
                             postVideoCover = jsonObject.getString("videocover");
+                            videoHeight = jsonObject.getString("videoheight");
+                            videoWidth = jsonObject.getString("videowidth");
                             Glide.with(activity)
                                     .asBitmap()
                                     .load(postVideoCover)
@@ -594,6 +606,9 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
                 multipartBody.addFormDataPart("authid", myid);
                 multipartBody.addFormDataPart("videoID", videoID);
                 multipartBody.addFormDataPart("videoUrl", videoUrl);
+                multipartBody.addFormDataPart("videoWidth", videoWidth);
+                multipartBody.addFormDataPart("videoHeight", videoHeight);
+                Log.d(TAG, "上传的宽高"+videoWidth+"|"+videoHeight);
                 if (!postVideoCover.isEmpty()) {
                     if (!postVideoCover.contains("https")) {
                         multipartBody.addFormDataPart("postVideoCover", fileName, RequestBody.create(new File(postVideoCover), MEDIA_TYPE_PNG));
@@ -659,6 +674,7 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
                 OkHttpClient client = new OkHttpClient();
                 RequestBody formBody = new FormBody.Builder()
                         .add("authid", myid)
+                        .add("videoOldID", videoOldID)
                         .build();
                 Request request = new Request.Builder()
                         .url(url)
@@ -809,6 +825,9 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
         myJzvdStd.setUp(videoUrl, "");
         Glide.with(this).load(postVideoCover).into(myJzvdStd.posterImageView);
 
+        myJzvdStd.widthRatio = 100;
+        myJzvdStd.heightRatio = (Integer.parseInt(videoHeight)*100)/Integer.parseInt(videoWidth);//整数除法会自动取整，所以1.7变1
+
         Log.d(TAG, "初始化视频数据源。");
 
         UrlSource aliyunUrlSource = new UrlSource();
@@ -839,4 +858,6 @@ public class IntroductionVideoActivity extends AppCompatActivity implements Bott
             }
         });
     }
+
+
 }

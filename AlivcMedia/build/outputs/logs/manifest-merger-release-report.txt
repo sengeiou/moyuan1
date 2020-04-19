@@ -1,0 +1,27 @@
+-- Merging decision tree log ---
+manifest
+ADDED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml:2:1-10:12
+	package
+		ADDED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml:3:11-44
+		INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+		INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml:2:11-69
+application
+ADDED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml:5:5-8:19
+uses-sdk
+INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+		ADDED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+		INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+		ADDED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml
+		INJECTED from I:\Android\moyuan2\AlivcMedia\src\main\AndroidManifest.xml

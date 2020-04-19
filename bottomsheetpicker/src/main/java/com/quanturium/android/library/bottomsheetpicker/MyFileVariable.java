@@ -1,6 +1,7 @@
 package com.quanturium.android.library.bottomsheetpicker;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -95,5 +96,24 @@ public class MyFileVariable {
             e.printStackTrace();
         }
     }
+
+    public static int getImageWidth(String path){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+
+        //Returns null, sizes are in the options variable
+        BitmapFactory.decodeFile(path, options);
+        return options.outWidth;
+    }
+
+    public static int getImageHeight(String path){
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+
+        //Returns null, sizes are in the options variable
+        BitmapFactory.decodeFile(path, options);
+        return options.outHeight;
+    }
+
 
 }

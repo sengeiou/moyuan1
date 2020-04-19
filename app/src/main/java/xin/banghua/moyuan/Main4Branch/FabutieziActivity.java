@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +57,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -122,6 +124,8 @@ public class FabutieziActivity extends AppCompatActivity implements BottomSheetP
     String uploadAddress = "";
     String videoID = "";
     String videoUrl = "";
+    String videoWidth = "";
+    String videoHeight = "";
     String postVideoCover = "";
     LinearLayout video_layout;
     //新视频
@@ -140,7 +144,7 @@ public class FabutieziActivity extends AppCompatActivity implements BottomSheetP
     PoiSearch.Query query;
     String[] poiList;
     TextView location_textview;
-    String poiSelected;
+    String poiSelected = "";
 
     private Context mContext;
     @Override
@@ -385,8 +389,8 @@ public class FabutieziActivity extends AppCompatActivity implements BottomSheetP
         location_selector = findViewById(R.id.location_selector);
 
         myJzvdStd = findViewById(R.id.jz_video);
-        myJzvdStd.widthRatio = 9;
-        myJzvdStd.heightRatio = 16;
+        //myJzvdStd.widthRatio = 9;
+        //myJzvdStd.heightRatio = 16;
 
         video_layout = findViewById(R.id.video_layout);
 
@@ -492,6 +496,7 @@ public class FabutieziActivity extends AppCompatActivity implements BottomSheetP
                         JSONArray jsonArray = new ParseJSONArray(msg.obj.toString()).getParseJSON();
                         JSONObject jsonObject = jsonArray.getJSONObject(0);
                         videoUrl = jsonObject.getString("PlayURL");
+
                         Log.d(TAG, "handleMessage: 播放地址"+videoUrl);
                         //保存视频播放地址,视频id,和封面
                         updateDatabase("https://applet.banghua.xin/app/index.php?i=99999&c=entry&a=webapp&do=Fabutiezi&m=moyuan");
@@ -697,7 +702,6 @@ public class FabutieziActivity extends AppCompatActivity implements BottomSheetP
                 videoUrl = MyFileVariable.getInstance().getFileMap().get("fileName0").toString();
                 videoFilePath = videoUrl;
                 startThumbSelectActivity(MyFileVariable.getInstance().getFileMap().get("fileName0").toString());
-                video_layout.setVisibility(VISIBLE);
             }
 
         }
@@ -738,9 +742,29 @@ public class FabutieziActivity extends AppCompatActivity implements BottomSheetP
                     } catch (FileNotFoundException e) {
                         e.printStackTrace();
                     }
+                    videoHeight = MyFileVariable.getImageHeight(postVideoCover)+"";
+                    videoWidth = MyFileVariable.getImageWidth(postVideoCover)+"";
+
+                    if (Integer.parseInt(videoHeight) / Integer.parseInt(videoWidth) == 1) {
+                        myJzvdStd.getLayoutParams().width = mContext.getResources().getDimensionPixelSize(R.dimen.dimen_200);
+                        myJzvdStd.widthRatio = 1;
+                        myJzvdStd.heightRatio = 1;
+                    }
+                    if (Integer.parseInt(videoHeight) / Integer.parseInt(videoWidth) > 1) {
+                        myJzvdStd.getLayoutParams().width = mContext.getResources().getDimensionPixelSize(R.dimen.dimen_150);
+                        myJzvdStd.widthRatio = 100;
+                        myJzvdStd.heightRatio = Integer.parseInt(videoHeight) * 100 / Integer.parseInt(videoWidth);
+                    }
+                    if (Integer.parseInt(videoHeight) / Integer.parseInt(videoWidth) < 1) {
+                        myJzvdStd.getLayoutParams().height = mContext.getResources().getDimensionPixelSize(R.dimen.dimen_150);
+                        myJzvdStd.widthRatio = 100;
+                        myJzvdStd.heightRatio = Integer.parseInt(videoHeight) * 100 / Integer.parseInt(videoWidth);
+                    }
                     //新播放器
+                    video_layout.setVisibility(VISIBLE);
                     myJzvdStd.setUp(videoUrl, "");
                     Glide.with(this).load(postVideoCover).into(myJzvdStd.posterImageView);
+
                 }
             }
         }
@@ -882,6 +906,8 @@ public class FabutieziActivity extends AppCompatActivity implements BottomSheetP
                     multipartBody.addFormDataPart("authid", myid);
                     multipartBody.addFormDataPart("videoID", videoID);
                     multipartBody.addFormDataPart("videoUrl", videoUrl);
+                    multipartBody.addFormDataPart("videoWidth", videoWidth);
+                    multipartBody.addFormDataPart("videoHeight", videoHeight);
                     multipartBody.addFormDataPart("posttitle", "video");
                     multipartBody.addFormDataPart("posttext", content_et.getText().toString());
                     multipartBody.addFormDataPart("poi", poiSelected);
@@ -910,21 +936,26 @@ public class FabutieziActivity extends AppCompatActivity implements BottomSheetP
 
     @Override
     public void onPoiSearched(PoiResult poiResult, int i) {
+        List<Map<String, Object>> listitem = new ArrayList<Map<String, Object>>();
         Log.d(TAG,"poi总数："+poiResult.getPois().size());
-        poiList = new String[poiResult.getPois().size()];
+
         for (int x=0;x<poiResult.getPois().size();x=x+1) {
             PoiItem poiItem = poiResult.getPois().get(x);
-            Log.d(TAG,"poi描述："+poiItem.toString());
-            poiList[x] = poiItem.getTitle()+"("+poiItem.getSnippet()+")";
+
+            Map<String, Object> showitem = new HashMap<String, Object>();
+            showitem.put("imgtou", "");
+            showitem.put("name", poiItem.getTitle());
+            showitem.put("says", poiItem.getSnippet());
+            listitem.add(showitem);
         }
         DialogPlus dialog = DialogPlus.newDialog(this)
-                .setAdapter(new ArrayAdapter<String>(FabutieziActivity.this, android.R.layout.simple_list_item_1, poiList))
+                .setAdapter(new SimpleAdapter(getApplicationContext(), listitem, R.layout.simpleadapter_listitem, new String[]{"imgtou", "name", "says"}, new int[]{R.id.imgtou, R.id.name, R.id.says}))
                 .setOnItemClickListener(new OnItemClickListener() {
                     @Override
                     public void onItemClick(DialogPlus dialog, Object item, View view, int position) {
                         location_textview.setVisibility(VISIBLE);
-                        location_textview.setText(poiList[position]);
-                        poiSelected = poiList[position];
+                        location_textview.setText(listitem.get(position).get("name").toString());
+                        poiSelected = listitem.get(position).get("name").toString();
                         dialog.dismiss();
                     }
                 })

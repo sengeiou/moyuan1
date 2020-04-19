@@ -29,14 +29,21 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import androidx.navigation.Navigation;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import cn.jzvd.Jzvd;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import xin.banghua.moyuan.Adapter.LuntanAdapter;
 import xin.banghua.moyuan.Adapter.LuntanList;
 import xin.banghua.moyuan.Adapter.LuntanSliderAdapter;
 import xin.banghua.moyuan.MarqueeTextView;
@@ -44,6 +51,7 @@ import xin.banghua.moyuan.MarqueeTextViewClickListener;
 import xin.banghua.moyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.moyuan.R;
 import xin.banghua.moyuan.SharedPreferences.SharedHelper;
+import xin.banghua.moyuan.utils.AutoPlayUtils;
 
 
 /**
@@ -60,6 +68,8 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
     //帖子列表
     private List<LuntanList> luntanLists = new ArrayList<>();
     private LuntanSliderAdapter adapter;
+    PullLoadMoreRecyclerView recyclerView;
+    private LinearLayoutManager mLayoutManager;
     //页码
     private Integer pageindex = 1;
     //二级菜单
@@ -68,6 +78,7 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
     private View mView;
 
     private String subtitle;
+
     public LuntanFragment() {
         // Required empty public constructor
     }
@@ -284,7 +295,28 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                 for (int i=0;i<jsonArray.length();i++){
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String[] postPicture = jsonObject.getString("postpicture").split(",");
-                    LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
+                    Map map = new HashMap();
+                    map.put("age",jsonObject.getString("age"));
+                    map.put("gender",jsonObject.getString("gender"));
+                    map.put("region",jsonObject.getString("region"));
+                    map.put("property",jsonObject.getString("property"));
+                    map.put("id",jsonObject.getString("id"));
+                    map.put("plateid",jsonObject.getString("plateid"));
+                    map.put("platename",jsonObject.getString("platename"));
+                    map.put("authid",jsonObject.getString("authid"));
+                    map.put("authnickname",jsonObject.getString("authnickname"));
+                    map.put("authportrait",jsonObject.getString("authportrait"));
+                    map.put("poi",jsonObject.getString("poi"));
+                    map.put("posttitle",jsonObject.getString("posttitle"));
+                    map.put("posttext",jsonObject.getString("posttext"));
+                    map.put("like",jsonObject.getString("like"));
+                    map.put("favorite",jsonObject.getString("favorite"));
+                    map.put("time",jsonObject.getString("time"));
+                    map.put("videourl",jsonObject.getString("videourl"));
+                    map.put("videocover",jsonObject.getString("videocover"));
+                    map.put("videowidth",jsonObject.getString("videowidth"));
+                    map.put("videoheight",jsonObject.getString("videoheight"));
+                    LuntanList posts = new LuntanList(map,postPicture);
                     luntanLists.add(posts);
                 }
             }
@@ -296,15 +328,39 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                 for (int i=0;i<jsonArray.length();i++){
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String[] postPicture = jsonObject.getString("postpicture").split(",");
-                    LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
+                    Map map = new HashMap();
+                    map.put("age",jsonObject.getString("age"));
+                    map.put("gender",jsonObject.getString("gender"));
+                    map.put("region",jsonObject.getString("region"));
+                    map.put("property",jsonObject.getString("property"));
+                    map.put("id",jsonObject.getString("id"));
+                    map.put("plateid",jsonObject.getString("plateid"));
+                    map.put("platename",jsonObject.getString("platename"));
+                    map.put("authid",jsonObject.getString("authid"));
+                    map.put("authnickname",jsonObject.getString("authnickname"));
+                    map.put("authportrait",jsonObject.getString("authportrait"));
+                    map.put("poi",jsonObject.getString("poi"));
+                    map.put("posttitle",jsonObject.getString("posttitle"));
+                    map.put("posttext",jsonObject.getString("posttext"));
+                    map.put("like",jsonObject.getString("like"));
+                    map.put("favorite",jsonObject.getString("favorite"));
+                    map.put("time",jsonObject.getString("time"));
+                    map.put("videourl",jsonObject.getString("videourl"));
+                    map.put("videocover",jsonObject.getString("videocover"));
+                    map.put("videowidth",jsonObject.getString("videowidth"));
+                    map.put("videoheight",jsonObject.getString("videoheight"));
+                    LuntanList posts = new LuntanList(map,postPicture);
                     luntanLists.add(posts);
                 }
             }
 
-            final PullLoadMoreRecyclerView recyclerView = view.findViewById(R.id.luntan_RecyclerView);
+            recyclerView = view.findViewById(R.id.luntan_RecyclerView);
+            mLayoutManager = new LinearLayoutManager(getActivity());
+
             adapter = new LuntanSliderAdapter(luntanLists,sliderJsonArray,view.getContext());
+            mLayoutManager = new LinearLayoutManager(getActivity());
+            recyclerView.getRecyclerView().setLayoutManager(mLayoutManager);
             recyclerView.setAdapter(adapter);
-            recyclerView.setLinearLayout();
             recyclerView.setOnPullLoadMoreListener(new PullLoadMoreRecyclerView.PullLoadMoreListener() {
                 @Override
                 public void onRefresh() {
@@ -324,6 +380,41 @@ public class LuntanFragment extends Fragment implements BaseSliderView.OnSliderC
                     recyclerView.setPullLoadMoreCompleted();
                 }
 
+            });
+            recyclerView.getRecyclerView().addOnChildAttachStateChangeListener(new RecyclerView.OnChildAttachStateChangeListener() {
+                @Override
+                public void onChildViewAttachedToWindow(View view) {
+
+                }
+
+                @Override
+                public void onChildViewDetachedFromWindow(View view) {
+                    Jzvd jzvd = view.findViewById(R.id.jz_video);
+                    if (jzvd != null && Jzvd.CURRENT_JZVD != null &&
+                            jzvd.jzDataSource.containsTheUrl(Jzvd.CURRENT_JZVD.jzDataSource.getCurrentUrl())) {
+                        if (Jzvd.CURRENT_JZVD != null && Jzvd.CURRENT_JZVD.screen != Jzvd.SCREEN_FULLSCREEN ) {
+                            Jzvd.releaseAllVideos();
+                        }
+                    }
+                }
+            });
+
+            recyclerView.getRecyclerView().addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        AutoPlayUtils.onScrollPlayVideo(recyclerView, R.id.jz_video, mLayoutManager.findFirstVisibleItemPosition(), mLayoutManager.findLastVisibleItemPosition());
+                    }
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    if (dy != 0) {
+                        AutoPlayUtils.onScrollReleaseAllVideos(mLayoutManager.findFirstVisibleItemPosition(), mLayoutManager.findLastVisibleItemPosition(), 0.2f);
+                    }
+                }
             });
         }
     }

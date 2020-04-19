@@ -19,6 +19,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -38,7 +40,7 @@ import okhttp3.Response;
 import xin.banghua.moyuan.Main4Branch.PostListActivity;
 import xin.banghua.moyuan.Personage.PersonageActivity;
 import xin.banghua.moyuan.R;
-
+import xin.banghua.moyuan.introduction.MyJzvdStd;
 
 
 public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder> {
@@ -81,28 +83,13 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
                 .asBitmap()
                 .load(currentItem.getAuthportrait())
                 .into(viewHolder.authportrait);
-        viewHolder.posttip.setText(currentItem.getPosttip().isEmpty()?"":currentItem.getPosttip());
-        if (currentItem.getPosttip().equals("加精")){
-            Resources resources = mContext.getResources();
-            Drawable drawable = resources.getDrawable(R.drawable.ic_essence,null);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            viewHolder.posttip.setCompoundDrawables(drawable,null,null,null);
-        }else if(currentItem.getPosttip().equals("置顶")){
-            Resources resources = mContext.getResources();
-            Drawable drawable = resources.getDrawable(R.drawable.ic_ontop,null);
-            drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
-            viewHolder.posttip.setCompoundDrawables(drawable,null,null,null);
-        }else if (currentItem.getPosttip().equals("置顶,加精")){
-            Resources resources = mContext.getResources();
-            Drawable drawable1 = resources.getDrawable(R.drawable.ic_essence,null);
-            drawable1.setBounds(0, 0, drawable1.getMinimumWidth(), drawable1.getMinimumHeight());
-            Drawable drawable2 = resources.getDrawable(R.drawable.ic_ontop,null);
-            drawable2.setBounds(0, 0, drawable2.getMinimumWidth(), drawable2.getMinimumHeight());
-            viewHolder.posttip.setCompoundDrawables(drawable1,null,drawable2,null);
+
+        if (currentItem.getPoi().isEmpty() || currentItem.getPoi().equals("null")){
+            viewHolder.poi.setText("");
         }else {
-            //必须加上，否则会错乱
-            viewHolder.posttip.setCompoundDrawables(null,null,null,null);
+            viewHolder.poi.setText(currentItem.getPoi());
         }
+
         viewHolder.posttitle.setText(currentItem.getPosttitle());
         if (currentItem.getPosttext().length()>50) {
             viewHolder.posttext.setText(currentItem.getPosttext().substring(0, 50)+"......");
@@ -129,219 +116,174 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
         }else {
             viewHolder.posttext.setText(currentItem.getPosttext());
         }
-        if (currentItem.getPostpicture().length!=1){
-            viewHolder.postpicture.setVisibility(View.GONE);
-        }else if (currentItem.getPostpicture().length==1){
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(currentItem.getPostpicture()[0])
-                    .into(viewHolder.postpicture);
-            viewHolder.postpicture.setVisibility(View.VISIBLE);
-            viewHolder.postpicture.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final DialogPlus dialog = DialogPlus.newDialog(mContext)
-                            .setAdapter(new BaseAdapter() {
-                                @Override
-                                public int getCount() {
-                                    return 0;
-                                }
 
-                                @Override
-                                public Object getItem(int position) {
-                                    return null;
-                                }
+        //视频,正方形则200*200，高型则宽150，宽型则高150
+        if (!currentItem.getVideourl().isEmpty()){
+            if (currentItem.getVideourl().toString()!=""&&currentItem.getVideourl().toString()!="null") {
+                if ((Integer.parseInt(currentItem.getVideoheight()) * 100)/ (Integer.parseInt(currentItem.getVideowidth())) == 100) {
+                    viewHolder.jzvdStd.getLayoutParams().width = mContext.getResources().getDimensionPixelSize(R.dimen.dimen_150);
+                    viewHolder.jzvdStd.widthRatio = 1;
+                    viewHolder.jzvdStd.heightRatio = 1;
+                }
+                if ((Integer.parseInt(currentItem.getVideoheight()) * 100)/ (Integer.parseInt(currentItem.getVideowidth())) == 100) {
+                    viewHolder.jzvdStd.getLayoutParams().width = mContext.getResources().getDimensionPixelSize(R.dimen.dimen_100);
+                    viewHolder.jzvdStd.widthRatio = 100;
+                    viewHolder.jzvdStd.heightRatio = Integer.parseInt(currentItem.getVideoheight()) * 100 / Integer.parseInt(currentItem.getVideowidth());
+                }
+                if ((Integer.parseInt(currentItem.getVideoheight()) * 100)/ (Integer.parseInt(currentItem.getVideowidth())) == 100) {
+                    viewHolder.jzvdStd.getLayoutParams().height = mContext.getResources().getDimensionPixelSize(R.dimen.dimen_100);
+                    viewHolder.jzvdStd.widthRatio = 100;
+                    viewHolder.jzvdStd.heightRatio = Integer.parseInt(currentItem.getVideoheight()) * 100 / Integer.parseInt(currentItem.getVideowidth());
+                }
+                viewHolder.video_layout.setVisibility(View.VISIBLE);
+                viewHolder.jzvdStd.setUp(currentItem.getVideourl(), "");
+                Glide.with(mContext).load(currentItem.getVideocover()).into(viewHolder.jzvdStd.posterImageView);
+            }else {
+                viewHolder.jzvdStd.setUp("", "");
+                viewHolder.video_layout.setVisibility(View.GONE);
+            }
+        }else {
+            viewHolder.jzvdStd.setUp("", "");
+        }
 
-                                @Override
-                                public long getItemId(int position) {
-                                    return 0;
-                                }
-
-                                @Override
-                                public View getView(int position, View convertView, ViewGroup parent) {
-                                    return null;
-                                }
-                            })
-                            .setFooter(R.layout.dialog_original_image)
-                            .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
-                            .create();
-                    dialog.show();
-                    View view = dialog.getFooterView();
-                    ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+        switch (currentItem.getPostpicture().length){
+            case 9:
+                if (currentItem.getPostpicture()[8] != "") {
                     Glide.with(mContext)
                             .asBitmap()
-                            .load(currentItem.getPostpicture()[0])
-                            .into(originalImage);
-                    Button dismissdialog_btn = view.findViewById(R.id.cancel);
-                    dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-                }
-            });
-        }
-        if (currentItem.getPostpicture().length<2){
-            viewHolder.postpicture1.setVisibility(View.GONE);
-        }else {
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(currentItem.getPostpicture()[0])
-                    .into(viewHolder.postpicture1);
-            viewHolder.postpicture1.setVisibility(View.VISIBLE);
-            viewHolder.postpicture1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final DialogPlus dialog = DialogPlus.newDialog(mContext)
-                            .setAdapter(new BaseAdapter() {
-                                @Override
-                                public int getCount() {
-                                    return 0;
-                                }
+                            .load(currentItem.getPostpicture()[8])
+                            .into(viewHolder.postpicture9);
 
-                                @Override
-                                public Object getItem(int position) {
-                                    return null;
-                                }
-
-                                @Override
-                                public long getItemId(int position) {
-                                    return 0;
-                                }
-
-                                @Override
-                                public View getView(int position, View convertView, ViewGroup parent) {
-                                    return null;
-                                }
-                            })
-                            .setFooter(R.layout.dialog_original_image)
-                            .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
-                            .create();
-                    dialog.show();
-                    View view = dialog.getFooterView();
-                    ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                }else {
+                Glide.with(mContext)
+                        .asBitmap()
+                        .load("")
+                        .into(viewHolder.postpicture9);
+               }
+            case 8:
+                if (currentItem.getPostpicture()[8] != "") {
                     Glide.with(mContext)
                             .asBitmap()
-                            .load(currentItem.getPostpicture()[0])
-                            .into(originalImage);
-                    Button dismissdialog_btn = view.findViewById(R.id.cancel);
-                    dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
-                }
-            });
-        }
-        if (currentItem.getPostpicture().length<2){
-            viewHolder.postpicture2.setVisibility(View.GONE);
-        }else {
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(currentItem.getPostpicture()[1])
-                    .into(viewHolder.postpicture2);
-            viewHolder.postpicture2.setVisibility(View.VISIBLE);
-            viewHolder.postpicture2.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final DialogPlus dialog = DialogPlus.newDialog(mContext)
-                            .setAdapter(new BaseAdapter() {
-                                @Override
-                                public int getCount() {
-                                    return 0;
-                                }
+                            .load(currentItem.getPostpicture()[7])
+                            .into(viewHolder.postpicture8);
 
-                                @Override
-                                public Object getItem(int position) {
-                                    return null;
-                                }
-
-                                @Override
-                                public long getItemId(int position) {
-                                    return 0;
-                                }
-
-                                @Override
-                                public View getView(int position, View convertView, ViewGroup parent) {
-                                    return null;
-                                }
-                            })
-                            .setFooter(R.layout.dialog_original_image)
-                            .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
-                            .create();
-                    dialog.show();
-                    View view = dialog.getFooterView();
-                    ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                }else {
                     Glide.with(mContext)
                             .asBitmap()
-                            .load(currentItem.getPostpicture()[1])
-                            .into(originalImage);
-                    Button dismissdialog_btn = view.findViewById(R.id.cancel);
-                    dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
+                            .load("")
+                            .into(viewHolder.postpicture8);
                 }
-            });
-        }
-        if (currentItem.getPostpicture().length<3){
-            viewHolder.postpicture3.setVisibility(View.GONE);
-        }else {
-            Glide.with(mContext)
-                    .asBitmap()
-                    .load(currentItem.getPostpicture()[2])
-                    .into(viewHolder.postpicture3);
-            viewHolder.postpicture3.setVisibility(View.VISIBLE);
-            viewHolder.postpicture3.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    final DialogPlus dialog = DialogPlus.newDialog(mContext)
-                            .setAdapter(new BaseAdapter() {
-                                @Override
-                                public int getCount() {
-                                    return 0;
-                                }
+            case 7:
+                if (currentItem.getPostpicture()[7] != "") {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(currentItem.getPostpicture()[6])
+                            .into(viewHolder.postpicture7);
+                    viewHolder.postpicture9.setVisibility(View.VISIBLE);
+                    viewHolder.postpicture8.setVisibility(View.VISIBLE);
+                    viewHolder.postpicture7.setVisibility(View.VISIBLE);
+                }else {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load("")
+                            .into(viewHolder.postpicture7);
+                }
+            case 6:
+                if (currentItem.getPostpicture()[6] != "") {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(currentItem.getPostpicture()[5])
+                            .into(viewHolder.postpicture6);
 
-                                @Override
-                                public Object getItem(int position) {
-                                    return null;
-                                }
+                }else {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load("")
+                            .into(viewHolder.postpicture6);
+                }
+            case 5:
+                if (currentItem.getPostpicture()[5] != "") {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(currentItem.getPostpicture()[4])
+                            .into(viewHolder.postpicture5);
 
-                                @Override
-                                public long getItemId(int position) {
-                                    return 0;
-                                }
-
-                                @Override
-                                public View getView(int position, View convertView, ViewGroup parent) {
-                                    return null;
-                                }
-                            })
-                            .setFooter(R.layout.dialog_original_image)
-                            .setExpanded(true)  // This will enable the expand feature, (similar to android L share dialog)
-                            .create();
-                    dialog.show();
-                    View view = dialog.getFooterView();
-                    ZoomInImageView originalImage = view.findViewById(R.id.originalImage);
+                }else {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load("")
+                            .into(viewHolder.postpicture5);
+                }
+            case 4:
+                if (currentItem.getPostpicture()[4] != "") {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(currentItem.getPostpicture()[3])
+                            .into(viewHolder.postpicture4);
+                    viewHolder.postpicture6.setVisibility(View.VISIBLE);
+                    viewHolder.postpicture5.setVisibility(View.VISIBLE);
+                    viewHolder.postpicture4.setVisibility(View.VISIBLE);
+                }else {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load("")
+                            .into(viewHolder.postpicture4);
+                }
+            case 3:
+                if (currentItem.getPostpicture()[3] != "") {
                     Glide.with(mContext)
                             .asBitmap()
                             .load(currentItem.getPostpicture()[2])
-                            .into(originalImage);
-                    Button dismissdialog_btn = view.findViewById(R.id.cancel);
-                    dismissdialog_btn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.dismiss();
-                        }
-                    });
+                            .into(viewHolder.postpicture3);
+                }else {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load("")
+                            .into(viewHolder.postpicture3);
                 }
-            });
+            case 2:
+                if (currentItem.getPostpicture()[2] != "") {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(currentItem.getPostpicture()[1])
+                            .into(viewHolder.postpicture2);
+                }else {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load("")
+                            .into(viewHolder.postpicture2);
+                }
+            case 1:
+                if (currentItem.getPostpicture()[1] != "") {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load(currentItem.getPostpicture()[0])
+                            .into(viewHolder.postpicture1);
+                    viewHolder.postpicture3.setVisibility(View.VISIBLE);
+                    viewHolder.postpicture2.setVisibility(View.VISIBLE);
+                    viewHolder.postpicture1.setVisibility(View.VISIBLE);
+                }else {
+                    Glide.with(mContext)
+                            .asBitmap()
+                            .load("")
+                            .into(viewHolder.postpicture1);
+                }
         }
-
+        if (currentItem.getPostpicture().length == 1 && currentItem.getPostpicture()[0] != ""){
+            viewHolder.postpicture1.getLayoutParams().width = mContext.getResources().getDimensionPixelSize(R.dimen.dimen_150);
+        }
+        //图片少时设置不同的高度
+        if (currentItem.getPostpicture().toString()==""){
+            viewHolder.postpicture1.setVisibility(View.GONE);
+            viewHolder.postpicture2.setVisibility(View.GONE);
+            viewHolder.postpicture3.setVisibility(View.GONE);
+            viewHolder.postpicture4.setVisibility(View.GONE);
+            viewHolder.postpicture5.setVisibility(View.GONE);
+            viewHolder.postpicture6.setVisibility(View.GONE);
+            viewHolder.postpicture7.setVisibility(View.GONE);
+            viewHolder.postpicture8.setVisibility(View.GONE);
+            viewHolder.postpicture9.setVisibility(View.GONE);
+        }
 
 
         viewHolder.like.setText("赞"+currentItem.getLike());
@@ -431,13 +373,15 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
         intent.putExtra("authid",currentItem.getAuthid());
         intent.putExtra("authnickname",currentItem.getAuthnickname());
         intent.putExtra("authportrait",currentItem.getAuthportrait());
-        intent.putExtra("posttip",currentItem.getPosttip());
+        intent.putExtra("poi",currentItem.getPoi());
         intent.putExtra("posttitle",currentItem.getPosttitle());
         intent.putExtra("posttext",currentItem.getPosttext());
         intent.putExtra("postpicture",currentItem.getPostpicture());
         intent.putExtra("like",currentItem.getLike());
         intent.putExtra("favorite",currentItem.getFavorite());
         intent.putExtra("time",currentItem.getTime());
+        intent.putExtra("videourl",currentItem.getVideourl());
+        intent.putExtra("videocover",currentItem.getVideocover());
         v.getContext().startActivity(intent);
     }
 
@@ -454,16 +398,24 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
         TextView authid;
         TextView authnickname;
         CircleImageView authportrait;
-        TextView posttip;
+        TextView poi;
         TextView posttitle;
         TextView posttext;
-        ZoomInImageView postpicture;
-        ZoomInImageView postpicture1;
-        ZoomInImageView postpicture2;
-        ZoomInImageView postpicture3;
+        ImageView postpicture1;
+        ImageView postpicture2;
+        ImageView postpicture3;
+        ImageView postpicture4;
+        ImageView postpicture5;
+        ImageView postpicture6;
+        ImageView postpicture7;
+        ImageView postpicture8;
+        ImageView postpicture9;
         TextView like;
         TextView favorite;
         TextView time;
+
+        LinearLayout video_layout;
+        MyJzvdStd jzvdStd;
 
         RelativeLayout luntanLayout;
         Button detail_content;
@@ -478,13 +430,18 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
             authid = itemView.findViewById(R.id.authid);
             authnickname = itemView.findViewById(R.id.authnickname);
             authportrait = itemView.findViewById(R.id.authportrait);
-            posttip = itemView.findViewById(R.id.posttip);
+            poi = itemView.findViewById(R.id.poi);
             posttitle = itemView.findViewById(R.id.posttitle);
             posttext = itemView.findViewById(R.id.posttext);
-            postpicture = itemView.findViewById(R.id.postpicture);
             postpicture1 = itemView.findViewById(R.id.postpicture1);
             postpicture2 = itemView.findViewById(R.id.postpicture2);
             postpicture3 = itemView.findViewById(R.id.postpicture3);
+            postpicture4 = itemView.findViewById(R.id.postpicture4);
+            postpicture5 = itemView.findViewById(R.id.postpicture5);
+            postpicture6 = itemView.findViewById(R.id.postpicture6);
+            postpicture7 = itemView.findViewById(R.id.postpicture7);
+            postpicture8 = itemView.findViewById(R.id.postpicture8);
+            postpicture9 = itemView.findViewById(R.id.postpicture9);
             like = itemView.findViewById(R.id.like);
             favorite = itemView.findViewById(R.id.favorite);
             time = itemView.findViewById(R.id.time);
@@ -495,6 +452,9 @@ public class LuntanAdapter extends RecyclerView.Adapter<LuntanAdapter.ViewHolder
             menu_btn = itemView.findViewById(R.id.menu_btn);
 
             detail_content = itemView.findViewById(R.id.detail_content);
+
+            video_layout = itemView.findViewById(R.id.video_layout);
+            jzvdStd = itemView.findViewById(R.id.jz_video);
         }
     }
 

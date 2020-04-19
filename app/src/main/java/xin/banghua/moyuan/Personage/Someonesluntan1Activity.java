@@ -17,7 +17,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -78,7 +80,28 @@ public class Someonesluntan1Activity extends AppCompatActivity {
                 for (int i=0;i<jsonArray.length();i++){
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String[] postPicture = jsonObject.getString("postpicture").split(",");
-                    LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
+                    Map map = new HashMap();
+                    map.put("age",jsonObject.getString("age"));
+                    map.put("gender",jsonObject.getString("gender"));
+                    map.put("region",jsonObject.getString("region"));
+                    map.put("property",jsonObject.getString("property"));
+                    map.put("id",jsonObject.getString("id"));
+                    map.put("plateid",jsonObject.getString("plateid"));
+                    map.put("platename",jsonObject.getString("platename"));
+                    map.put("authid",jsonObject.getString("authid"));
+                    map.put("authnickname",jsonObject.getString("authnickname"));
+                    map.put("authportrait",jsonObject.getString("authportrait"));
+                    map.put("poi",jsonObject.getString("poi"));
+                    map.put("posttitle",jsonObject.getString("posttitle"));
+                    map.put("posttext",jsonObject.getString("posttext"));
+                    map.put("like",jsonObject.getString("like"));
+                    map.put("favorite",jsonObject.getString("favorite"));
+                    map.put("time",jsonObject.getString("time"));
+                    map.put("videourl",jsonObject.getString("videourl"));
+                    map.put("videocover",jsonObject.getString("videocover"));
+                    map.put("videowidth",jsonObject.getString("videowidth"));
+                    map.put("videoheight",jsonObject.getString("videoheight"));
+                    LuntanList posts = new LuntanList(map,postPicture);
                     luntanLists.add(posts);
                 }
             }
@@ -90,7 +113,28 @@ public class Someonesluntan1Activity extends AppCompatActivity {
                 for (int i=0;i<jsonArray.length();i++){
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                     String[] postPicture = jsonObject.getString("postpicture").split(",");
-                    LuntanList posts = new LuntanList(jsonObject.getString("age"),jsonObject.getString("gender"),jsonObject.getString("region"),jsonObject.getString("property"),jsonObject.getString("id"),jsonObject.getString("plateid"),jsonObject.getString("platename"),jsonObject.getString("authid"),jsonObject.getString("authnickname"),jsonObject.getString("authportrait"),jsonObject.getString("posttip"),jsonObject.getString("posttitle"),jsonObject.getString("posttext"),postPicture,jsonObject.getString("like"),jsonObject.getString("favorite"),jsonObject.getString("time"));
+                    Map map = new HashMap();
+                    map.put("age",jsonObject.getString("age"));
+                    map.put("gender",jsonObject.getString("gender"));
+                    map.put("region",jsonObject.getString("region"));
+                    map.put("property",jsonObject.getString("property"));
+                    map.put("id",jsonObject.getString("id"));
+                    map.put("plateid",jsonObject.getString("plateid"));
+                    map.put("platename",jsonObject.getString("platename"));
+                    map.put("authid",jsonObject.getString("authid"));
+                    map.put("authnickname",jsonObject.getString("authnickname"));
+                    map.put("authportrait",jsonObject.getString("authportrait"));
+                    map.put("poi",jsonObject.getString("poi"));
+                    map.put("posttitle",jsonObject.getString("posttitle"));
+                    map.put("posttext",jsonObject.getString("posttext"));
+                    map.put("like",jsonObject.getString("like"));
+                    map.put("favorite",jsonObject.getString("favorite"));
+                    map.put("time",jsonObject.getString("time"));
+                    map.put("videourl",jsonObject.getString("videourl"));
+                    map.put("videocover",jsonObject.getString("videocover"));
+                    map.put("videowidth",jsonObject.getString("videowidth"));
+                    map.put("videoheight",jsonObject.getString("videoheight"));
+                    LuntanList posts = new LuntanList(map,postPicture);
                     luntanLists.add(posts);
                 }
             }

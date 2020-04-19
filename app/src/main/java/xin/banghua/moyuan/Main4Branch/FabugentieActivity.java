@@ -39,7 +39,7 @@ public class FabugentieActivity extends AppCompatActivity {
     String authid;
     String authnickname;
     String authportrait;
-    String posttip;
+    String poi;
     String posttitle;
     String posttext;
     String[] postpicture;
@@ -69,7 +69,7 @@ public class FabugentieActivity extends AppCompatActivity {
         authid = getIntent().getStringExtra("authid");
         authnickname = getIntent().getStringExtra("authnickname");
         authportrait = getIntent().getStringExtra("authportrait");
-        posttip = getIntent().getStringExtra("posttip");
+        poi = getIntent().getStringExtra("poi");
         posttitle = getIntent().getStringExtra("posttitle");
         posttext = getIntent().getStringExtra("posttext");
         postpicture = getIntent().getStringArrayExtra("postpicture");

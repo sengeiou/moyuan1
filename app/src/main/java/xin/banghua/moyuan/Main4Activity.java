@@ -23,6 +23,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Map;
 
+import cn.jzvd.Jzvd;
 import io.rong.imkit.RongIM;
 import io.rong.imkit.manager.IUnReadMessageObserver;
 import io.rong.imlib.model.Conversation;
@@ -200,4 +201,17 @@ public class Main4Activity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        if (Jzvd.backPress()) {
+            return;
+        }
+        super.onBackPressed();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Jzvd.releaseAllVideos();
+    }
 }

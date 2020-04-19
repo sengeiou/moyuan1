@@ -1,43 +1,132 @@
 package xin.banghua.moyuan.Adapter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LuntanList {
-    String id;
-    String plateid;
-    String platename;
-    String authid;
-    String authnickname;
-    String authportrait;
-    String posttip;
-    String posttitle;
-    String posttext;
-    String[] postpicture;
-    String like;
-    String favorite;
-    String time;
+    String id = "";
+    String plateid = "";
+    String platename = "";
+    String authid = "";
+    String authnickname = "";
+    String authportrait = "";
+    String poi = "";
+    String posttitle = "";
+    String posttext = "";
+    String[] postpicture = {};
+    String like = "";
+    String favorite = "";
+    String time = "";
 
-    String authage;
-    String authgender;
-    String authregion;
-    String authproperty;
+    String authage = "";
+    String authgender = "";
+    String authregion = "";
+    String authproperty = "";
 
-    public LuntanList(String authage,String authgender,String authregion,String authproperty,String id, String plateid, String platename, String authid, String authnickname, String authportrait, String posttip, String posttitle, String posttext, String[] postpicture, String like, String favorite, String time) {
-        this.authage = authage;
-        this.authgender = authgender;
-        this.authregion = authregion;
-        this.authproperty = authproperty;
-        this.id = id;
-        this.plateid = plateid;
-        this.platename = platename;
-        this.authid = authid;
-        this.authnickname = authnickname;
-        this.authportrait = authportrait;
-        this.posttip = posttip;
-        this.posttitle = posttitle;
-        this.posttext = posttext;
-        this.postpicture = postpicture;
-        this.like = like;
-        this.favorite = favorite;
-        this.time = time;
+    String videourl = "";
+    String videocover = "";
+    String videowidth = "";
+    String videoheight = "";
+
+    public LuntanList(Map argsMap,String []postpicture) {
+        if (argsMap.get("authage")!=null) {
+            this.authage = argsMap.get("authage").toString();
+        }
+        if (argsMap.get("authgender")!=null) {
+            this.authgender = argsMap.get("authgender").toString();
+        }
+        if (argsMap.get("authregion")!=null) {
+            this.authregion = argsMap.get("authregion").toString();
+        }
+        if (argsMap.get("authproperty")!=null) {
+            this.authproperty = argsMap.get("authproperty").toString();
+        }
+        if (argsMap.get("id")!=null) {
+            this.id = argsMap.get("id").toString();
+        }
+        if (argsMap.get("plateid")!=null) {
+            this.plateid = argsMap.get("plateid").toString();
+        }
+        if (argsMap.get("plateid")!=null) {
+            this.plateid = argsMap.get("plateid").toString();
+        }
+        if (argsMap.get("platename")!=null) {
+            this.platename = argsMap.get("platename").toString();
+        }
+        if (argsMap.get("authid")!=null) {
+            this.authid = argsMap.get("authid").toString();
+        }
+        if (argsMap.get("authnickname")!=null) {
+            this.authnickname = argsMap.get("authnickname").toString();
+        }
+        if (argsMap.get("authportrait")!=null) {
+            this.authportrait = argsMap.get("authportrait").toString();
+        }
+        if (argsMap.get("poi")!=null) {
+            this.poi = argsMap.get("poi").toString();
+        }
+        if (argsMap.get("posttitle")!=null) {
+            this.posttitle = argsMap.get("posttitle").toString();
+        }
+        if (argsMap.get("posttext")!=null) {
+            this.posttext = argsMap.get("posttext").toString();
+        }
+        if (argsMap.get("like")!=null) {
+            this.like = argsMap.get("like").toString();
+        }
+        if (argsMap.get("favorite")!=null) {
+            this.favorite = argsMap.get("favorite").toString();
+        }
+        if (argsMap.get("time")!=null) {
+            this.time = argsMap.get("time").toString();
+        }
+        if (argsMap.get("videourl")!=null) {
+            this.videourl = argsMap.get("videourl").toString();
+        }
+        if (argsMap.get("videocover")!=null) {
+            this.videocover = argsMap.get("videocover").toString();
+        }
+        if (argsMap.get("videowidth")!=null) {
+            this.videowidth = argsMap.get("videowidth").toString();
+        }
+        if (argsMap.get("videoheight")!=null) {
+            this.videoheight = argsMap.get("videoheight").toString();
+        }
+        if (postpicture!=null) {
+            this.postpicture = postpicture;
+        }
+    }
+
+    public String getVideowidth() {
+        return videowidth;
+    }
+
+    public void setVideowidth(String videowidth) {
+        this.videowidth = videowidth;
+    }
+
+    public String getVideoheight() {
+        return videoheight;
+    }
+
+    public void setVideoheight(String videoheight) {
+        this.videoheight = videoheight;
+    }
+
+    public String getVideourl() {
+        return videourl;
+    }
+
+    public void setVideourl(String videourl) {
+        this.videourl = videourl;
+    }
+
+    public String getVideocover() {
+        return videocover;
+    }
+
+    public void setVideocover(String videocover) {
+        this.videocover = videocover;
     }
 
     public String getAuthage() {
@@ -96,8 +185,8 @@ public class LuntanList {
         this.authportrait = authportrait;
     }
 
-    public void setPosttip(String posttip) {
-        this.posttip = posttip;
+    public void setPoi(String poi) {
+        this.poi = poi;
     }
 
     public void setPosttitle(String posttitle) {
@@ -148,8 +237,8 @@ public class LuntanList {
         return authportrait;
     }
 
-    public String getPosttip() {
-        return posttip;
+    public String getPoi() {
+        return poi;
     }
 
     public String getPosttitle() {

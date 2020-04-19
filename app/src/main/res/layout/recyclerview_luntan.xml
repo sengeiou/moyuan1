@@ -153,8 +153,25 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="5dp">
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/video_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <xin.banghua.moyuan.introduction.MyJzvdStd
+                    android:id="@+id/jz_video"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:visibility="visible" />
+            </LinearLayout>
+
+        </TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -162,42 +179,33 @@
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
-                <com.zolad.zoominimageview.ZoomInImageView
-                    android:id="@+id/postpicture"
-                    android:layout_width="200dp"
-                    android:layout_height="150dp"
-                    android:layout_marginRight="3dp"
-                    android:adjustViewBounds="true"
-                    android:maxHeight="200dp"
-                    android:scaleType="centerCrop"
-                    android:visibility="gone" />
-
-                <com.zolad.zoominimageview.ZoomInImageView
+                <ImageView
                     android:id="@+id/postpicture1"
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_marginRight="3dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:maxHeight="200dp"
                     android:scaleType="centerCrop"
                     android:visibility="gone" />
 
-                <com.zolad.zoominimageview.ZoomInImageView
+                <ImageView
                     android:id="@+id/postpicture2"
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:maxHeight="200dp"
                     android:scaleType="centerCrop"
                     android:visibility="gone" />
 
-                <com.zolad.zoominimageview.ZoomInImageView
+                <ImageView
                     android:id="@+id/postpicture3"
                     android:layout_width="0dp"
-                    android:layout_height="150dp"
-                    android:layout_marginLeft="3dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="2dp"
                     android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:maxHeight="200dp"
@@ -206,6 +214,94 @@
             </LinearLayout>
 
 
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/postpicture4"
+                    android:layout_width="0dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/postpicture5"
+                    android:layout_width="0dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/postpicture6"
+                    android:layout_width="0dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+            </LinearLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/postpicture7"
+                    android:layout_width="0dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/postpicture8"
+                    android:layout_width="0dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/postpicture9"
+                    android:layout_width="0dp"
+                    android:layout_height="125dp"
+                    android:layout_margin="2dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:maxHeight="200dp"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone" />
+            </LinearLayout>
         </TableRow>
 
         <TableRow
@@ -219,14 +315,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/posttip"
-                    android:layout_width="60dp"
+                    android:id="@+id/poi"
+                    android:layout_width="wrap_content"
                     android:layout_height="30dp"
-                    android:drawableRight="@drawable/ic_city"
                     android:gravity="center"
                     android:text="TextView"
                     android:textAlignment="center"
-                    android:textColor="@color/rc_ad_file_list_select_file_text_state" />
+                    android:textColor="@color/rc_divider_line" />
 
                 <TextView
                     android:id="@+id/favorite"
