@@ -1,4 +1,4 @@
-package xin.banghua.moyuan;
+package io.rong.contactcard;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
@@ -13,6 +13,28 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
 public class RealPathFromUriUtils {
+    /**
+     * drawable转为file://  uri
+     * @param context 上下文对象
+     * @param id 资源id
+     * @return Uri
+     */
+    public static String getRealPathFromBitmap(Context context, Bitmap bitmap) {
+        Uri uri = Uri.parse(MediaStore.Images.Media.insertImage(context.getContentResolver(), bitmap, null,null));
+        String filePath = RealPathFromUriUtils.getRealPathFromUri(context,uri,"image");
+        return filePath;
+    }
+    /**
+     * drawable转为file://  uri
+     * @param context 上下文对象
+     * @param id 资源id
+     * @return Uri
+     */
+//    public static Uri getUriFromDrawableRes(Context context, int id) {
+//        String flashphotopath = io.rong.contactcard.RealPathFromUriUtils.getRealPathFromUri(context, RealPathFromUriUtils.getUriFromDrawableRes(context, id),"iamge");
+//        Uri uri = Uri.parse("file://"+flashphotopath);
+//        return uri;
+//    }
     /**
      * 得到资源文件中图片的Uri
      * @param context 上下文对象

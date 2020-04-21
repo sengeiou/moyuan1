@@ -38,7 +38,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import xin.banghua.moyuan.ParseJSON.ParseJSONArray;
 import xin.banghua.moyuan.R;
-import xin.banghua.moyuan.RongYunContactCard.MyContactCard;
+import xin.banghua.moyuan.RongYunExtension.MyContactCard;
 import xin.banghua.moyuan.SharedPreferences.SharedHelper;
 import xin.banghua.moyuan.Signin.SigninActivity;
 

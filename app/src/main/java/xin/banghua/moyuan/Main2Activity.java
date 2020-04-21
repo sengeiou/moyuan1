@@ -53,7 +53,7 @@ import xin.banghua.moyuan.AlphabeticalOrder.TitleItemDecoration;
 import xin.banghua.moyuan.Main2Branch.BlackListActivity;
 import xin.banghua.moyuan.Main2Branch.NewFriend;
 import xin.banghua.moyuan.ParseJSON.ParseJSONArray;
-import xin.banghua.moyuan.RongYunContactCard.MyContactCard;
+import xin.banghua.moyuan.RongYunExtension.MyContactCard;
 import xin.banghua.moyuan.SharedPreferences.SharedHelper;
 import xin.banghua.moyuan.Signin.SigninActivity;
 

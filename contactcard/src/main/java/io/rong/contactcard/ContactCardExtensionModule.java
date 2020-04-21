@@ -70,6 +70,7 @@ public class ContactCardExtensionModule implements IExtensionModule {
         if (conversationType.equals(Conversation.ConversationType.PRIVATE)
                 || conversationType.equals(Conversation.ConversationType.GROUP)) {
             pluginModules.add(new ContactCardPlugin());
+            pluginModules.add(new FlashPhotoPlugin());
         }
         return pluginModules;
     }
